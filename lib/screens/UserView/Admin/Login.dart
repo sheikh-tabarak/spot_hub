@@ -14,13 +14,18 @@ import '../Customer/MainHome.dart';
 import '../../../models/DummyData.dart';
 
 class Login extends StatefulWidget {
-  const Login({super.key});
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  Login({super.key});
 
   @override
   State<Login> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
+  //String errorMessage = "error message will go here";
+
   String onetimeusername = '';
   String onetimepassword = '';
 
@@ -34,8 +39,6 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
     User Ue;
     return Scaffold(
       backgroundColor: AppColors.darkBackgroundColor,
@@ -57,27 +60,40 @@ class _LoginState extends State<Login> {
                 PlaneTextField(
                   icon: Icons.email,
                   placeholder: 'Email',
-                  controller: emailController,
+                  controller: widget.emailController,
                 ),
                 PlaneTextField(
                   icon: Icons.lock,
                   placeholder: 'Password',
-                  controller: passwordController,
+                  controller: widget.passwordController,
                 ),
+                // SizedBox(
+                //   height: Dimensions.height5,
+                // ),
+                // SmallText(
+                //   text: "error message will be there",
+                //   color: Colors.red,
+                // ),
+                // SizedBox(
+                //   height: Dimensions.height5,
+                // ),
                 PrimaryButton(
                     icon: Icons.login,
                     TapAction: () => {
+                          onetimeusername = "",
+                          onetimepassword = "",
+
                           for (int i = 0; i < DummyUsers.length; i++)
                             {
-                              if (DummyUsers[i].email == emailController.text)
+                              if (DummyUsers[i].email ==
+                                  widget.emailController.text)
                                 {
                                   setState(() => {
                                         onetimeusername = DummyUsers[i].email,
                                         onetimepassword =
                                             DummyUsers[i].password,
-
                                         if (onetimepassword ==
-                                            passwordController.text)
+                                            widget.passwordController.text)
                                           {
                                             Navigator.pushReplacement(
                                               context,
@@ -97,54 +113,93 @@ class _LoginState extends State<Login> {
                                                         Intrests: DummyUsers[i]
                                                             .Intrests),
                                                     isLoggedin: true),
-
-                                                    
                                               ),
                                             ),
-                                            //  Ue = User(
-                                            // image: DummyUsers[i].image,
-                                            // username: DummyUsers[i].username,
-                                            // password: DummyUsers[i].password,
-                                            // email: DummyUsers[i].email,
-                                            // PhoneNo: DummyUsers[i].PhoneNo,
-                                            // Intrests: DummyUsers[i].Intrests),
                                           }
-                                        // ignore: unnecessary_new
-                                        // U = new User(
-                                        //     image: DummyUsers[i].image,
-                                        //     username: DummyUsers[i].username,
-                                        //     password: DummyUsers[i].password,
-                                        //     email: DummyUsers[i].email,
-                                        //     PhoneNo: DummyUsers[i].PhoneNo,
-                                        //     Intrests: DummyUsers[i].Intrests),
+                                        else
+                                          {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                              clipBehavior: Clip.hardEdge,
+                                              dismissDirection:
+                                                  DismissDirection.down,
+                                              content: SmallText(
+                                                text: "Wrong Passoword",
+                                                color: Colors.white,
+                                              ),
+                                              duration: const Duration(
+                                                  milliseconds: 500),
+                                              backgroundColor: Colors.red,
+                                              //margin: EdgeInsets.all(10),
+                                            ))
+                                          }
                                       }),
                                 }
                               else
                                 {}
                             },
-                          if (onetimeusername != '')
+
+                          if (onetimeusername == '')
                             {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: SmallText(
+                                  text: "No User Exists",
+                                  color: Colors.white,
+                                ),
+                                duration: const Duration(milliseconds: 500),
+                                backgroundColor: Colors.red,
+                              ))
+
                               // Navigator.pushReplacement(
                               //     context,
                               //     MaterialPageRoute(
                               //         builder: (context) => MainPage()))
                             }
-                          else
-                            {
-                              print(
-                                  'Entered Email: ${emailController.text},\nEntered Password: ${passwordController.text}')
-                            },
+                          // else
+                          //   {
+                          //     print(
+                          //         'Entered Email: ${emailController.text},\nEntered Password: ${passwordController.text}')
+                          //   },
                         },
                     text: 'Login',
                     color: AppColors.PrimaryColor),
                 SizedBox(
                   height: Dimensions.height30,
                 ),
-                Center(
-                  child: SmallText(
-                    text: 'Don\'t have an account ?',
-                    color: const Color.fromARGB(255, 174, 174, 174),
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SmallText(
+                      text: 'Don\'t have an account ?',
+                      color: const Color.fromARGB(255, 174, 174, 174),
+                    ),
+                    SizedBox(
+                      width: Dimensions.height10,
+                    ),
+                    GestureDetector(
+                        onTap: () => {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const MainPage(
+                                      MainUser: User(
+                                          image:
+                                              'https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png',
+                                          username: "Guest",
+                                          password: "password",
+                                          email: "guest@spothub.com",
+                                          PhoneNo: "PhoneNo",
+                                          Intrests: "Intrests"),
+                                      isLoggedin: false,
+                                    ),
+                                  ))
+                            },
+                        child: SmallText(
+                          text: "Guest Mode",
+                          color: AppColors.PrimaryColor,
+                        ))
+                  ],
                 ),
                 SizedBox(
                   height: Dimensions.height15,

@@ -10,11 +10,15 @@ class PrimaryButton extends StatelessWidget {
   final String text;
   final Color color;
   final IconData icon;
+  final double ButtonRadius;
   const PrimaryButton(
       {super.key,
       required this.TapAction,
       required this.text,
-      required this.color, required this.icon});
+      required this.color, 
+      required this.icon,
+      this.ButtonRadius=30
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,7 @@ class PrimaryButton extends StatelessWidget {
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
           color: color,
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(ButtonRadius),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -44,13 +48,5 @@ class PrimaryButton extends StatelessWidget {
       ),
     );
 
-    // ElevatedButton(
-
-    //   style: ButtonStyle(
-    //     minimumSize:  MaterialStateProperty.all(Size.fromHeight(50)),
-    //     backgroundColor: MaterialStateProperty.all(AppColors.PrimaryColor),
-    //     //: BorderRadius.circular(30)
-    //   ),
-    //   onPressed: null, child: Text('Login'));
   }
 }

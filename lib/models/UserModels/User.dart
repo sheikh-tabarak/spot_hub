@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, non_constant_identifier_names
 
 class User {
 
@@ -17,6 +17,7 @@ final String Intrests;
     required this.email,
     required this.PhoneNo,
     required this.Intrests,
+    
   }
   );
   

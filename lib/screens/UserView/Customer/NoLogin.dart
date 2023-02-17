@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
@@ -65,7 +63,7 @@ class NoLogin extends StatelessWidget {
                   SmallText(
                     text:
                         'I agreed to all terms and conditions for signing up\nRead terms and conditions',
-                    color: Color.fromARGB(255, 184, 184, 184),
+                    color: const Color.fromARGB(255, 184, 184, 184),
                   ),
 
                   SizedBox(
@@ -86,7 +84,7 @@ class NoLogin extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.PrimaryColor,
                               //foregroundColor: Colors.white,
-                              fixedSize: Size(180, 50)
+                              fixedSize: const Size(180, 50)
                               // maximumSize: Size(250, 50)
                               ),
                           onPressed: () {
@@ -100,7 +98,7 @@ class NoLogin extends StatelessWidget {
                                         secondaryAnimation, child) =>
                                     SlideTransition(
                                   position: Tween<Offset>(
-                                    begin: Offset(1, 0),
+                                    begin: const Offset(1, 0),
                                     end: Offset.zero,
                                   ).animate(animation),
                                   child: child,
@@ -123,7 +121,7 @@ class NoLogin extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.PrimaryColor,
                             //   foregroundColor: Colors.white,
-                            fixedSize: Size(180, 50),
+                            fixedSize: const Size(180, 50),
                             //  maximumSize: Size(250, 50)
                           ),
                           onPressed: () {
@@ -132,12 +130,12 @@ class NoLogin extends StatelessWidget {
                               PageRouteBuilder(
                                 pageBuilder:
                                     (context, animation, secondaryAnimation) =>
-                                        Signup(),
+                                        const Signup(),
                                 transitionsBuilder: (context, animation,
                                         secondaryAnimation, child) =>
                                     SlideTransition(
                                   position: Tween<Offset>(
-                                    begin: Offset(1, 0),
+                                    begin: const Offset(1, 0),
                                     end: Offset.zero,
                                   ).animate(animation),
                                   child: child,

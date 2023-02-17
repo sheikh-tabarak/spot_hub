@@ -16,13 +16,13 @@ class BoxedTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin:  const EdgeInsets.all(3),
-        padding:  const EdgeInsets.all(3),
+      margin:  const EdgeInsets.all(1),
+        padding:  const EdgeInsets.all(1),
         child: TextField(
           controller: controller,
           keyboardType: TextInputType.multiline,
           minLines: 1, //Normal textInputField will be displayed
-          maxLines: 5,
+        //  maxLines: 5,
           cursorColor: AppColors.PrimaryColor,
           onChanged:(value) => TapAction(value), 
 

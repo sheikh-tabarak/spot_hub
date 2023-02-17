@@ -1,18 +1,17 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
+import 'package:spot_hub/models/DummyData.dart';
 import 'package:spot_hub/models/UserModels/User.dart';
 import 'package:spot_hub/screens/UserView/Customer/CustomerAccount.dart';
 import 'package:spot_hub/screens/UserView/Customer/More.dart';
 import 'package:spot_hub/screens/UserView/Customer/NoLogin.dart';
-import 'package:spot_hub/screens/ResturantsView/AddFood.dart';
-import 'package:spot_hub/screens/ResturantsView/MainResturant.dart';
+import 'package:spot_hub/screens/UserView/Customer/ScrollableProductDetailPage.dart';
 import 'package:spot_hub/screens/UserView/Customer/SearchPage.dart';
-import 'package:spot_hub/widgets/BoxedTextField.dart';
 import 'package:spot_hub/widgets/ChoiceIcon.dart';
-import 'package:spot_hub/widgets/PlaneTextField.dart';
 
 class MainPage extends StatefulWidget {
   final User MainUser;
@@ -27,7 +26,7 @@ class _MainPageState extends State<MainPage> {
   bool loggedin = false;
 
   int _PageIndex = 0;
-  TextEditingController SearchController = new TextEditingController();
+  TextEditingController SearchController = TextEditingController();
 
   double wid = window.physicalSize.width;
   @override
@@ -44,19 +43,31 @@ class _MainPageState extends State<MainPage> {
             currentIndex: _PageIndex,
             selectedItemColor: AppColors.PrimaryColor,
             onTap: ((value) => {
-                  setState(() {
-                    _PageIndex = value;
-                    // _NavIndex=value;
-                  }),
-                  if (_PageIndex == 1 && widget.isLoggedin == false)
+                  if (value == 1)
                     {
-                      showModalBottomSheet(
-                          isScrollControlled: true,
-                          context: context,
-                          builder: (BuildContext bc) {
-                            return const NoLogin();
-                          })
+                      if (widget.isLoggedin == false)
+                        {
+                          showModalBottomSheet(
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (BuildContext bc) {
+                                return const NoLogin();
+                              }),
+                        }
+                      else
+                        {
+                          setState(
+                            () => {_PageIndex = value},
+                          ),
+                        }
                     }
+                  else
+                    {
+                      setState(() {
+                        _PageIndex = value;
+                        // _NavIndex=value;
+                      }),
+                    },
                 }),
             items: [
               const BottomNavigationBarItem(
@@ -67,18 +78,19 @@ class _MainPageState extends State<MainPage> {
                       ? const Icon(Icons.account_circle)
                       : Container(
                           width: 30,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(50)),
-                             image:DecorationImage(image: NetworkImage(widget.MainUser.image))
-                            ),
-                            //DecoratedBox(decoration: DecorationImage(image:  NetworkImage(widget.MainUser.image))),
-                        child: Text(""),
-                        // Image(
-                        //     image: NetworkImage(widget.MainUser.image),
-                        //     fit: BoxFit.contain,
-                        //   ),
-                      ),
+                          height: 30,
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50)),
+                              image: DecorationImage(
+                                  image: NetworkImage(widget.MainUser.image))),
+                          //DecoratedBox(decoration: DecorationImage(image:  NetworkImage(widget.MainUser.image))),
+                          child: Text(""),
+                          // Image(
+                          //     image: NetworkImage(widget.MainUser.image),
+                          //     fit: BoxFit.contain,
+                          //   ),
+                        ),
                   label: 'Account'),
               const BottomNavigationBarItem(
                   icon: Icon(Icons.collections), label: 'Collections'),
@@ -88,7 +100,7 @@ class _MainPageState extends State<MainPage> {
               //  BottomNavigationBarItem(icon: Icon(Icons.menu),label: 'More')
             ]),
         body: _PageIndex == 2
-            ? const AddFood()
+            ? ScrollableProductDetailPage(SelectedProduct: DummyProducts[0],)
             : _PageIndex == 3
                 ? More(MainUser: widget.MainUser, isLoggedin: widget.isLoggedin)
                 : _PageIndex == 1 && widget.isLoggedin == true
@@ -157,8 +169,8 @@ class _MainPageState extends State<MainPage> {
                                                     pageBuilder: (context,
                                                             animation,
                                                             secondaryAnimation) =>
-                                                        const SearchPage(
-                                                      searchTitle:
+                                                        const 
+                                                        SearchPage(searchTitle:
                                                           "Recommended",
                                                     ),
                                                     transitionsBuilder: (context,

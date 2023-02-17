@@ -9,6 +9,7 @@ class SmallText extends StatelessWidget {
   double size;
   FontWeight weight;
   double height;
+  bool iscentre;
 
   SmallText(
       {Key? key,
@@ -18,6 +19,7 @@ class SmallText extends StatelessWidget {
       this.weight=FontWeight.w400,
      // this.overFlow = TextOverflow.ellipsis, 
       this.height=1.2,
+      this.iscentre=false,
       })
       : super(key: key);
 
@@ -25,7 +27,7 @@ class SmallText extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Text(text,
-    textAlign: TextAlign.left,
+    textAlign: iscentre==true?TextAlign.center:TextAlign.left,
      //   overflow: overFlow,
         style: TextStyle( 
             fontFamily: 'Poppins',
@@ -35,5 +37,6 @@ class SmallText extends StatelessWidget {
           height: height,
         //  FontWeight:Weight,
         ));
+  
   }
 }

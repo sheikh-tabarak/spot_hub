@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
+import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/screens/UserView/Admin/Login.dart';
@@ -38,24 +39,32 @@ class _SignupState extends State<Signup> {
                     height: 130,
                     image: AssetImage('assets/images/logo.png')),
                 const SizedBox(
-                  height: 40,
+                  height: 30,
+                ),
+                BigText(text: "Create a new account",color:AppColors.PrimaryColor,),
+                  const SizedBox(
+                  height: 30,
                 ),
                 PlaneTextField(
+              
                    icon: Icons.account_box,
                   placeholder: 'Name',
                   controller: nameController,
                 ),
                 PlaneTextField(
+              
                    icon: Icons.phone,
                   placeholder: 'Phone',
                   controller: phoneController,
                 ),
                 PlaneTextField(
+            
                   icon: Icons.email,
                   placeholder: 'Email',
                   controller: emailController,
                 ),
                 PlaneTextField(
+              
                   icon: Icons.lock,
                   placeholder: 'Password',
                   controller: passwordController,
@@ -86,7 +95,7 @@ class _SignupState extends State<Signup> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const Login()))
+                                  builder: (context) => Login()))
                         },
                     text: 'Login',
                     color: AppColors.SecodaryColor),

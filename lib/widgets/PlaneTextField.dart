@@ -11,7 +11,8 @@ class PlaneTextField extends StatelessWidget {
       {super.key,
       required this.placeholder,
       required this.controller,
-      required this.icon});
+      required this.icon,
+    });
   @override
   Widget build(BuildContext context) {
     return Container(

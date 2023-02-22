@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/UserModels/User.dart';
-import 'package:spot_hub/screens/ResturantsView/Admin/AddBussiness/AddBussiness.dart';
 import 'package:spot_hub/screens/UserView/Admin/Login.dart';
 import 'package:spot_hub/screens/UserView/Customer/DevelopersTeam.dart';
 import 'package:spot_hub/screens/UserView/Customer/MainSearch.dart';
@@ -65,7 +64,7 @@ class _MyAppState extends State<MyApp> {
 // ),
 
       home:
-      BussinessForm()
+     // BussinessForm()
      //  MainSearch()
       // SearchPage(searchTitle: 'Burger',)
      // DevelopersTeam()
@@ -73,35 +72,35 @@ class _MyAppState extends State<MyApp> {
      // RatingSlider(title: "How was the taste",)
   //   const MainPage(MainUser: User(image:"assets/images/logo.png" ,username: "Guest", password: "password", email: "guest@spothub.com", PhoneNo: "PhoneNo", Intrests: "Intrests"),isLoggedin: false,),
       
-      // AnimatedSplassshScreen(
-      //   splashTransition:SplashTransition.scaleTransition,
-      //       splashIconSize: double.infinity, //Dimensions.screenHeight,
-      //       duration: 1000,
-      //       splash: AnimatedContainer(
-      //         duration: const Duration(milliseconds: 500),
+      AnimatedSplashScreen(
+        splashTransition:SplashTransition.scaleTransition,
+            splashIconSize: double.infinity, //Dimensions.screenHeight,
+            duration: 1000,
+            splash: AnimatedContainer(
+              duration: const Duration(milliseconds: 500),
               
-      //         child: Column(
-      //           crossAxisAlignment: CrossAxisAlignment.center,
-      //           mainAxisAlignment: MainAxisAlignment.center,
-      //           children: [
-      //             Image(
-      //                 width: img_width,
-      //                 height: img_height,
-      //                 image: const AssetImage('assets/images/logo.png')),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image(
+                      width: img_width,
+                      height: img_height,
+                      image: const AssetImage('assets/images/logo.png')),
 
-      //             const SizedBox(height: 10),
-      //             SmallText(
-      //               text: 'By Tech Legion',
-      //               size: 11,
-      //               color: Colors.white,
-      //               weight: FontWeight.w100,
-      //             )
-      //           ],
-      //         ),
-      //       ),
-      //       nextScreen: Login(),
-      //    //   splashTransition: SplashTransition.fadeTransition,
-      //       backgroundColor: AppColors.darkBackgroundColor),
+                  const SizedBox(height: 10),
+                  SmallText(
+                    text: 'By Tech Legion',
+                    size: 11,
+                    color: Colors.white,
+                    weight: FontWeight.w100,
+                  )
+                ],
+              ),
+            ),
+            nextScreen: Login(),
+         //   splashTransition: SplashTransition.fadeTransition,
+            backgroundColor: AppColors.darkBackgroundColor),
 
     );
   }

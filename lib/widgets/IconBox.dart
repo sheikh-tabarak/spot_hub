@@ -1,33 +1,40 @@
 // ignore_for_file: non_constant_identifier_names, file_names
 
 import 'package:flutter/material.dart';
+
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 
 class IconBox extends StatefulWidget {
   final IconData mainIcon;
   final String Text;
-  const IconBox({
-    super.key,
+  final Function OnClickFuntion;
+   bool isSelected;
+
+   IconBox({
+    Key? key,
     required this.mainIcon,
     required this.Text,
-  });
+    required this.OnClickFuntion,
+    this.isSelected=false,
+  }) : super(key: key);
 
   @override
   State<IconBox> createState() => _IconBoxState();
 }
 
 class _IconBoxState extends State<IconBox> {
-  bool isSelected = false;
+  //bool isSelected = false;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => {
+      onTap: () => { 
+         widget.OnClickFuntion(),
         setState(() {
-          if (isSelected == true) {
-            isSelected = false;
+          if (widget.isSelected == true) {
+            widget.isSelected = false;
           } else {
-            isSelected = true;
+            widget.isSelected = true;
           }
         })
       },
@@ -48,7 +55,7 @@ class _IconBoxState extends State<IconBox> {
               ],
              
               color:
-                  isSelected == false ? Colors.white : AppColors.PrimaryColor,
+                  widget.isSelected == false ? Colors.white : AppColors.PrimaryColor,
               borderRadius: BorderRadius.circular(10)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -56,7 +63,7 @@ class _IconBoxState extends State<IconBox> {
               Icon(
                 widget.mainIcon,
                 color:
-                    isSelected == false ? AppColors.PrimaryColor : Colors.white,
+                    widget.isSelected == false ? AppColors.PrimaryColor : Colors.white,
               ),
               const SizedBox(
                 height: 10,
@@ -64,7 +71,7 @@ class _IconBoxState extends State<IconBox> {
               SmallText(
                 text: widget.Text,
                 color:
-                    isSelected == false ? AppColors.PrimaryColor : Colors.white,
+                    widget.isSelected == false ? AppColors.PrimaryColor : Colors.white,
               )
             ],
           )),

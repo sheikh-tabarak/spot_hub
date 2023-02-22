@@ -10,7 +10,6 @@ import 'package:spot_hub/widgets/PlaneTextField.dart';
 
 import '../../../configurations/Dimensions.dart';
 import '../../../configurations/SmallText.dart';
-import '../Customer/MainHome.dart';
 import '../../../models/DummyData.dart';
 
 class Login extends StatefulWidget {
@@ -185,7 +184,7 @@ class _LoginState extends State<Login> {
                                     builder: (context) => const MainPage(
                                       MainUser: User(
                                           image:
-                                              'https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png',
+                                              'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=740&t=st=1677081971~exp=1677082571~hmac=b13326377bea0999c1b16be27d4abd1cc79cf557b219e67e462f76e24ef5516e',
                                           username: "Guest",
                                           password: "password",
                                           email: "guest@spothub.com",

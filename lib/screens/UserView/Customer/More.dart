@@ -6,7 +6,7 @@ import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/DummyData.dart';
 import 'package:spot_hub/models/UserModels/User.dart';
-import 'package:spot_hub/screens/ResturantsView/Admin/AddBussiness/AddBussiness.dart';
+import 'package:spot_hub/screens/ResturantsView/Admin/AddBussiness/BussinessForm.dart';
 import 'package:spot_hub/screens/UserView/Admin/Login.dart';
 import 'package:spot_hub/screens/UserView/Customer/AddReview.dart';
 import 'package:spot_hub/screens/UserView/Customer/DevelopersTeam.dart';
@@ -86,7 +86,7 @@ class More extends StatelessWidget {
               ListTile(
                 onTap: () => {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AddBussiness()))
+                      MaterialPageRoute(builder: (context) => BussinessForm()))
                 },
 
                 leading: const Icon(

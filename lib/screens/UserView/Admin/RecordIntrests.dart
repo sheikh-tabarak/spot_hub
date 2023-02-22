@@ -36,17 +36,17 @@ class _RecordIntrestsState extends State<RecordIntrests> {
       children: [
         Row(
            mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children:  [
 
             IconBox(
         // isSelected:State ,
           mainIcon: Icons.food_bank,
-          Text: 'Traditional',
+          Text: 'Traditional', OnClickFuntion: () {  },
         ),
         IconBox(
         //  isSelected: Chineese,
           mainIcon: Icons.restaurant_menu,
-          Text: 'Chineese',
+          Text: 'Chineese', OnClickFuntion: () {  },
         ),
           ],
         ),
@@ -54,16 +54,16 @@ class _RecordIntrestsState extends State<RecordIntrests> {
         Row(
            mainAxisAlignment: MainAxisAlignment.center,
        
-          children: const [
+          children:  [
             IconBox(
         // isSelected:State ,
           mainIcon: Icons.restaurant,
-          Text: 'Desi Food',
+          Text: 'Desi Food', OnClickFuntion: () {  },
         ),
         IconBox(
         // isSelected:State ,
           mainIcon: Icons.fastfood,
-          Text: 'Fast Food',
+          Text: 'Fast Food', OnClickFuntion: () {  },
         ),
         
           ],

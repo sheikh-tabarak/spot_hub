@@ -9,6 +9,7 @@ import 'package:spot_hub/models/UserModels/User.dart';
 import 'package:spot_hub/screens/UserView/Customer/CustomerAccount.dart';
 import 'package:spot_hub/screens/UserView/Customer/More.dart';
 import 'package:spot_hub/screens/UserView/Customer/NoLogin.dart';
+import 'package:spot_hub/screens/UserView/Customer/ReelsScreen.dart';
 import 'package:spot_hub/screens/UserView/Customer/ScrollableProductDetailPage.dart';
 import 'package:spot_hub/screens/UserView/Customer/SearchPage.dart';
 import 'package:spot_hub/widgets/ChoiceIcon.dart';
@@ -93,14 +94,14 @@ class _MainPageState extends State<MainPage> {
                         ),
                   label: 'Account'),
               const BottomNavigationBarItem(
-                  icon: Icon(Icons.collections), label: 'Collections'),
+                  icon: Icon(Icons.collections), label: 'Flicks'),
               const BottomNavigationBarItem(
                   icon: Icon(Icons.menu), label: 'More'),
 
               //  BottomNavigationBarItem(icon: Icon(Icons.menu),label: 'More')
             ]),
         body: _PageIndex == 2
-            ? ScrollableProductDetailPage(SelectedProduct: DummyProducts[0],)
+            ? ReelsScreen()
             : _PageIndex == 3
                 ? More(MainUser: widget.MainUser, isLoggedin: widget.isLoggedin)
                 : _PageIndex == 1 && widget.isLoggedin == true

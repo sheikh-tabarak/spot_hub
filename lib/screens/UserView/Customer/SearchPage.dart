@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
-import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/DummyData.dart';
+import 'package:spot_hub/screens/UserView/Customer/MainSearch.dart';
 import 'package:spot_hub/screens/UserView/Customer/ScrollableProductDetailPage.dart';
-import 'package:spot_hub/widgets/BoxedTextField.dart';
-import 'package:spot_hub/widgets/Filters/SelectionStripe.dart';
-import 'package:spot_hub/widgets/IconBox.dart';
-import 'package:spot_hub/widgets/PopupModals/FilterView.dart';
-import 'package:spot_hub/widgets/PrimayButton.dart';
 //import 'package:geolocator/geolocator.dart';
 
 class SearchPage extends StatefulWidget {
@@ -22,6 +17,7 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  
   // List<String> StarRating = ["Any", "★ 3.0+", "★ 4.0+", "★ 5.0+"];
   // List<String> reviewCount = ["N/A", "10+", "50+", "100+"];
   // RangeValues _currentRangeValues = RangeValues(40, 80);
@@ -119,12 +115,11 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     // textControtroller =
     //     TextEditingController(text: widget.searchTitle);
-    TextEditingController locationController = TextEditingController();
+    TextEditingController searchController = new TextEditingController();
 
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
-          //   physics:AlwaysScrollableScrollPhysics(),
           child: Container(
             padding: const EdgeInsets.all(10),
             child: Column(
@@ -141,23 +136,63 @@ class _SearchPageState extends State<SearchPage> {
                 //     });
                 //     },
                 // ),
-                BoxedTextField(
-                    TapAction: (value) {
-                      setState(
-                        () {
-                          filterSearch(value);
+                // BoxedTextField(
+                //     TapAction: (value) {
+                //       setState(
+                //         () {
+                //           filterSearch(value);
+                //         },
+                //       );
+                //     },
+                //     controller: textControtroller,
+                //     placeholder: 'Search your best Food',
+                //     icon: Icons.search),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: searchController,
+                        decoration: const InputDecoration(
+                          hintText: "Search for products",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                bottomLeft: Radius.circular(10)),
+                          ),
+                        ),
+                      ), // TextField widget
+                    ), // Expanded widget
+                    // SizedBox widget
+                    Container(
+                      margin: EdgeInsets.zero,
+                      padding: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: AppColors.PrimaryColor,
+                        borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(10),
+                            bottomRight: Radius.circular(10)),
+                      ),
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.search,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MainSearch(
+                                      Results: searchController.text)));
                         },
-                      );
-                    },
-                    controller: textControtroller,
-                    placeholder: 'Search your best Food',
-                    icon: Icons.search),
-
-                BoxedTextField(
-                    TapAction: () {},
-                    controller: locationController,
-                    placeholder: 'Location',
-                    icon: Icons.pin_drop_outlined),
+                      ),
+                    ), // IconButton widget
+                  ],
+                ),
+                // BoxedTextField(
+                //     TapAction: () {},
+                //     controller: locationController,
+                //     placeholder: 'Location',
+                //     icon: Icons.pin_drop_outlined),
 
                 // TextButton(
                 //     onPressed: () => {
@@ -165,81 +200,81 @@ class _SearchPageState extends State<SearchPage> {
                 //             locationController.text = "Garden Town, Gujranwala";
                 //           }),
                 //         },
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      child: TextButton(
-                        onPressed: () => {
-                          setState(() async {
-                            locationController.text = "Garden Town, Gujranwala";
-                          }),
-                        },
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.center_focus_strong,
-                              color: Color.fromARGB(255, 0, 90, 163),
-                              size: 16,
-                            ),
-                            SizedBox(
-                              width: Dimensions.width5,
-                            ),
-                            SmallText(
-                              text: "Use Current Location",
-                              color: const Color.fromARGB(255, 0, 90, 163),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    TextButton(
-                        onPressed: () {
-                          showModalBottomSheet(
-                              enableDrag: true,
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(15.0),
-                                ),
-                              ),
-                              context: context,
-                              builder: (context) {
-                                return 
-                                 FilterView();              
-                          
-                              
-                              });
-                        
-                        },
-                        child: Container(
-                          alignment: Alignment.centerRight,
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            //  color: const Color.fromARGB(255, 224, 224, 224),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(5)),
-                            border: Border.all(color: AppColors.PrimaryColor),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              const Icon(
-                                Icons.filter_list,
-                                color: const Color(0xFFEF4C2F),
-                                size: 16,
-                              ),
-                              SizedBox(
-                                width: Dimensions.width5,
-                              ),
-                              SmallText(
-                                text: "Filters",
-                                color: AppColors.PrimaryColor,
-                              )
-                            ],
-                          ),
-                        )),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     // Container(
+                //     //   child: TextButton(
+                //     //     onPressed: () => {
+                //     //       setState(() async {
+                //     //         locationController.text = "Garden Town, Gujranwala";
+                //     //       }),
+                //     //     },
+                //     //     child: Row(
+                //     //       children: [
+                //     //         const Icon(
+                //     //           Icons.center_focus_strong,
+                //     //           color: Color.fromARGB(255, 0, 90, 163),
+                //     //           size: 16,
+                //     //         ),
+                //     //         SizedBox(
+                //     //           width: Dimensions.width5,
+                //     //         ),
+                //     //         SmallText(
+                //     //           text: "Use Current Location",
+                //     //           color: const Color.fromARGB(255, 0, 90, 163),
+                //     //         )
+                //     //       ],
+                //     //     ),
+                //     //   ),
+                //     // ),
+                //     TextButton(
+                //         onPressed: () {
+                //           showModalBottomSheet(
+                //               enableDrag: true,
+                //               shape: const RoundedRectangleBorder(
+                //                 borderRadius: BorderRadius.vertical(
+                //                   top: Radius.circular(15.0),
+                //                 ),
+                //               ),
+                //               context: context,
+                //               builder: (context) {
+                //                 return
+                //                  FilterView();
+
+                //               });
+
+                //         },
+                //         child: Container(
+                //           alignment: Alignment.centerRight,
+                //           padding: const EdgeInsets.all(10),
+                //           decoration: BoxDecoration(
+                //             //  color: const Color.fromARGB(255, 224, 224, 224),
+                //             borderRadius:
+                //                 const BorderRadius.all(Radius.circular(5)),
+                //             border: Border.all(color: AppColors.PrimaryColor),
+                //           ),
+                //           child: Row(
+                //             mainAxisAlignment: MainAxisAlignment.end,
+                //             children: [
+                //               const Icon(
+                //                 Icons.filter_list,
+                //                 color: const Color(0xFFEF4C2F),
+                //                 size: 16,
+                //               ),
+                //               SizedBox(
+                //                 width: Dimensions.width5,
+                //               ),
+                //               SmallText(
+                //                 text: "Filters",
+                //                 color: AppColors.PrimaryColor,
+                //               )
+                //             ],
+                //           ),
+                //         )),
+                //   ],
+                // ),
+
                 Container(
                   // height: 10,
                   child: ListView.builder(
@@ -288,9 +323,6 @@ class _SearchPageState extends State<SearchPage> {
                                     ),
                                   ),
 
-                                  // Image.network(
-                                  //     DummyProducts[filteredIndexes.elementAt(index)]
-                                  //         .image,),
                                   title: Padding(
                                     padding: const EdgeInsets.only(bottom: 3),
                                     child: SmallText(

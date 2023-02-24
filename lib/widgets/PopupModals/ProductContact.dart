@@ -7,12 +7,14 @@ import 'package:url_launcher/url_launcher.dart';
 import 'dart:async';
 
 class ProductContact extends StatefulWidget {
+  
+  final String BussinessName;
   final String website;
   final String Email;
   final String Phone;
 
   const ProductContact(
-      {super.key, this.website = "", this.Email = "", this.Phone = ""});
+      {super.key, this.website = "", this.Email = "", this.Phone = "", this.BussinessName=""});
 
   @override
   State<ProductContact> createState() => _ProductContactState();
@@ -43,7 +45,7 @@ class _ProductContactState extends State<ProductContact> {
           BigText(
             size: 15,
             //   color: AppColors.PrimaryColor,
-            text: "Bussiness name",
+            text: widget.BussinessName,
           ),
           Container(
               decoration: const BoxDecoration(

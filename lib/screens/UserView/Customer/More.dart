@@ -101,8 +101,14 @@ class More extends StatelessWidget {
               ),
                 ListTile(
                 onTap: () => {
+
+                  showModalBottomSheet(context: context, builder: (context)=>
+                  Column(children: const [
+                    
+                  ],)),
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const DevelopersTeam()))
+                      MaterialPageRoute(builder: (context) => const DevelopersTeam())),
+
                 },
 
                 leading: const Icon(

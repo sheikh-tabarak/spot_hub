@@ -253,7 +253,8 @@ class _MainSearchState extends State<MainSearch> {
                               rating: DummyProducts[filteredIndexes.elementAt(index)].rating,
                               reviews: DummyProducts[filteredIndexes.elementAt(index)].reviews
                               ));
-                    })),
+                    })
+                    ),
           )
         ],
       )),

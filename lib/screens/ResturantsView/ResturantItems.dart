@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
-import 'package:spot_hub/widgets/ItemCard.dart';
+import 'package:spot_hub/widgets/others/ItemCard.dart';
 
 class ResturantItems extends StatelessWidget {
   const ResturantItems({super.key});

@@ -4,7 +4,7 @@ import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/screens/UserView/Admin/Login.dart';
 import 'package:spot_hub/screens/UserView/Admin/Signup.dart';
-import 'package:spot_hub/widgets/PrimayButton.dart';
+import 'package:spot_hub/widgets/others/PrimayButton.dart';
 
 class NoLogin extends StatelessWidget {
   const NoLogin({super.key});

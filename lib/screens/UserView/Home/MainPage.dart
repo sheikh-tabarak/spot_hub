@@ -5,14 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/models/DummyData.dart';
+import 'package:spot_hub/models/Products/FoodItems.dart';
 import 'package:spot_hub/models/UserModels/User.dart';
 import 'package:spot_hub/screens/UserView/Customer/CustomerAccount.dart';
+import 'package:spot_hub/screens/UserView/Customer/MainSearch.dart';
 import 'package:spot_hub/screens/UserView/Customer/More.dart';
 import 'package:spot_hub/screens/UserView/Customer/NoLogin.dart';
-import 'package:spot_hub/screens/UserView/Customer/ReelsScreen.dart';
-import 'package:spot_hub/screens/UserView/Customer/ScrollableProductDetailPage.dart';
 import 'package:spot_hub/screens/UserView/Customer/SearchPage.dart';
-import 'package:spot_hub/widgets/ChoiceIcon.dart';
+import 'package:spot_hub/screens/UserView/Customer/SpotFlicks/spot_flicks.dart';
+import 'package:spot_hub/widgets/Product/ProductCard.dart';
+import 'package:spot_hub/widgets/others/ChoiceIcon.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class MainPage extends StatefulWidget {
   final User MainUser;
@@ -24,6 +27,11 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  final List<String> imageUrls = [
+    'assets/images/banner01.png',
+    'assets/images/banner02.png',
+    'assets/images/banner03.png',
+  ];
   bool loggedin = false;
 
   int _PageIndex = 0;
@@ -94,14 +102,14 @@ class _MainPageState extends State<MainPage> {
                         ),
                   label: 'Account'),
               const BottomNavigationBarItem(
-                  icon: Icon(Icons.collections), label: 'Flicks'),
+                  icon: Icon(Icons.movie), label: 'Spot Flicks'),
               const BottomNavigationBarItem(
                   icon: Icon(Icons.menu), label: 'More'),
 
               //  BottomNavigationBarItem(icon: Icon(Icons.menu),label: 'More')
             ]),
         body: _PageIndex == 2
-            ? ReelsScreen()
+            ? SpotFlicks()
             : _PageIndex == 3
                 ? More(MainUser: widget.MainUser, isLoggedin: widget.isLoggedin)
                 : _PageIndex == 1 && widget.isLoggedin == true
@@ -170,8 +178,8 @@ class _MainPageState extends State<MainPage> {
                                                     pageBuilder: (context,
                                                             animation,
                                                             secondaryAnimation) =>
-                                                        const 
-                                                        SearchPage(searchTitle:
+                                                        const SearchPage(
+                                                      searchTitle:
                                                           "Recommended",
                                                     ),
                                                     transitionsBuilder: (context,
@@ -295,71 +303,114 @@ class _MainPageState extends State<MainPage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       ChoiceIcon(
-                                        iconImage: const AssetImage(
-                                            "assets/images/logo.png"),
-                                        icontitle: "Resturant",
+                                        iconImage:  const AssetImage(
+                                            "assets/images/fastfood.png"),
+                                        icontitle: "Fast Food ", 
+                                        TaptoDo: (){
+                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>MainSearch(Results: "Fast Food")));
+                                        },
                                       ),
                                       ChoiceIcon(
                                         iconImage: const AssetImage(
-                                            "assets/images/logo.png"),
-                                        icontitle: "Coffee",
+                                            "assets/images/seafood.png"),
+                                        icontitle: "Sea Food",
+                                        TaptoDo: (){
+                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>MainSearch(Results: "Sea Food")));
+                                        },
                                       ),
                                       ChoiceIcon(
                                         iconImage: const AssetImage(
-                                            "assets/images/logo.png"),
-                                        icontitle: "Auto Repair",
+                                            "assets/images/2desifood.png"),
+                                        icontitle: "Desi Food",
+                                       TaptoDo: (){
+                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>MainSearch(Results: "Desi Food")));
+                                        },
                                       ),
                                       ChoiceIcon(
                                         iconImage: const AssetImage(
-                                            "assets/images/logo.png"),
-                                        icontitle: "Bars",
+                                            "assets/images/chinesefood.png"),
+                                        icontitle: "Chineese",
+                                       TaptoDo: (){
+                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>MainSearch(Results: "Chineese")));
+                                        },
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
-                                    height: Dimensions.height30,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      ChoiceIcon(
-                                        iconImage: const AssetImage(
-                                            "assets/images/logo.png"),
-                                        icontitle: "Resturant",
-                                      ),
-                                      ChoiceIcon(
-                                        iconImage: const AssetImage(
-                                            "assets/images/logo.png"),
-                                        icontitle: "Coffee",
-                                      ),
-                                      ChoiceIcon(
-                                        iconImage: const AssetImage(
-                                            "assets/images/logo.png"),
-                                        icontitle: "Auto Repair",
-                                      ),
-                                      ChoiceIcon(
-                                        iconImage: const AssetImage(
-                                            "assets/images/logo.png"),
-                                        icontitle: "Bars",
-                                      ),
-                                    ],
-                                  ),
+                                  // SizedBox(
+                                  //   height: Dimensions.height30,
+                                  // ),
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 30),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Image.asset(
-                                    "assets/images/errorpage.jpg",
-                                    //  width: 340,height: 340,
-                                  ),
-                                ],
+                            Container(
+                              height: 100,
+                              width: double.infinity,
+                              child: CarouselSlider(
+                                options: CarouselOptions(
+                                  aspectRatio: 16 / 9,
+                                  autoPlay: true,
+                                  enlargeCenterPage: true,
+                                  viewportFraction: 0.8,
+                                ),
+                                items: imageUrls.map((imageUrl) {
+                                  return Builder(
+                                    builder: (BuildContext context) {
+                                      return Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 5.0),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: Image.asset(
+                                            imageUrl,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                }).toList(),
                               ),
-                            )
+                            ),
+
+                            ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: 5,
+                                itemBuilder: (context, index) {
+                                  return ProductCard(
+                                      products: FoodItem(
+                                          isRecommended: true,
+                                          BussinessId: DummyBussinesses[index]
+                                              .BussinessId,
+                                          Id: DummyProducts[index].Id,
+                                          image: DummyProducts[index].image,
+                                          description:
+                                              DummyProducts[index].description,
+                                          title: DummyProducts[index].title,
+                                          Price: DummyProducts[index].Price,
+                                          rating: DummyProducts[index].rating,
+                                          reviews:
+                                              DummyProducts[index].reviews));
+                                }),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(top: 30),
+                            //   child: Column(
+                            //     crossAxisAlignment: CrossAxisAlignment.center,
+                            //     children: [
+                            //       Image.asset(
+                            //         "assets/images/errorpage.jpg",
+                            //         //  width: 340,height: 340,
+                            //       ),
+                            //     ],
+                            //   ),
+                            // )
                           ],
                         ),
                       )

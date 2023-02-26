@@ -48,6 +48,9 @@ dependencies:
   flutter_sticky_header: ^0.6.5
   url_launcher: ^6.0.0
   video_player: ^2.5.2
+  card_swiper: ^2.0.4
+  chewie: ^1.4.0
+  carousel_slider: ^4.2.1
 
   
 

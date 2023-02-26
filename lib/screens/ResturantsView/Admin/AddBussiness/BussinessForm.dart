@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
-import 'package:spot_hub/widgets/BoxedTextField.dart';
-import 'package:spot_hub/widgets/IconBox.dart';
-import 'package:spot_hub/widgets/UnderConstruction.dart';
+import 'package:spot_hub/widgets/others/BoxedTextField.dart';
+import 'package:spot_hub/widgets/others/IconBox.dart';
+import 'package:spot_hub/widgets/others/UnderConstruction.dart';
 
 class BussinessForm extends StatefulWidget {
   const BussinessForm({super.key});

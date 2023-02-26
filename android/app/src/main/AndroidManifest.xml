@@ -20,7 +20,6 @@
     
     
    <application
-   
         android:label="Spot Hub"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

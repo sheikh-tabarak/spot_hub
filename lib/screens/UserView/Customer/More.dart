@@ -7,10 +7,13 @@ import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/DummyData.dart';
 import 'package:spot_hub/models/UserModels/User.dart';
 import 'package:spot_hub/screens/ResturantsView/Admin/AddBussiness/BussinessForm.dart';
+import 'package:spot_hub/screens/ResturantsView/MainResturant.dart';
 import 'package:spot_hub/screens/UserView/Admin/Login.dart';
 import 'package:spot_hub/screens/UserView/Customer/AddReview.dart';
 import 'package:spot_hub/screens/UserView/Customer/DevelopersTeam.dart';
-import 'package:spot_hub/widgets/PrimayButton.dart';
+import 'package:spot_hub/screens/UserView/Customer/MainHome.dart';
+import 'package:spot_hub/screens/UserView/Home/MainPage.dart';
+import 'package:spot_hub/widgets/others/PrimayButton.dart';
 
 class More extends StatelessWidget {
   final bool isLoggedin;
@@ -60,102 +63,149 @@ class More extends StatelessWidget {
 
                     ),
               ),
-              const ListTile(
-                leading: Icon(Icons.account_circle_sharp),
-                title: Text("My Profile"),
-                //   subtitle: Text("This is activity Button"),
-              ),
-              ListTile(
-                onTap: () => {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              AddReview(ProductToReview: DummyProducts[6])))
-                },
-                leading: const Icon(
-                  Icons.published_with_changes,
-                  color: Colors.red,
-                ),
-                title: SmallText(
-                  text: "Add Review",
-                  color: AppColors.PrimaryColor,
-                ),
-                //   subtitle: Text("This is activity Button"),
-              ),
-              ListTile(
-                onTap: () => {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BussinessForm()))
-                },
+              SingleChildScrollView(
+                child: Container(
+                  margin: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                          width: 1,
+                          color: const Color.fromARGB(255, 218, 218, 218)),
+                      borderRadius: const BorderRadius.all(Radius.circular(5))),
+                  child: Column(
+                    children: [
+                      ListTile(
+                        onTap: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MainPage(
+                                        MainUser: MainUser,
+                                        isLoggedin: false,
+                                      )))
+                        },
+                        leading: Icon(
+                          Icons.account_circle_sharp,
+                          color: AppColors.PrimaryColor,
+                        ),
+                        title: Text("My Profile"),
 
-                leading: const Icon(
-                  Icons.business_outlined,
-                  color: Colors.red,
-                ),
-                title: SmallText(
-                  text: "Add your Bussiness",
-                  color: AppColors.PrimaryColor,
-                ),
-                //   subtitle: Text("This is activity Button"),
-              ),
-                ListTile(
-                onTap: () => {
+                        //   subtitle: Text("This is activity Button"),
+                      ),
+                      ListTile(
+                        onTap: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AddReview(
+                                      ProductToReview: DummyProducts[6])))
+                        },
+                        leading: Icon(
+                          Icons.published_with_changes,
+                          color: AppColors.PrimaryColor,
+                        ),
+                        title: SmallText(
+                          text: "Add Review",
+                        ),
+                        //   subtitle: Text("This is activity Button"),
+                      ),
+                      ListTile(
+                        onTap: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => BussinessForm()))
+                        },
 
-                  showModalBottomSheet(context: context, builder: (context)=>
-                  Column(children: const [
+                        leading: Icon(
+                          Icons.business_outlined,
+                          color: AppColors.PrimaryColor,
+                        ),
+                        title: SmallText(
+                          text: "Add your Bussiness",
+                        ),
+                        //   subtitle: Text("This is activity Button"),
+                      ),
+                      ListTile(
+                        onTap: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MainResturant()))
+                        },
+
+                        leading: Icon(
+                          Icons.business_outlined,
+                          color: AppColors.PrimaryColor,
+                        ),
+                        title: SmallText(
+                          text: "Manage your Bussiness",
+                        ),
+                        //   subtitle: Text("This is activity Button"),
+                      ),
+                      ListTile(
+                        onTap: () => {
+                          // showModalBottomSheet(context: context, builder: (context)=>
+                          // Column(children: const [
+
+                          // ],)),
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const DevelopersTeam())),
+                        },
+
+                        leading: Icon(
+                          Icons.developer_board,
+                          color: AppColors.PrimaryColor,
+                        ),
+                        title: SmallText(
+                          text: "Develors Team",
+                        ),
+                        //   subtitle: Text("This is activity Button"),
+                      ),
+                      ListTile(
+                        leading: Icon(
+                          Icons.favorite,
+                          color: AppColors.PrimaryColor,
+                        ),
+                        title: SmallText(text: "Favorites"),
+
+                        //   subtitle: Text("This is activity Button"),
+                      ),
+                      ListTile(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MapsView()));
+                        },
+                        leading:  Icon(Icons.pin_drop, color: AppColors.PrimaryColor,),
+                        title: SmallText(text: "Select Location"),
+                        //   subtitle: Text("This is activity Button"),
+                      ),
+                      ListTile(
+                        leading:  Icon(Icons.settings, color: AppColors.PrimaryColor,),
+                        title: SmallText(text: "Settings"),
+                        //   subtitle: Text("This is activity Button"),
+                      ),
                     
-                  ],)),
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const DevelopersTeam())),
-
-                },
-
-                leading: const Icon(
-                  Icons.developer_board,
-                  color: Colors.red,
+                    ],
+                  ),
                 ),
-                title: SmallText(
-                  text: "Develors Team",
-                  color: AppColors.PrimaryColor,
-                ),
-                //   subtitle: Text("This is activity Button"),
-              ),
-            
-              ListTile(
-                leading: const Icon(Icons.favorite),
-                title: SmallText(text: "Favorites"),
-                //   subtitle: Text("This is activity Button"),
-              ),
-              ListTile(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MapsView()));
-                },
-                leading: const Icon(Icons.pin_drop),
-                title: SmallText(text: "Select Location"),
-                //   subtitle: Text("This is activity Button"),
-              ),
-              ListTile(
-                leading: const Icon(Icons.settings),
-                title: SmallText(text: "Settings"),
-                //   subtitle: Text("This is activity Button"),
-              ),
-
-              ListTile(
-                leading: const Icon(Icons.settings),
-                title: SmallText(text: "Settings"),
-                //   subtitle: Text("This is activity Button"),
-              ),
+              )
             ],
           ),
         ),
-        bottomNavigationBar: Container(
-          height: 100,
-          child: PrimaryButton(text: "Developers Team", TapAction: (){},color:AppColors.PrimaryColor,icon: Icons.developer_board,))
-
-        );
+        // bottomNavigationBar: Container(
+        //     height: 100,
+        //     child: PrimaryButton(
+        //       text: "Developers Team",
+        //       TapAction: () {},
+        //       color: AppColors.PrimaryColor,
+        //       icon: Icons.developer_board,
+        //     ))
+            );
   }
 }

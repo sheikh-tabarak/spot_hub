@@ -7,9 +7,10 @@ import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/Products/FoodItems.dart';
-import 'package:spot_hub/widgets/PrimayButton.dart';
-import 'package:spot_hub/widgets/RatingSlider.dart';
-import 'package:spot_hub/widgets/UnderConstruction.dart';
+import 'package:spot_hub/screens/UserView/Customer/SearchPage.dart';
+import 'package:spot_hub/widgets/others/PrimayButton.dart';
+import 'package:spot_hub/widgets/others/RatingSlider.dart';
+import 'package:spot_hub/widgets/others/UnderConstruction.dart';
 
 class AddReview extends StatefulWidget {
   final FoodItem ProductToReview;
@@ -114,7 +115,7 @@ class _AddReviewState extends State<AddReview> {
 
  GestureDetector(
   onTap:() => {
-   // Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage(searchTitle: "")))
+   Navigator.push(context, MaterialPageRoute(builder: (context)=>const SearchPage(searchTitle: "",isSelection: true,)))
   },
    child: Container(
      margin: const EdgeInsets.only(top: 20,left: 20,right: 20),

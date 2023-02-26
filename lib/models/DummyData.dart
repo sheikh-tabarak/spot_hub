@@ -16,12 +16,21 @@ const DummyUsers = [
       email: "tabarakyaseen46@gmail.com"),
   User(
       image:
-          'https://scontent.flhe2-4.fna.fbcdn.net/v/t39.30808-6/287430741_2349483498552046_5985807974354842688_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeESsPi3uwblWcsy2VG3wUEtbg0VYo3ThGluDRVijdOEaUAoRwaG9yC0kyyd05NqqAzmodnm9tCx3PtU94ziH62N&_nc_ohc=AuXYTrij3nAAX_oltNv&_nc_zt=23&_nc_ht=scontent.flhe2-4.fna&oh=00_AfBLIcjnIS5xIpe8daOww8ko3DWYaEZDZPJ0KRdSFo_UnA&oe=63B14BBD',
+          'https://pps.whatsapp.net/v/t61.24694-24/322284170_204280192178778_5650785184120558375_n.jpg?ccb=11-4&oh=01_AdRIvEMSiz_uzaboo8hfNNBJFLk7MpFbcyCjna5npCAgnA&oe=64055E50',
       username: 'haroon_ul_hassan',
       password: '67890',
       Intrests: 'A,B,C',
       PhoneNo: "03061706237",
       email: "haroonulhassan1@gmail.com"),
+
+       User(
+      image:
+          'https://scontent.flhe25-1.fna.fbcdn.net/v/t39.30808-6/317347024_1135017797218451_1689212713639118576_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeE0KuF6sX0M2bV2RSB_WKeLZby1iAgUVNRlvLWICBRU1Hk5DXJV7w0sArjDnWc0-nKJLw_1IzB7plaqZpxLJj2r&_nc_ohc=dND2j3BiD58AX9nvfu6&tn=jw_28_O9qKweNP1U&_nc_ht=scontent.flhe25-1.fna&oh=00_AfBq6Q35AgEsgYHUeud9z1YKzLX80QrcoLtkujMFLLdjmw&oe=63FD056A',
+      username: 'arhum',
+      password: 'arhum123',
+      Intrests: 'A,B,C',
+      PhoneNo: "02342423324",
+      email: "muhammadarhum277@gmail.com"),
 ];
 
 
@@ -30,7 +39,7 @@ const DummyUsers = [
   
   Bussiness(
       BussinessId: "SHB1",
-      BussinessImageUrl: "example.com/image1",
+      BussinessImageUrl: "https://images.unsplash.com/photo-1534009502677-4e5080efa8c6?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=500&ixid=MnwxfDB8MXxyYW5kb218MHx8aG90ZWx8fHx8fHwxNjc3MzAzMTEz&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
       BussinessName: "The Grand Hotel",
       BussinessEmail: "admin@grandhotel.com",
       BussinessCity: "New York",
@@ -41,7 +50,7 @@ const DummyUsers = [
 
   Bussiness(
       BussinessId: "SHB2",
-      BussinessImageUrl: "example.com/image2",
+      BussinessImageUrl: "https://images.unsplash.com/photo-1470114755716-3e1124c6c3bd?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=500&ixid=MnwxfDB8MXxyYW5kb218MHx8cmVzdHVyYW50fHx8fHx8MTY3NzMxOTc0OQ&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
       BussinessName: "Pasta Palace",
       BussinessEmail: "admin@pastapalace.com",
       BussinessCity: "Chicago",
@@ -52,7 +61,7 @@ const DummyUsers = [
 
   Bussiness(
       BussinessId: "SHB3",
-      BussinessImageUrl: "example.com/image3",
+      BussinessImageUrl: "https://images.unsplash.com/photo-1610641818989-c2051b5e2cfd?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=500&ixid=MnwxfDB8MXxyYW5kb218MHx8aG90ZWx8fHx8fHwxNjc3MzAzMTIz&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
       BussinessName: "The Plaza Hotel",
       BussinessEmail: "admin@theplazahotel.com",
       BussinessCity: "New York",
@@ -63,7 +72,7 @@ const DummyUsers = [
 
   Bussiness(
       BussinessId: "SHB4",
-      BussinessImageUrl: "example.com/image4",
+      BussinessImageUrl: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=500&ixid=MnwxfDB8MXxyYW5kb218MHx8cmVzdHVyYW50fHx8fHx8MTY3NzMxOTYzNA&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
       BussinessName: "Burger Bistro",
       BussinessEmail: "admin@burgerbistro.com",
       BussinessCity: "Los Angeles",
@@ -74,7 +83,7 @@ const DummyUsers = [
 
   Bussiness(
       BussinessId: "SHB5",
-      BussinessImageUrl: "example.com/image5",
+      BussinessImageUrl: "https://images.unsplash.com/photo-1574728435494-4134e681f687?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=500&ixid=MnwxfDB8MXxyYW5kb218MHx8aG90ZWxzfHx8fHx8MTY3NzMxOTgxNg&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080",
       BussinessName: "The Ritz-Carlton",
       BussinessEmail: "admin@ritzcarlton.com",
       BussinessCity: "San Francisco",

@@ -120,7 +120,7 @@ class _ScrollableProductDetailPageState extends State<ScrollableProductDetailPag
                           color: AppColors.PrimaryColor,
                           fontWeight: FontWeight.w700),
                       tabs: const [
-                        Tab( text: 'Rating & Products' ),
+                        Tab( text: 'Rating & Description' ),
                         Tab( text: 'Photos'),
                       ]),
                 ),
@@ -141,8 +141,9 @@ class _ScrollableProductDetailPageState extends State<ScrollableProductDetailPag
                             right: Dimensions.width10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children:  [
                             StarsCard(),
+                            SmallText(text:widget.SelectedProduct.description)
                           ],
                         ),
                       ),

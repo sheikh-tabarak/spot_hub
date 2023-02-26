@@ -3,10 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/models/UserModels/User.dart';
+import 'package:spot_hub/screens/UserView/Admin/RecordIntrests.dart';
 import 'package:spot_hub/screens/UserView/Admin/Signup.dart';
 import 'package:spot_hub/screens/UserView/Home/MainPage.dart';
-import 'package:spot_hub/widgets/PrimayButton.dart';
-import 'package:spot_hub/widgets/PlaneTextField.dart';
+import 'package:spot_hub/widgets/others/PrimayButton.dart';
+import 'package:spot_hub/widgets/others/PlaneTextField.dart';
 
 import '../../../configurations/Dimensions.dart';
 import '../../../configurations/SmallText.dart';
@@ -196,6 +197,18 @@ class _LoginState extends State<Login> {
                             },
                         child: SmallText(
                           text: "Guest Mode",
+                          color: AppColors.PrimaryColor,
+                        )),
+                         GestureDetector(
+                        onTap: () => {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => RecordIntrests()
+                                  ))
+                            },
+                        child: SmallText(
+                          text: "Record Intrest",
                           color: AppColors.PrimaryColor,
                         ))
                   ],

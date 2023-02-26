@@ -6,8 +6,8 @@ import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/screens/UserView/Admin/Login.dart';
-import 'package:spot_hub/widgets/PrimayButton.dart';
-import 'package:spot_hub/widgets/PlaneTextField.dart';
+import 'package:spot_hub/widgets/others/PrimayButton.dart';
+import 'package:spot_hub/widgets/others/PlaneTextField.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});

@@ -20,13 +20,13 @@ class StarsCard extends StatelessWidget {
                   (index) => Icon(
                         Icons.star,
                         color: AppColors.PrimaryColor,
-                        size: 17,
+                        size: 20,
                       )),
             ),
             SizedBox(
               width: Dimensions.height10,
             ),
-            SmallText(text: ' 5 Stars (73)'),
+            SmallText(text: ' 5 Stars (73)', size: 20,),
           ],
         ),
          const SizedBox(height: 5,),
@@ -43,7 +43,7 @@ class StarsCard extends StatelessWidget {
                     (index) => const Icon(
                           Icons.star,
                           color:Color.fromARGB(255, 244, 206, 149),
-                          size: 17,
+                          size: 20,
                         )),
               ),
               Wrap(
@@ -53,7 +53,7 @@ class StarsCard extends StatelessWidget {
                     (index) => Icon(
                           Icons.star,
                           color: AppColors.PrimaryColor,
-                          size: 17,
+                          size: 20,
                         )),
               ),
               ],
@@ -61,7 +61,7 @@ class StarsCard extends StatelessWidget {
             SizedBox(
               width: Dimensions.height10,
             ),
-            SmallText(text: ' 4 Stars (98)'),
+            SmallText(text: ' 4 Stars (98)',size: 20,),
           ],
         ),
          const SizedBox(height: 5,),
@@ -76,7 +76,7 @@ class StarsCard extends StatelessWidget {
                     (index) => const Icon(
                           Icons.star,
                           color:Color.fromARGB(255, 244, 206, 149),
-                          size: 17,
+                          size: 20,
                         )),
               ),
               Wrap(
@@ -86,7 +86,7 @@ class StarsCard extends StatelessWidget {
                     (index) => Icon(
                           Icons.star,
                           color: AppColors.PrimaryColor,
-                          size: 17,
+                          size: 20,
                         )),
               ),
               ],
@@ -94,7 +94,7 @@ class StarsCard extends StatelessWidget {
               SizedBox(
               width: Dimensions.height10,
             ),
-            SmallText(text: ' 3 Stars (160)'),
+            SmallText(text: ' 3 Stars (160)',size: 20,),
            
           ],
         ),
@@ -112,7 +112,7 @@ class StarsCard extends StatelessWidget {
                     (index) =>const Icon(
                           Icons.star,
                           color:Color.fromARGB(255, 244, 206, 149),
-                          size: 17,
+                          size: 20,
                         )),
               ),
               Wrap(
@@ -122,7 +122,7 @@ class StarsCard extends StatelessWidget {
                     (index) => Icon(
                           Icons.star,
                           color: AppColors.PrimaryColor,
-                          size: 17,
+                          size: 20,
                         )),
               ),
               ],
@@ -130,7 +130,7 @@ class StarsCard extends StatelessWidget {
             SizedBox(
               width: Dimensions.height10,
             ),
-            SmallText(text: ' 2 Stars (16)'),
+            SmallText(text: ' 2 Stars (16)', size: 20,),
           
 
           ],
@@ -150,7 +150,7 @@ class StarsCard extends StatelessWidget {
                     (index) => const Icon(
                           Icons.star,
                           color:Color.fromARGB(255, 244, 206, 149),
-                          size: 17,
+                          size: 20,
                         )),
               ),
               Wrap(
@@ -160,7 +160,7 @@ class StarsCard extends StatelessWidget {
                     (index) => Icon(
                           Icons.star,
                           color: AppColors.PrimaryColor,
-                          size: 17,
+                          size: 20,
                         )),
               ),
               ],
@@ -169,7 +169,7 @@ class StarsCard extends StatelessWidget {
           SizedBox(
               width: Dimensions.height10,
             ),
-            SmallText(text: ' 1 Stars (45)'),
+            SmallText(text: ' 1 Stars (45)',size: 20,),
           ],
         ),
          const SizedBox(height: 5,),

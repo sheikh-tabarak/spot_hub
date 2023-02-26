@@ -3,21 +3,27 @@ import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/DummyData.dart';
+import 'package:spot_hub/screens/UserView/Customer/AddReview.dart';
 import 'package:spot_hub/screens/UserView/Customer/MainSearch.dart';
 import 'package:spot_hub/screens/UserView/Customer/ScrollableProductDetailPage.dart';
 //import 'package:geolocator/geolocator.dart';
 
 class SearchPage extends StatefulWidget {
   final String searchTitle;
+  final bool isSelection;
   final int index;
-  const SearchPage({super.key, this.index = 0, required this.searchTitle});
+
+  const SearchPage(
+      {super.key,
+      this.index = 0,
+      required this.searchTitle,
+      this.isSelection = false});
 
   @override
   State<SearchPage> createState() => _SearchPageState();
 }
 
 class _SearchPageState extends State<SearchPage> {
-  
   // List<String> StarRating = ["Any", "★ 3.0+", "★ 4.0+", "★ 5.0+"];
   // List<String> reviewCount = ["N/A", "10+", "50+", "100+"];
   // RangeValues _currentRangeValues = RangeValues(40, 80);
@@ -296,16 +302,26 @@ class _SearchPageState extends State<SearchPage> {
                                             0))),
                                 child: ListTile(
                                   onTap: () => {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ScrollableProductDetailPage(
-                                                    SelectedProduct:
+                                    widget.isSelection == true
+                                        ? Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => AddReview(
+                                                    ProductToReview:
                                                         DummyProducts[
                                                             filteredIndexes
                                                                 .elementAt(
                                                                     index)])))
+                                        : Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ScrollableProductDetailPage(
+                                                        SelectedProduct:
+                                                            DummyProducts[
+                                                                filteredIndexes
+                                                                    .elementAt(
+                                                                        index)])))
                                   },
                                   // minLeadingWidth: 50,
                                   leading: Container(

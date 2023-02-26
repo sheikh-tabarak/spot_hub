@@ -101,7 +101,7 @@ class BussinessProfile extends StatelessWidget {
               expandedHeight: 300,
               flexibleSpace: FlexibleSpaceBar(
                 background: Image.network(
-                  "ResturantsData[resturantid].rimageUrl,",
+                  B.BussinessImageUrl,
                   width: double.maxFinite,
                   fit: BoxFit.cover,
                 ),

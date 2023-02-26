@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, file_names
 
 import 'package:flutter/material.dart';
-import 'package:spot_hub/widgets/IconBox.dart';
+import 'package:spot_hub/widgets/others/IconBox.dart';
 
 class RecordIntrests extends StatefulWidget {
   const RecordIntrests({super.key});

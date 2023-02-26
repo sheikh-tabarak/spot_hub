@@ -1,10 +1,8 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
-import 'package:spot_hub/widgets/BoxedTextField.dart';
-import 'package:spot_hub/widgets/PrimayButton.dart';
+import 'package:spot_hub/widgets/others/BoxedTextField.dart';
+import 'package:spot_hub/widgets/others/PrimayButton.dart';
 
 class AddFood extends StatefulWidget {
   const AddFood({super.key});

@@ -6,7 +6,7 @@ import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/widgets/Filters/SelectionStripe.dart';
-import 'package:spot_hub/widgets/PrimayButton.dart';
+import 'package:spot_hub/widgets/others/PrimayButton.dart';
 
 class FilterView extends StatefulWidget {
   const FilterView({super.key});

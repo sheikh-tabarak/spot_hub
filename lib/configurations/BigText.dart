@@ -32,7 +32,7 @@ class BigText extends StatelessWidget {
        // overflow: overFlow,
         style: TextStyle(
             fontFamily: 'Poppins',
-          fontSize: size==0?Dimensions.font20:size,
+          fontSize: size==0?Dimensions.font18:size,
           color: color,
           fontWeight: FontWeight.w500,
         ));

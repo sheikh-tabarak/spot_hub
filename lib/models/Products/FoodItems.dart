@@ -14,7 +14,7 @@ final bool isRecommended;
   const FoodItem(
    {
     required this.BussinessId,
-     required this.Id,
+    required this.Id,
     required this.image,
     required this.description,
     required this.title,

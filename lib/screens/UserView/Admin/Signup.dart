@@ -5,7 +5,11 @@ import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
+import 'package:spot_hub/database/Authentication.dart';
+import 'package:spot_hub/models/UserModels/User.dart';
 import 'package:spot_hub/screens/UserView/Admin/Login.dart';
+import 'package:spot_hub/screens/UserView/Admin/RecordIntrests.dart';
+import 'package:spot_hub/widgets/others/BoxedTextField.dart';
 import 'package:spot_hub/widgets/others/PrimayButton.dart';
 import 'package:spot_hub/widgets/others/PlaneTextField.dart';
 
@@ -17,12 +21,22 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  String thisiserror = "";
+
+  @override
+  initState() {
+    _emailController.text = "tabarakyaseen46@gmail.com";
+    _nameController.text = "sheikhtabarak";
+    _passwordController.text = "1234563421";
+    _phoneController.text = "030001233";
+  }
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController nameController = TextEditingController();
-    TextEditingController phoneController = TextEditingController();
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
     return Scaffold(
       backgroundColor: AppColors.darkBackgroundColor,
       body: Container(
@@ -41,40 +55,125 @@ class _SignupState extends State<Signup> {
                 const SizedBox(
                   height: 30,
                 ),
-                BigText(text: "Create a new account",color:AppColors.PrimaryColor,),
-                  const SizedBox(
-                  height: 30,
+                BigText(
+                  text: "Register a new account",
+                  size: 20,
+                  color: AppColors.PrimaryColor,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 12,right: 12),
+                  padding: const EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    color: thisiserror == "" ? Colors.black : Colors.red,
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                  child: Row(
+                    //  crossAxisAlignment: WrapCrossAlignment.center,
+                    // alignment: WrapAlignment.spaceEvenly,
+                    // direction: Axis.horizontal,
+                //    mainAxisSize: MainAxisSize.min,
+                    verticalDirection: VerticalDirection.down,
+                    textDirection: TextDirection.ltr,
+                    //   crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.error,
+                        color: thisiserror == "" ? Colors.black : Colors.white,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: SmallText(
+                          iscentre: false,
+                          text: thisiserror,
+                          color: const Color.fromARGB(255, 255, 255, 255),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
                 ),
                 PlaneTextField(
-              
-                   icon: Icons.account_box,
+                  onChange: (value) => {
+                    setState(() {
+                      thisiserror = "";
+                    })
+                  },
+                  icon: Icons.account_box,
                   placeholder: 'Name',
-                  controller: nameController,
+                  controller: _nameController,
                 ),
                 PlaneTextField(
-              
-                   icon: Icons.phone,
+                  onChange: (value) => {
+                    setState(() {
+                      thisiserror = "";
+                    })
+                  },
+                  icon: Icons.phone,
                   placeholder: 'Phone',
-                  controller: phoneController,
+                  controller: _phoneController,
                 ),
                 PlaneTextField(
-            
+                  onChange: (value) => {
+                    setState(() {
+                      thisiserror = "";
+                    })
+                  },
                   icon: Icons.email,
                   placeholder: 'Email',
-                  controller: emailController,
+                  controller: _emailController,
                 ),
                 PlaneTextField(
-              
+                  onChange: (value) => {
+                    setState(() {
+                      thisiserror = "";
+                    })
+                  },
                   icon: Icons.lock,
                   placeholder: 'Password',
-                  controller: passwordController,
+                  controller: _passwordController,
                 ),
                 PrimaryButton(
-                  icon:Icons.account_circle,
-                    TapAction: () => {
-                          print(
-                              'Entered Name: ${nameController.text},\nEntered Phone: ${phoneController.text},\nEntered Email: ${emailController.text},\nEntered Password: ${passwordController.text}')
-                        },
+                    icon: Icons.account_circle,
+                    TapAction: () async {
+                      if (_nameController.text == "" ||
+                          _passwordController.text == "" ||
+                          _emailController.text == "" ||
+                          _phoneController.text == "") {
+                        setState(() {
+                          thisiserror = "One or more fields are empty";
+                        });
+                      } else {
+                        bool shouldNavigate = await register(
+                            _emailController.text, _passwordController.text);
+
+                        if (shouldNavigate) {
+                          RegisterNewUser(
+                              "",
+                              _nameController.text,
+                              _passwordController.text,
+                              _emailController.text,
+                              _phoneController.text);
+                          print("${_emailController.text} Registered Successfully");
+                        } else {
+                          setState(() {
+                            thisiserror = message;
+                          });
+
+                          // print(message);
+                        }
+
+                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>RecordIntrests()));
+                        // print(
+                        //     'Entered Name: ${nameController.text},\nEntered Phone: ${phoneController.text},\nEntered Email: ${emailController.text},\nEntered Password: ${passwordController.text}');
+                      }
+                    },
                     text: 'Register',
                     color: AppColors.PrimaryColor),
                 SizedBox(
@@ -90,12 +189,10 @@ class _SignupState extends State<Signup> {
                   height: Dimensions.height15,
                 ),
                 PrimaryButton(
-                  icon: Icons.login,
+                    icon: Icons.login,
                     TapAction: () => {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Login()))
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) => Login()))
                         },
                     text: 'Login',
                     color: AppColors.SecodaryColor),
@@ -105,6 +202,5 @@ class _SignupState extends State<Signup> {
         ),
       ),
     );
-    
   }
 }

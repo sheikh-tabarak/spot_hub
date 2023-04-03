@@ -18,9 +18,11 @@ import 'package:spot_hub/widgets/others/ChoiceIcon.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class MainPage extends StatefulWidget {
-  final User MainUser;
+final User MainUser;
   final bool isLoggedin;
-  const MainPage({super.key, required this.MainUser, required this.isLoggedin});
+  const MainPage({super.key, 
+  required this.MainUser,
+   required this.isLoggedin});
 
   @override
   State<MainPage> createState() => _MainPageState();

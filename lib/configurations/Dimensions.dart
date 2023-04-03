@@ -32,6 +32,7 @@ static double radius10 = screenHeight/83.3;
 static double font20 = screenHeight/41.65;
 static double font12 = screenHeight/69.41666;
 static double font15 = screenHeight/55.53;
+static double font18 = screenHeight/46.275;
 
 static double iconContainer = screenHeight/18.511;
 

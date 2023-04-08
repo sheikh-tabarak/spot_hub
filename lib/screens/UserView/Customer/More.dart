@@ -5,7 +5,7 @@ import 'package:spot_hub/Utilities/MapsView.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/DummyData.dart';
-import 'package:spot_hub/models/UserModels/User.dart';
+import 'package:spot_hub/models/UserModels/UserClass.dart';
 import 'package:spot_hub/screens/ResturantsView/Admin/AddBussiness/BussinessForm.dart';
 import 'package:spot_hub/screens/ResturantsView/MainResturant.dart';
 import 'package:spot_hub/screens/UserView/Admin/Login.dart';
@@ -17,7 +17,7 @@ import 'package:spot_hub/widgets/others/PrimayButton.dart';
 
 class More extends StatelessWidget {
   final bool isLoggedin;
-  final User MainUser;
+  final UserClass MainUser;
   const More({super.key, required this.MainUser, required this.isLoggedin});
 
   @override

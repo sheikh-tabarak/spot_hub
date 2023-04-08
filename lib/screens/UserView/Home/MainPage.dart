@@ -1,13 +1,14 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:ui';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/models/DummyData.dart';
 import 'package:spot_hub/models/Products/FoodItems.dart';
-import 'package:spot_hub/models/UserModels/User.dart';
-import 'package:spot_hub/screens/UserView/Customer/CustomerAccount.dart';
+import 'package:spot_hub/models/UserModels/UserClass.dart';
+import 'package:spot_hub/screens/UserView/Customer/Account/CustomerAccount.dart';
 import 'package:spot_hub/screens/UserView/Customer/MainSearch.dart';
 import 'package:spot_hub/screens/UserView/Customer/More.dart';
 import 'package:spot_hub/screens/UserView/Customer/NoLogin.dart';
@@ -18,11 +19,9 @@ import 'package:spot_hub/widgets/others/ChoiceIcon.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class MainPage extends StatefulWidget {
-final User MainUser;
+  final UserClass MainUser;
   final bool isLoggedin;
-  const MainPage({super.key, 
-  required this.MainUser,
-   required this.isLoggedin});
+  const MainPage({super.key, required this.MainUser, required this.isLoggedin});
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -40,6 +39,22 @@ class _MainPageState extends State<MainPage> {
   TextEditingController SearchController = TextEditingController();
 
   double wid = window.physicalSize.width;
+
+  @override
+  initState() {
+    super.initState();
+    try {
+      if (FirebaseAuth.instance.currentUser != null) {
+
+     
+       
+      }
+    } catch (e) {
+   setState(() {
+           loggedin = false;
+        });    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,7 +132,9 @@ class _MainPageState extends State<MainPage> {
                 : _PageIndex == 1 && widget.isLoggedin == true
                     ?
                     //loggedin==true?
-                    CustomerAccount(MainUser: widget.MainUser)
+                    CustomerAccount(
+                        //MainUser: widget.MainUser
+                        )
                     : SingleChildScrollView(
                         child: Column(
                           children: [
@@ -305,35 +322,59 @@ class _MainPageState extends State<MainPage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       ChoiceIcon(
-                                        iconImage:  const AssetImage(
+                                        iconImage: const AssetImage(
                                             "assets/images/fastfood.png"),
-                                        icontitle: "Fast Food ", 
-                                        TaptoDo: (){
-                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>MainSearch(Results: "Fast Food")));
+                                        icontitle: "Fast Food ",
+                                        TaptoDo: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MainSearch(
+                                                          Results:
+                                                              "Fast Food")));
                                         },
                                       ),
                                       ChoiceIcon(
                                         iconImage: const AssetImage(
                                             "assets/images/seafood.png"),
                                         icontitle: "Sea Food",
-                                        TaptoDo: (){
-                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>MainSearch(Results: "Sea Food")));
+                                        TaptoDo: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MainSearch(
+                                                          Results:
+                                                              "Sea Food")));
                                         },
                                       ),
                                       ChoiceIcon(
                                         iconImage: const AssetImage(
                                             "assets/images/2desifood.png"),
                                         icontitle: "Desi Food",
-                                       TaptoDo: (){
-                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>MainSearch(Results: "Desi Food")));
+                                        TaptoDo: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MainSearch(
+                                                          Results:
+                                                              "Desi Food")));
                                         },
                                       ),
                                       ChoiceIcon(
                                         iconImage: const AssetImage(
                                             "assets/images/chinesefood.png"),
                                         icontitle: "Chineese",
-                                       TaptoDo: (){
-                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>MainSearch(Results: "Chineese")));
+                                        TaptoDo: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MainSearch(
+                                                          Results:
+                                                              "Chineese")));
                                         },
                                       ),
                                     ],

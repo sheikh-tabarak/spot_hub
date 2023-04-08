@@ -3,10 +3,10 @@
 import 'package:spot_hub/models/Products/FoodItems.dart';
 import 'package:spot_hub/models/ReviewModels/Reviews.dart';
 import 'package:spot_hub/models/UserModels/Bussiness.dart';
-import 'package:spot_hub/models/UserModels/User.dart';
+import 'package:spot_hub/models/UserModels/UserClass.dart';
 
 const DummyUsers = [
-  User(
+  UserClass(
     IsBussiness: false,
       image:
           'https://d1fdloi71mui9q.cloudfront.net/mz7KcbqIR7tWnzmhtoOw_QFTkJU5qC2Q3j9KQ',
@@ -15,7 +15,7 @@ const DummyUsers = [
       Intrests: 'A,B,C',
       PhoneNo: "03061706237",
       email: "tabarakyaseen46@gmail.com"),
-  User(
+  UserClass(
     IsBussiness: false,
       image:
           'https://pps.whatsapp.net/v/t61.24694-24/322284170_204280192178778_5650785184120558375_n.jpg?ccb=11-4&oh=01_AdRIvEMSiz_uzaboo8hfNNBJFLk7MpFbcyCjna5npCAgnA&oe=64055E50',
@@ -25,7 +25,7 @@ const DummyUsers = [
       PhoneNo: "03061706237",
       email: "haroonulhassan1@gmail.com"),
 
-       User(
+       UserClass(
         IsBussiness: false,
       image:
           'https://scontent.flhe25-1.fna.fbcdn.net/v/t39.30808-6/317347024_1135017797218451_1689212713639118576_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeE0KuF6sX0M2bV2RSB_WKeLZby1iAgUVNRlvLWICBRU1Hk5DXJV7w0sArjDnWc0-nKJLw_1IzB7plaqZpxLJj2r&_nc_ohc=dND2j3BiD58AX9nvfu6&tn=jw_28_O9qKweNP1U&_nc_ht=scontent.flhe25-1.fna&oh=00_AfBq6Q35AgEsgYHUeud9z1YKzLX80QrcoLtkujMFLLdjmw&oe=63FD056A',

@@ -17,7 +17,7 @@ class PrimaryButton extends StatelessWidget {
       required this.text,
       required this.color, 
       required this.icon,
-      this.ButtonRadius=30
+      this.ButtonRadius=10
       });
 
   @override
@@ -26,6 +26,8 @@ class PrimaryButton extends StatelessWidget {
       onTap: () => TapAction(),
       child: Container(
         width: double.maxFinite,
+    //    height:double.nan,
+
         alignment: Alignment.center,
         // padding: const EdgeInsets.all(10),
         margin: const EdgeInsets.all(10),

@@ -1,17 +1,22 @@
 // ignore_for_file: non_constant_identifier_names
+import 'dart:io';
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
-import 'package:spot_hub/models/UserModels/User.dart';
+import 'package:spot_hub/models/UserModels/UserClass.dart';
 import 'package:spot_hub/screens/UserView/Admin/Login.dart';
-import 'package:spot_hub/screens/UserView/Customer/CustomerAccount.dart';
+import 'package:spot_hub/screens/UserView/Customer/Account/CustomerAccount.dart';
 import 'package:spot_hub/screens/UserView/Customer/DevelopersTeam.dart';
 import 'package:spot_hub/screens/UserView/Customer/MainSearch.dart';
 import 'package:spot_hub/screens/UserView/Customer/SearchPage.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:spot_hub/screens/UserView/welcome.dart';
 import 'screens/ResturantsView/Admin/AddBussiness/BussinessForm.dart';
+import 'screens/UserView/Customer/Account/EditAccountDetails.dart';
 import 'screens/UserView/Home/MainPage.dart';
 
 Future main() async {
@@ -35,10 +40,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   double img_height = 200;
   double img_width = 200;
-
+ var isDeviceConnected = false;
   @override
   void initState() {
     super.initState();
+   // InternetConnectionStatus.connected;
     for (var i = 1000; i > 200; i--) {
       img_height = i.toDouble();
       img_width = i.toDouble();
@@ -49,26 +55,57 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Spot Hub',
-        // theme: ThemeData(
-        //   primarySwatch: Colors.blue,
-        // ),
-        theme: ThemeData.light().copyWith(
-          colorScheme: ColorScheme.fromSeed(
-              seedColor: AppColors.PrimaryColor,
-              primary: AppColors.PrimaryColor),
-        ),
-        // child:TextFormField()
-//)
+    // builder: (context, child) {
+      
+    //     return StreamBuilder<ConnectivityResult>(
+    //         stream: InternetConnectionService().connectionStatusController.stream,
+    //         builder: (context, snapshot) {
+    //             final conenctivityResult = snapshot.data;
+    //             if (connectivityResult == ConnectivityResult.none || connectivityResult == null) return NoInternetScreen();
 
-        //     theme: ThemeData(
-        // colorScheme: ThemeData().colorScheme.copyWith(
-        //   secondary: AppColors.PrimaryColor,
-        // ),
-// ),
+    //             return 
+                home:
+                Scaffold(
+          body: 
+          //EditAccountDetails()
+          //Welcome()
+          
+         
 
-        home:
+          //isDeviceConnected==true?
+          CustomerAccount()
+          //:Text("Out of Internet"),
+          //   MainUser: UserClass(
+          //       IsBussiness: true,
+          //       image: "image",
+          //       username: "username",
+          //       password: "password",
+          //       email: "email",
+          //       PhoneNo: "PhoneNo",
+          //       Intrests: "Intrests"),
+          // 
+          
+        )
+        
+        );
+    }}
+
+    
+    
+    
+    // MaterialApp(
+    //     debugShowCheckedModeBanner: false,
+    //     title: 'Spot Hub',
+    //     // theme: ThemeData(
+    //     //   primarySwatch: Colors.blue,
+    //     // ),
+    //     theme: ThemeData.light().copyWith(
+    //       colorScheme: ColorScheme.fromSeed(
+    //           seedColor: AppColors.PrimaryColor,
+    //           primary: AppColors.PrimaryColor),
+    //     ),
+     
+
             // BussinessForm()
             //  MainSearch()
             // SearchPage(searchTitle: 'Burger',)
@@ -105,21 +142,8 @@ class _MyAppState extends State<MyApp> {
             //       ),
             //       nextScreen:
 
-            const Scaffold(
-          body: CustomerAccount(
-            MainUser: User(
-                IsBussiness: true,
-                image: "image",
-                username: "username",
-                password: "password",
-                email: "email",
-                PhoneNo: "PhoneNo",
-                Intrests: "Intrests"),
-          ),
-        )
+              
         //   splashTransition: SplashTransition.fadeTransition,
         //      backgroundColor: AppColors.darkBackgroundColor),
 
-        );
-  }
-}
+ 

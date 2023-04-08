@@ -6,7 +6,7 @@ import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/database/Authentication.dart';
-import 'package:spot_hub/models/UserModels/User.dart';
+import 'package:spot_hub/models/UserModels/UserClass.dart';
 import 'package:spot_hub/screens/UserView/Admin/Login.dart';
 import 'package:spot_hub/screens/UserView/Admin/RecordIntrests.dart';
 import 'package:spot_hub/widgets/others/BoxedTextField.dart';
@@ -162,8 +162,12 @@ class _SignupState extends State<Signup> {
                               _phoneController.text);
                           print("${_emailController.text} Registered Successfully");
                         } else {
-                          setState(() {
-                            thisiserror = message;
+                          setState(() {       
+                            print("this is first > "+thisiserror);
+                     thisiserror = message.toString().replaceRange(message.toString().indexOf("["), message.toString().indexOf("]")+2, "");
+                     print("this is after > "+thisiserror);
+
+                        //    thisiserror = message;
                           });
 
                           // print(message);

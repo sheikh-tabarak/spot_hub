@@ -9,9 +9,9 @@ import 'package:spot_hub/models/UserModels/UserClass.dart';
 import 'package:spot_hub/screens/ResturantsView/Admin/AddBussiness/BussinessForm.dart';
 import 'package:spot_hub/screens/ResturantsView/MainResturant.dart';
 import 'package:spot_hub/screens/UserView/Admin/Login.dart';
-import 'package:spot_hub/screens/UserView/Customer/AddReview.dart';
-import 'package:spot_hub/screens/UserView/Customer/DevelopersTeam.dart';
-import 'package:spot_hub/screens/UserView/Customer/MainHome.dart';
+import 'package:spot_hub/screens/UserView/User/AddReview.dart';
+import 'package:spot_hub/screens/UserView/User/DevelopersTeam.dart';
+import 'package:spot_hub/screens/UserView/User/MainHome.dart';
 import 'package:spot_hub/screens/UserView/Home/MainPage.dart';
 import 'package:spot_hub/widgets/others/PrimayButton.dart';
 
@@ -25,6 +25,7 @@ class More extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          backgroundColor: AppColors.PrimaryColor,
           title: const Text("Spot hub"),
         ),
         body: Padding(
@@ -41,7 +42,7 @@ class More extends StatelessWidget {
                     borderRadius: const BorderRadius.all(Radius.circular(5))),
                 child: ListTile(
                     leading: Image(
-                      image: NetworkImage(MainUser.image),
+                      image: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/330px-User_icon_2.svg.png"),
                       width: 60,
                       height: 60,
                     ),
@@ -80,6 +81,7 @@ class More extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => MainPage(
+                                    PI: 1,
                                         MainUser: MainUser,
                                         isLoggedin: false,
                                       )))
@@ -109,7 +111,7 @@ class More extends StatelessWidget {
                         ),
                         //   subtitle: Text("This is activity Button"),
                       ),
-                      ListTile(
+                      MainUser.IsBussiness==true?ListTile(
                         onTap: () => {
                           Navigator.push(
                               context,
@@ -118,14 +120,14 @@ class More extends StatelessWidget {
                         },
 
                         leading: Icon(
-                          Icons.business_outlined,
+                          Icons.add,
                           color: AppColors.PrimaryColor,
                         ),
                         title: SmallText(
                           text: "Add your Bussiness",
                         ),
                         //   subtitle: Text("This is activity Button"),
-                      ),
+                      ):
                       ListTile(
                         onTap: () => {
                           Navigator.push(

@@ -5,36 +5,36 @@ import 'package:spot_hub/models/ReviewModels/Reviews.dart';
 import 'package:spot_hub/models/UserModels/Bussiness.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
 
-const DummyUsers = [
-  UserClass(
-    IsBussiness: false,
-      image:
-          'https://d1fdloi71mui9q.cloudfront.net/mz7KcbqIR7tWnzmhtoOw_QFTkJU5qC2Q3j9KQ',
-      username: 'sheikh_tabarak',
-      password: '12345',
-      Intrests: 'A,B,C',
-      PhoneNo: "03061706237",
-      email: "tabarakyaseen46@gmail.com"),
-  UserClass(
-    IsBussiness: false,
-      image:
-          'https://pps.whatsapp.net/v/t61.24694-24/322284170_204280192178778_5650785184120558375_n.jpg?ccb=11-4&oh=01_AdRIvEMSiz_uzaboo8hfNNBJFLk7MpFbcyCjna5npCAgnA&oe=64055E50',
-      username: 'haroon_ul_hassan',
-      password: '67890',
-      Intrests: 'A,B,C',
-      PhoneNo: "03061706237",
-      email: "haroonulhassan1@gmail.com"),
+// const DummyUsers = [
+//   UserClass(
+//     IsBussiness: false,
+//       image:
+//           'https://d1fdloi71mui9q.cloudfront.net/mz7KcbqIR7tWnzmhtoOw_QFTkJU5qC2Q3j9KQ',
+//       username: 'sheikh_tabarak',
+//       password: '12345',
+//       Intrests: 'A,B,C',
+//       PhoneNo: "03061706237",
+//       email: "tabarakyaseen46@gmail.com"),
+//   UserClass(
+//     IsBussiness: false,
+//       image:
+//           'https://pps.whatsapp.net/v/t61.24694-24/322284170_204280192178778_5650785184120558375_n.jpg?ccb=11-4&oh=01_AdRIvEMSiz_uzaboo8hfNNBJFLk7MpFbcyCjna5npCAgnA&oe=64055E50',
+//       username: 'haroon_ul_hassan',
+//       password: '67890',
+//       Intrests: 'A,B,C',
+//       PhoneNo: "03061706237",
+//       email: "haroonulhassan1@gmail.com"),
 
-       UserClass(
-        IsBussiness: false,
-      image:
-          'https://scontent.flhe25-1.fna.fbcdn.net/v/t39.30808-6/317347024_1135017797218451_1689212713639118576_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeE0KuF6sX0M2bV2RSB_WKeLZby1iAgUVNRlvLWICBRU1Hk5DXJV7w0sArjDnWc0-nKJLw_1IzB7plaqZpxLJj2r&_nc_ohc=dND2j3BiD58AX9nvfu6&tn=jw_28_O9qKweNP1U&_nc_ht=scontent.flhe25-1.fna&oh=00_AfBq6Q35AgEsgYHUeud9z1YKzLX80QrcoLtkujMFLLdjmw&oe=63FD056A',
-      username: 'arhum',
-      password: 'arhum123',
-      Intrests: 'A,B,C',
-      PhoneNo: "02342423324",
-      email: "muhammadarhum277@gmail.com"),
-];
+//        UserClass(
+//         IsBussiness: false,
+//       image:
+//           'https://scontent.flhe25-1.fna.fbcdn.net/v/t39.30808-6/317347024_1135017797218451_1689212713639118576_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeE0KuF6sX0M2bV2RSB_WKeLZby1iAgUVNRlvLWICBRU1Hk5DXJV7w0sArjDnWc0-nKJLw_1IzB7plaqZpxLJj2r&_nc_ohc=dND2j3BiD58AX9nvfu6&tn=jw_28_O9qKweNP1U&_nc_ht=scontent.flhe25-1.fna&oh=00_AfBq6Q35AgEsgYHUeud9z1YKzLX80QrcoLtkujMFLLdjmw&oe=63FD056A',
+//       username: 'arhum',
+//       password: 'arhum123',
+//       Intrests: 'A,B,C',
+//       PhoneNo: "02342423324",
+//       email: "muhammadarhum277@gmail.com"),
+// ];
 
 
 

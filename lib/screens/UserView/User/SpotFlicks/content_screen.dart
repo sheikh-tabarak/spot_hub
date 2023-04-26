@@ -1,7 +1,7 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
-import 'package:spot_hub/screens/UserView/Customer/SpotFlicks/like_icon.dart';
-import 'package:spot_hub/screens/UserView/Customer/SpotFlicks/option_screen.dart';
+import 'package:spot_hub/screens/UserView/User/SpotFlicks/like_icon.dart';
+import 'package:spot_hub/screens/UserView/User/SpotFlicks/option_screen.dart';
 import 'package:video_player/video_player.dart';
 
 class ContentScreen extends StatefulWidget {

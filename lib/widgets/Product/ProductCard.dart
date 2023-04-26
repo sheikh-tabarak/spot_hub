@@ -6,7 +6,7 @@ import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/DummyData.dart';
 import 'package:spot_hub/models/Products/FoodItems.dart';
 import 'package:spot_hub/models/UserModels/Bussiness.dart';
-import 'package:spot_hub/screens/UserView/Customer/ScrollableProductDetailPage.dart';
+import 'package:spot_hub/screens/UserView/User/ScrollableProductDetailPage.dart';
 import 'package:spot_hub/widgets/PopupModals/BussinessProfile.dart';
 import 'package:spot_hub/widgets/PopupModals/ProductContact.dart';
 import 'package:spot_hub/widgets/Product/ProductTitleSection.dart';

@@ -29,9 +29,9 @@ class _SignupState extends State<Signup> {
 
   @override
   initState() {
-    _emailController.text = "tabarakyaseen46@gmail.com";
+    _emailController.text = "tabarakyaseen@gmail.com";
     _nameController.text = "sheikhtabarak";
-    _passwordController.text = "1234563421";
+    _passwordController.text = "12341234";
     _phoneController.text = "030001233";
   }
 
@@ -155,11 +155,13 @@ class _SignupState extends State<Signup> {
 
                         if (shouldNavigate) {
                           RegisterNewUser(
-                              "",
+                              "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/330px-User_icon_2.svg.png",
                               _nameController.text,
                               _passwordController.text,
                               _emailController.text,
-                              _phoneController.text);
+                              _phoneController.text,
+                              "Gujranwala, Pakistan"
+                              );
                           print("${_emailController.text} Registered Successfully");
                         } else {
                           setState(() {       

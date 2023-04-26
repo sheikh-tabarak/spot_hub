@@ -1,7 +1,7 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:spot_hub/screens/UserView/Customer/SpotFlicks/content_screen.dart';
-import 'package:spot_hub/screens/UserView/Customer/SpotFlicks/content_screen.dart';
+import 'package:spot_hub/screens/UserView/User/SpotFlicks/content_screen.dart';
+import 'package:spot_hub/screens/UserView/User/SpotFlicks/content_screen.dart';
 
 class SpotFlicks extends StatelessWidget {
   final List<String> videos = [

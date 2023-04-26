@@ -55,6 +55,7 @@ dependencies:
   cloud_firestore: ^4.5.0
   connectivity_plus: ^3.0.3
   internet_connection_checker: ^1.0.0+1
+  overlay_loader_with_app_icon: ^0.0.3
 
   
 

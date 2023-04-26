@@ -5,6 +5,8 @@ import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/database/Authentication.dart';
+import 'package:spot_hub/screens/UserView/Home/MainPage.dart';
+import 'package:spot_hub/screens/UserView/User/Account/CustomerAccount.dart';
 import 'package:spot_hub/widgets/others/PlaneTextField.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/widgets/others/PrimayButton.dart';
@@ -31,7 +33,7 @@ class EditAccountDetails extends StatefulWidget {
 class _EditAccountDetailsState extends State<EditAccountDetails> {
   String thisiserror = "Information Updated Successfully";
 
-  String _Intrests = "11111";
+  String _Intrests = "11000";
   TextEditingController _ImageController = TextEditingController();
   TextEditingController _NameController = TextEditingController();
   // TextEditingController _emailController = TextEditingController();
@@ -44,6 +46,8 @@ class _EditAccountDetailsState extends State<EditAccountDetails> {
   bool _chineseSelected = false;
   bool _seaFoodSelected = false;
   bool _otherSelected = false;
+
+  String _i1 = "0", _i2 = "0", _i3 = "0", _i4 = "0", _i5 = "0";
 
   void _setIntrestBoxes(String I) {
     print(I.substring(0, 1).toString());
@@ -79,24 +83,47 @@ class _EditAccountDetailsState extends State<EditAccountDetails> {
     }
   }
 
-  String getIntrestBoxes() {
-    Char a, b, c, d, e, f = "0" as Char;
-    String IntrestCode = widget.Intrests;
+  String _encodeIntrest() {
+  //  Char a, b, c, d, e, f = "0" as Char;
+    String IntrestCode;
 
-    if (_desiSelected = true) {
-      a = "1" as Char;
-    } else if (_fastFoodSelected = true) {
-      b = "1" as Char;
-    } else if (_chineseSelected = true) {
-      b = "1" as Char;
-    } else if (_seaFoodSelected = true) {
-      b = "1" as Char;
-    } else if (_otherSelected = true) {
-      b = "1" as Char;
+    if(_desiSelected==true){
+      _i1="1";
+    }
+    else{
+        _i1="0";
+    }
+    if(_fastFoodSelected==true){
+      _i2="1";
+    }
+     else{
+        _i2="0";
+    }
+    if(_chineseSelected==true){
+      _i3="1";
+    }
+     else{
+        _i3="0";
     }
 
-    //IntrestCode="${a}+${b}+${c}+${d}+${e}";
+    if(_seaFoodSelected==true){
+      _i4="1";
+    }
+     else{
+        _i4="0";
+    }
 
+    if(_otherSelected==true){
+      _i5="1";
+    }
+     else{
+        _i5="0";
+    }
+
+    ///= wisdget.Intrests;
+    IntrestCode = _i1 + _i2 + _i3 + _i4 + _i5;
+  //=IntrestCode;
+  print(IntrestCode);
     return IntrestCode;
   }
 
@@ -118,6 +145,15 @@ class _EditAccountDetailsState extends State<EditAccountDetails> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.PrimaryColor,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: ((context) => MainPage(isLoggedin: true, PI: 1))));
+          },
+          icon: Icon(Icons.account_circle),
+        ),
         title: BigText(
           text: "Edit Account Info",
           color: Colors.white,
@@ -133,11 +169,10 @@ class _EditAccountDetailsState extends State<EditAccountDetails> {
               Stack(
                 alignment: Alignment.bottomRight,
                 children: [
-                  const CircleAvatar(
+                   CircleAvatar(
                     // align:Alignment.center,
                     radius: 60,
-                    backgroundImage: NetworkImage(
-                        "https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg"),
+                    backgroundImage: NetworkImage("${widget.ImageLink.toString()}"),
                   ),
                   Container(
                     width: 40,
@@ -374,26 +409,26 @@ class _EditAccountDetailsState extends State<EditAccountDetails> {
                 });
 
                 bool updated = await updateAccountInfo(
-                    _NameController.text,
                     _AddressController.text,
+                    _NameController.text,      
                     _ImageController.text,
                     _PhoneController.text,
-                    _Intrests);
+                    _Intrests,
+                  //  _encodeIntrest()
+                    );
 
                 if (updated) {
-
                   updateAccountInfo(
-                    _NameController.text,
-                    _AddressController.text,
-                    _ImageController.text,
-                    _PhoneController.text,
-                    _Intrests);
+                      _NameController.text,
+                      _AddressController.text,
+                      _ImageController.text,
+                      _PhoneController.text,
+                      _encodeIntrest());
                   setState(() {
                     thisiserror = message.toString();
                   });
                 } else if (updated = false) {
                   setState(() {
-
                     thisiserror = "No information to Update";
                   });
                 }

@@ -82,6 +82,7 @@ Future<bool> updateAccountInfo(String name, String Address, String Imagelink,
         .collection('user')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .update({
+          'Address':Address,
            'Intrests': Intrests,
            'PhoneNo': Phone,
            'image': Imagelink,

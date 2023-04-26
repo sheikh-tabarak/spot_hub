@@ -3,9 +3,9 @@ import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/DummyData.dart';
-import 'package:spot_hub/screens/UserView/Customer/AddReview.dart';
-import 'package:spot_hub/screens/UserView/Customer/MainSearch.dart';
-import 'package:spot_hub/screens/UserView/Customer/ScrollableProductDetailPage.dart';
+import 'package:spot_hub/screens/UserView/User/AddReview.dart';
+import 'package:spot_hub/screens/UserView/User/MainSearch.dart';
+import 'package:spot_hub/screens/UserView/User/ScrollableProductDetailPage.dart';
 //import 'package:geolocator/geolocator.dart';
 
 class SearchPage extends StatefulWidget {

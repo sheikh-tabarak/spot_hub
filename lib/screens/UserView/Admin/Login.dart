@@ -1,12 +1,14 @@
 // ignore_for_file: avoid_print, file_names
 
 import 'package:flutter/material.dart';
+import 'package:overlay_loader_with_app_icon/overlay_loader_with_app_icon.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/database/Authentication.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
 import 'package:spot_hub/screens/UserView/Admin/RecordIntrests.dart';
 import 'package:spot_hub/screens/UserView/Admin/Signup.dart';
 import 'package:spot_hub/screens/UserView/Home/MainPage.dart';
+import 'package:spot_hub/screens/loading.dart';
 import 'package:spot_hub/widgets/others/PrimayButton.dart';
 import 'package:spot_hub/widgets/others/PlaneTextField.dart';
 
@@ -40,8 +42,8 @@ class _LoginState extends State<Login> {
 
   @override
   initState() {
-    _emailController.text = "tabarakyaseen46@gmail.com";
-    _passwordController.text = "1234563421";
+    _emailController.text = "tabarakyaseen@gmail.com";
+    _passwordController.text = "12341234";
   }
 
   @override
@@ -50,7 +52,18 @@ class _LoginState extends State<Login> {
     return Scaffold(
       backgroundColor: AppColors.darkBackgroundColor,
       body: widget.isLoading == true
-          ? Center(child: CircularProgressIndicator())
+          ? OverlayLoaderWithAppIcon(
+            borderRadius:20,
+            circularProgressColor:AppColors.PrimaryColor,
+            overlayOpacity: 1,
+            //appIconSize: 10,
+            overlayBackgroundColor: Colors.black,
+        isLoading: true,
+        appIcon:  Icon(Icons.stop_circle,color: AppColors.PrimaryColor,),
+       // Image.asset('assets/images/appicon.png',width: 10,),
+        child: Container(
+       child: Text("")
+    ))
           : Container(
               alignment: Alignment.center,
               child: SingleChildScrollView(
@@ -148,8 +161,9 @@ class _LoginState extends State<Login> {
                               if (shouldLogin) {
                                 Navigator.pushReplacement(
                                     context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const MainPage(
+                                  MaterialPageRoute(
+                                        builder: (context) =>  MainPage(
+                                          PI: 0,
                                             MainUser: UserClass(
                                                 IsBussiness: false,
                                                 image: "image",
@@ -157,7 +171,9 @@ class _LoginState extends State<Login> {
                                                 password: "password",
                                                 email: "email",
                                                 PhoneNo: "PhoneNo",
-                                                Intrests: "Intrests"),
+                                                Intrests: "Intrests", 
+                                                Address: 'address'
+                                                ),
                                             isLoggedin: true)));
                               } else {
 
@@ -275,16 +291,8 @@ class _LoginState extends State<Login> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => const MainPage(
-                                            MainUser: UserClass(
-                                                IsBussiness: false,
-                                                image:
-                                                    'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=740&t=st=1677081971~exp=1677082571~hmac=b13326377bea0999c1b16be27d4abd1cc79cf557b219e67e462f76e24ef5516e',
-                                                username: "Guest",
-                                                password: "password",
-                                                email: "guest@spothub.com",
-                                                PhoneNo: "PhoneNo",
-                                                Intrests: "Intrests"),
+                                          builder: (context) =>  MainPage(
+                                            PI: 0,
                                             isLoggedin: false,
                                           ),
                                         ))

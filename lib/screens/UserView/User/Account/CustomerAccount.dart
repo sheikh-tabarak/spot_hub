@@ -11,7 +11,7 @@ import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/database/Authentication.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
 import 'package:spot_hub/screens/UserView/Admin/Login.dart';
-import 'package:spot_hub/screens/UserView/Customer/Account/EditAccountDetails.dart';
+import 'package:spot_hub/screens/UserView/User/Account/EditAccountDetails.dart';
 
 class CustomerAccount extends StatefulWidget {
   CustomerAccount({
@@ -32,15 +32,17 @@ class _CustomerAccountState extends State<CustomerAccount> {
       password: "password",
       email: "guest@spothub.com",
       PhoneNo: "1234567890",
-      Intrests: "Intrests");
+      Intrests: "11111",
+      Address: "Ghost Location"
+      );
 
   String myEmail = "";
   bool AmIBussiness = false;
   String myName = "";
   String myPhone = "";
   String myimage = "";
-  String myIntrests="10001";
-  String myAddress = "Gujranwala";
+  String myIntrests = "10101";
+  String myAddress = "";
 
   @override
   initState() {
@@ -57,7 +59,9 @@ class _CustomerAccountState extends State<CustomerAccount> {
             password: value.password,
             email: value.email,
             PhoneNo: value.PhoneNo,
-            Intrests: value.Intrests);
+            Intrests: value.Intrests, 
+            Address: value.Address
+            );
 
         setState(() {
           AmIBussiness = MainUser.IsBussiness;
@@ -65,6 +69,8 @@ class _CustomerAccountState extends State<CustomerAccount> {
           myEmail = MainUser.email;
           myPhone = MainUser.PhoneNo;
           myimage = MainUser.image;
+          myIntrests = MainUser.Intrests;
+          myAddress=MainUser.Address;
         });
 
         print(MainUser.PhoneNo + " - " + MainUser.email);
@@ -98,34 +104,33 @@ class _CustomerAccountState extends State<CustomerAccount> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          
-                          // Stack(
-                          //   alignment: Alignment.bottomRight,
-                          //   children: [
-                          //     Container(
-                          //       padding: const EdgeInsets.all(5),
-                          //       child: const CircleAvatar(
-                          //         radius: 50,
-                          //         backgroundImage: NetworkImage(
-                          //             "https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg"), // Image,
-                          //       ),
-                          //     ),
-                          //     Container(
-                          //       width: 40,
-                          //       height: 40,
-                          //       alignment: Alignment.center,
-                          //       padding: const EdgeInsets.all(5),
-                          //       decoration: BoxDecoration(
-                          //           color: Colors.white,
-                          //           borderRadius: BorderRadius.circular(40)),
-                          //       child: AmIBussiness == true
-                          //           ? const Icon(Icons.business_center)
-                          //           : const Icon(Icons.manage_accounts),
-                          //       // Icon(Icons.account_circle_sharp),
-                          //     )
-                          //   ],
-                          // ),
-                         
+                          Stack(
+                            alignment: Alignment.bottomRight,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(5),
+                                child:  CircleAvatar(
+                                  radius: 50,
+                                  backgroundImage: NetworkImage(
+                                      myimage)// Image,
+                                ),
+                              ),
+                              Container(
+                                width: 40,
+                                height: 40,
+                                alignment: Alignment.center,
+                                padding: const EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(40)),
+                                child: AmIBussiness == true
+                                    ? const Icon(Icons.business_center)
+                                    : const Icon(Icons.manage_accounts),
+                                // Icon(Icons.account_circle_sharp),
+                              )
+                            ],
+                          ),
+
                           const SizedBox(
                             height: 10,
                           ),
@@ -143,15 +148,17 @@ class _CustomerAccountState extends State<CustomerAccount> {
                   ),
                   GestureDetector(
                     onTap: () {
-
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                      EditAccountDetails(
-                        Name: myName,
-                        Address: myAddress,
-                        Intrests: myIntrests,
-                        ImageLink: myimage,
-                        Phone: myPhone,
-                      ),));
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EditAccountDetails(
+                              Name: myName,
+                              Address: myAddress,
+                              Intrests: myIntrests,
+                              ImageLink: myimage,
+                              Phone: myPhone,
+                            ),
+                          ));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -262,7 +269,6 @@ class _CustomerAccountState extends State<CustomerAccount> {
                       const SizedBox(
                         height: 5,
                       ),
-                      
                       ListTile(
                           leading: Icon(
                             Icons.phone,
@@ -293,21 +299,18 @@ class _CustomerAccountState extends State<CustomerAccount> {
                             Icons.keyboard_arrow_right,
                             size: 40,
                           )),
-
-                          
                       const SizedBox(
                         height: 15,
                       ),
-
                       ListTile(
                           leading: Icon(
-                            Icons.phone,
+                            Icons.interests,
                             size: 40,
                             color: AppColors.PrimaryColor,
                           ),
                           title: SmallText(size: 14, text: "Intrests"),
                           subtitle: SmallText(
-                            text: "Fast Food,Desi and others",
+                            text: "1".allMatches(myIntrests).length.toString()+" Selected Intrests",
                             color: Colors.red,
                           ),
                           trailing: const Icon(

@@ -7,16 +7,16 @@ import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
 import 'package:spot_hub/screens/UserView/Admin/Login.dart';
-import 'package:spot_hub/screens/UserView/Customer/Account/CustomerAccount.dart';
-import 'package:spot_hub/screens/UserView/Customer/DevelopersTeam.dart';
-import 'package:spot_hub/screens/UserView/Customer/MainSearch.dart';
-import 'package:spot_hub/screens/UserView/Customer/SearchPage.dart';
+import 'package:spot_hub/screens/UserView/User/Account/CustomerAccount.dart';
+import 'package:spot_hub/screens/UserView/User/DevelopersTeam.dart';
+import 'package:spot_hub/screens/UserView/User/MainSearch.dart';
+import 'package:spot_hub/screens/UserView/User/SearchPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:spot_hub/screens/UserView/welcome.dart';
 import 'screens/ResturantsView/Admin/AddBussiness/BussinessForm.dart';
-import 'screens/UserView/Customer/Account/EditAccountDetails.dart';
+import 'screens/UserView/User/Account/EditAccountDetails.dart';
 import 'screens/UserView/Home/MainPage.dart';
 
 Future main() async {
@@ -55,6 +55,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
     // builder: (context, child) {
       
     //     return StreamBuilder<ConnectivityResult>(
@@ -67,13 +68,12 @@ class _MyAppState extends State<MyApp> {
                 home:
                 Scaffold(
           body: 
-          //EditAccountDetails()
-          //Welcome()
-          
+          Login()
          
-
+         
+//MainPage(PI:1,MainUser: MainUser, isLoggedin: isLoggedin)
           //isDeviceConnected==true?
-          CustomerAccount()
+         // CustomerAccount()
           //:Text("Out of Internet"),
           //   MainUser: UserClass(
           //       IsBussiness: true,

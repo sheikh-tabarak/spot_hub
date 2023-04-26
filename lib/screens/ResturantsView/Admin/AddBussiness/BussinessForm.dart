@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
+import 'package:spot_hub/models/UserModels/Bussiness.dart';
 import 'package:spot_hub/widgets/others/BoxedTextField.dart';
 import 'package:spot_hub/widgets/others/IconBox.dart';
 import 'package:spot_hub/widgets/others/UnderConstruction.dart';
@@ -54,13 +55,13 @@ class _BussinessFormState extends State<BussinessForm> {
     'Kamoke'
   ];
   int _CurrentStep = 0;
-  TextEditingController bussinessName = TextEditingController();
-  TextEditingController bussinessPhone = TextEditingController();
-  TextEditingController bussinessEmail = TextEditingController();
-  TextEditingController bussinessLocation = TextEditingController();
-  TextEditingController bussinessAddress = TextEditingController();
-  TextEditingController bussinessWebsite = TextEditingController();
-  TextEditingController bussinessType = TextEditingController();
+  TextEditingController _bussinessName = TextEditingController();
+  TextEditingController _bussinessPhone = TextEditingController();
+  TextEditingController _bussinessEmail = TextEditingController();
+  TextEditingController _bussinessLocation = TextEditingController();
+  TextEditingController _bussinessAddress = TextEditingController();
+  TextEditingController _bussinessWebsite = TextEditingController();
+  TextEditingController _bussinessType = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -103,11 +104,19 @@ class _BussinessFormState extends State<BussinessForm> {
                 else
                   {
 
-                  
-                        showDialog(
-                            context: context,
-                            builder: (context) => UnderConstruction(message: "Firebase is Not Connected yet",))
-                      
+                    if(_bussinessName.text.isNotEmpty&&_bussinessEmail.text.isNotEmpty&&_bussinessPhone.text.isNotEmpty){
+                                            // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Gonna Register")))
+
+                    RegisterBussiness("https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/330px-User_icon_2.svg.png", _bussinessName.text, _bussinessEmail.text, _selectedCity.toString(),
+                    _bussinessAddress.text, _bussinessPhone.text, _bussinessType.text, _bussinessWebsite.text)
+                    }
+                    else{
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Some required of fields are empty")))
+                    }
+                    // showDialog(
+                    //     context: context,
+                    //     builder: (context) => UnderConstruction(message: "No step Back",))
+
                     // ScaffoldMessenger.of(context).showSnackBar(
                     //     const SnackBar(content: Text("There is no next Step")))
                   },
@@ -139,7 +148,7 @@ class _BussinessFormState extends State<BussinessForm> {
                           TapAction: () {
                             print("input");
                           },
-                          controller: bussinessName,
+                          controller: _bussinessName,
                           icon: Icons.business,
                           placeholder: 'e.g \"Spothub\"',
                         ),
@@ -168,7 +177,7 @@ class _BussinessFormState extends State<BussinessForm> {
                       TapAction: () {
                         print("input");
                       },
-                      controller: bussinessEmail,
+                      controller: _bussinessEmail,
                       icon: Icons.email,
                       placeholder: 'e.g \"admin@spothub.com\""',
                     ),
@@ -190,7 +199,7 @@ class _BussinessFormState extends State<BussinessForm> {
                     ),
                     SmallText(
                         text:
-                            "Add the phone number of ${bussinessName.text} to help customers connect with you."),
+                            "Add the phone number of ${_bussinessName.text} to help customers connect with you."),
                     const SizedBox(
                       height: 10,
                     ),
@@ -198,7 +207,7 @@ class _BussinessFormState extends State<BussinessForm> {
                       TapAction: () {
                         print("input");
                       },
-                      controller: bussinessPhone,
+                      controller: _bussinessPhone,
                       icon: Icons.phone,
                       placeholder: 'e.g \"+12 345 6789\""',
                     ),
@@ -219,8 +228,7 @@ class _BussinessFormState extends State<BussinessForm> {
                     ),
                     SmallText(
                         text:
-                            "Is ${bussinessName.text} a resturant or the hotel, choose below"),
-                            
+                            "Is ${_bussinessName.text} a resturant or the hotel, choose below"),
                     const SizedBox(
                       height: 10,
                     ),
@@ -237,9 +245,9 @@ class _BussinessFormState extends State<BussinessForm> {
                             setState(() {
                               if (isResturant == false) {
                                 isResturant = true;
-                                _selectedType="Resturant";
-                              } 
-                            _CurrentStep = _CurrentStep + 1;
+                                _selectedType = "Resturant";
+                              }
+                              _CurrentStep = _CurrentStep + 1;
                             });
                           },
                         ),
@@ -252,16 +260,14 @@ class _BussinessFormState extends State<BussinessForm> {
                             setState(() {
                               if (isResturant == true) {
                                 isResturant = false;
-                                 _selectedType="Hotel";
-                              } 
+                                _selectedType = "Hotel";
+                              }
                               _CurrentStep = _CurrentStep + 1;
                             });
                           },
                         ),
                       ],
                     )
-
-                 
                   ]),
             ),
             // Add Bussiness Form Complete ----
@@ -269,7 +275,7 @@ class _BussinessFormState extends State<BussinessForm> {
               title: const Text(""),
               content: SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     //   padding: const EdgeInsets.all(10),
                     children: [
                       BigText(
@@ -286,17 +292,25 @@ class _BussinessFormState extends State<BussinessForm> {
                       const SizedBox(
                         height: 15,
                       ),
-                      SmallText(text: "Bussiness Name",size: 5,color: AppColors.PrimaryColor,),
+                      SmallText(
+                        text: "Bussiness Name*",
+                        size: 5,
+                        color: AppColors.PrimaryColor,
+                      ),
                       BoxedTextField(
                         TapAction: () {},
-                        controller: bussinessName,
+                        controller: _bussinessName,
                         icon: Icons.business,
                         placeholder: 'e.g \"Spot Hub\""',
                       ),
                       const SizedBox(
                         height: 15,
                       ),
-                      SmallText(text: "Bussiness City",size: 5,color: AppColors.PrimaryColor,),
+                      SmallText(
+                        text: "Bussiness City*",
+                        size: 5,
+                        color: AppColors.PrimaryColor,
+                      ),
                       Container(
                         padding: const EdgeInsets.only(
                             right: 10, left: 10, bottom: 2, top: 2),
@@ -338,7 +352,11 @@ class _BussinessFormState extends State<BussinessForm> {
                       const SizedBox(
                         height: 15,
                       ),
-                  SmallText(text: "Bussiness Type",size: 5,color: AppColors.PrimaryColor,),
+                      SmallText(
+                        text: "Bussiness Type*",
+                        size: 5,
+                        color: AppColors.PrimaryColor,
+                      ),
                       Container(
                         padding: const EdgeInsets.only(
                             right: 10, left: 10, bottom: 2, top: 2),
@@ -380,51 +398,64 @@ class _BussinessFormState extends State<BussinessForm> {
                       const SizedBox(
                         height: 15,
                       ),
-                  SmallText(text: "Bussiness Email",size: 5,color: AppColors.PrimaryColor,),
+                      SmallText(
+                        text: "Bussiness Email*",
+                        size: 5,
+                        color: AppColors.PrimaryColor,
+                      ),
                       BoxedTextField(
                         TapAction: () {
                           print("input");
                         },
-                        controller: bussinessEmail,
+                        controller: _bussinessEmail,
                         icon: Icons.email,
                         placeholder: 'e.g \"admin@spothub.com\""',
                       ),
                       const SizedBox(
                         height: 15,
                       ),
-                   SmallText(text: "Bussiness Phone No",size: 5,color: AppColors.PrimaryColor,),
-
+                      SmallText(
+                        text: "Bussiness Phone No*",
+                        size: 5,
+                        color: AppColors.PrimaryColor,
+                      ),
                       BoxedTextField(
                         TapAction: () {
                           print("input");
                         },
-                        controller: bussinessPhone,
+                        controller: _bussinessPhone,
                         icon: Icons.phone,
                         placeholder: 'e.g \"+12 345 6789\""',
                       ),
                       const SizedBox(
                         height: 15,
                       ),
-                  SmallText(text: "Bussiness Address",size: 5,color: AppColors.PrimaryColor,),
-
+                      SmallText(
+                        text: "Bussiness Address",
+                        size: 5,
+                        color: AppColors.PrimaryColor,
+                      ),
                       BoxedTextField(
                         TapAction: () {
                           print("input");
                         },
-                        controller: bussinessLocation,
+                        controller: _bussinessLocation,
                         icon: Icons.pin_drop,
                         placeholder: 'e.g \"Street 101, Platinum Plaza\""',
                       ),
                       const SizedBox(
                         height: 15,
                       ),
-                  SmallText(text: "Bussiness Website",size: 5,color: AppColors.PrimaryColor,),
-
+                      SmallText(
+                        text: "Bussiness Website",
+                        size: 5,
+                        color: AppColors.PrimaryColor,
+                      ),
                       BoxedTextField(
                         TapAction: () {
                           //print("input");
                         },
-                        controller: bussinessWebsite,
+                        controller: _bussinessWebsite,
                         icon: Icons.web_rounded,
                         placeholder: 'e.g \"https://spothub.com\""',
                       ),

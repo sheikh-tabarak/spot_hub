@@ -1,27 +1,45 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:ui';
+
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/models/DummyData.dart';
 import 'package:spot_hub/models/Products/FoodItems.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
-import 'package:spot_hub/screens/UserView/Customer/Account/CustomerAccount.dart';
-import 'package:spot_hub/screens/UserView/Customer/MainSearch.dart';
-import 'package:spot_hub/screens/UserView/Customer/More.dart';
-import 'package:spot_hub/screens/UserView/Customer/NoLogin.dart';
-import 'package:spot_hub/screens/UserView/Customer/SearchPage.dart';
-import 'package:spot_hub/screens/UserView/Customer/SpotFlicks/spot_flicks.dart';
+import 'package:spot_hub/screens/UserView/User/Account/CustomerAccount.dart';
+import 'package:spot_hub/screens/UserView/User/MainSearch.dart';
+import 'package:spot_hub/screens/UserView/User/More.dart';
+import 'package:spot_hub/screens/UserView/User/NoLogin.dart';
+import 'package:spot_hub/screens/UserView/User/SearchPage.dart';
+import 'package:spot_hub/screens/UserView/User/SpotFlicks/spot_flicks.dart';
 import 'package:spot_hub/widgets/Product/ProductCard.dart';
 import 'package:spot_hub/widgets/others/ChoiceIcon.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class MainPage extends StatefulWidget {
-  final UserClass MainUser;
+  UserClass MainUser;
   final bool isLoggedin;
-  const MainPage({super.key, required this.MainUser, required this.isLoggedin});
+  final int PI;
+
+  MainPage({
+    Key? key,
+    this.MainUser = const UserClass(
+        IsBussiness: false,
+        image: "",
+        username: "",
+        password: "",
+        email: "",
+        PhoneNo: "",
+        Intrests: "",
+        Address: ""
+        ),
+    required this.isLoggedin,
+    required this.PI,
+  }) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -35,24 +53,61 @@ class _MainPageState extends State<MainPage> {
   ];
   bool loggedin = false;
 
-  int _PageIndex = 0;
+  int _PageIndex = 1;
   TextEditingController SearchController = TextEditingController();
 
   double wid = window.physicalSize.width;
+  String myEmail = "guest@spothub.com";
+  bool AmIBussiness = false;
+  String myName = "Guest View";
+  String myPhone = "123 456 7890";
+  String myimage =
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/330px-User_icon_2.svg.png";
+  String myIntrests = "10101";
+  String myAddress = "Gujranwala";
 
   @override
   initState() {
     super.initState();
-    try {
-      if (FirebaseAuth.instance.currentUser != null) {
 
-     
-       
-      }
+    _PageIndex = widget.PI;
+
+    // Add listeners to this class
+    try {
+      getUserData().then((value) {
+        print(value.IsBussiness);
+        widget.MainUser = UserClass(
+            IsBussiness: value.IsBussiness,
+            image: value.image,
+            username: value.username,
+            password: value.password,
+            email: value.email,
+            PhoneNo: value.PhoneNo,
+            Address:value.Address,
+            Intrests: value.Intrests);
+
+        setState(() {
+          AmIBussiness = widget.MainUser.IsBussiness;
+          myName = widget.MainUser.username;
+          myEmail = widget.MainUser.email;
+          myPhone = widget.MainUser.PhoneNo;
+          myAddress=widget.MainUser.Address;
+          myimage = widget.MainUser.image;
+          myIntrests = widget.MainUser.Intrests;
+          
+        });
+
+        print(widget.MainUser.PhoneNo + " - " + widget.MainUser.email);
+      });
+    } catch (e) {}
+
+    try {
+      if (FirebaseAuth.instance.currentUser != null) {}
     } catch (e) {
-   setState(() {
-           loggedin = false;
-        });    }
+      setState(() {
+        loggedin = false;
+      });
+    }
   }
 
   @override
@@ -128,7 +183,18 @@ class _MainPageState extends State<MainPage> {
         body: _PageIndex == 2
             ? SpotFlicks()
             : _PageIndex == 3
-                ? More(MainUser: widget.MainUser, isLoggedin: widget.isLoggedin)
+                ? More(
+                    MainUser: UserClass(
+                        IsBussiness: false,
+                        image: myimage,
+                        username: myName,
+                        password: "",
+                        email: myEmail,
+                        PhoneNo: myPhone,
+                        Intrests: myIntrests, 
+                        Address: myAddress
+                        ),
+                    isLoggedin: widget.isLoggedin)
                 : _PageIndex == 1 && widget.isLoggedin == true
                     ?
                     //loggedin==true?
@@ -330,7 +396,7 @@ class _MainPageState extends State<MainPage> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      MainSearch(
+                                                      const MainSearch(
                                                           Results:
                                                               "Fast Food")));
                                         },
@@ -372,7 +438,7 @@ class _MainPageState extends State<MainPage> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      MainSearch(
+                                                      const MainSearch(
                                                           Results:
                                                               "Chineese")));
                                         },
@@ -401,7 +467,7 @@ class _MainPageState extends State<MainPage> {
                                       return Container(
                                         width:
                                             MediaQuery.of(context).size.width,
-                                        margin: EdgeInsets.symmetric(
+                                        margin: const EdgeInsets.symmetric(
                                             horizontal: 5.0),
                                         decoration: BoxDecoration(
                                           borderRadius:

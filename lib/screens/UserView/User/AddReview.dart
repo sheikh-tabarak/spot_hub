@@ -7,7 +7,7 @@ import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/Products/FoodItems.dart';
-import 'package:spot_hub/screens/UserView/Customer/SearchPage.dart';
+import 'package:spot_hub/screens/UserView/User/SearchPage.dart';
 import 'package:spot_hub/widgets/others/PrimayButton.dart';
 import 'package:spot_hub/widgets/others/RatingSlider.dart';
 import 'package:spot_hub/widgets/others/UnderConstruction.dart';

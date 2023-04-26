@@ -12,6 +12,7 @@ class UserClass {
   final String password;
   final String email;
   final String PhoneNo;
+  final String Address;
   final String Intrests;
 
   const UserClass({
@@ -21,6 +22,7 @@ class UserClass {
     required this.password,
     required this.email,
     required this.PhoneNo,
+    required this.Address,
     required this.Intrests,
   });
 
@@ -31,6 +33,7 @@ class UserClass {
         'password': password,
         'email': email,
         'PhoneNo': PhoneNo,
+         "Address": Address,
         'Intrests': Intrests,
       };
 
@@ -44,6 +47,7 @@ class UserClass {
       password: data["password"],
       email: data["email"],
       PhoneNo: data["PhoneNo"],
+       Address: data["Address"],
       Intrests: data["Intrests"],
     );
   }
@@ -63,14 +67,16 @@ Future<UserClass> getUserData() async {
       password: ds.get('password'),
       email: ds.get('email'),
       PhoneNo: ds.get('PhoneNo'),
-      Intrests: ds.get('Intrests'));
+       Address: ds.get('Address'),
+      Intrests: ds.get('Intrests'),
+      );
   print(Email);
 
   return U;
 }
 
 Future RegisterNewUser(String imagelink, String Username, String Password,
-    String Email, String Phone) async {
+    String Email, String Phone, String Adress) async {
   final Register = FirebaseFirestore.instance
       .collection('user')
       .doc(FirebaseAuth.instance.currentUser!.uid);
@@ -82,10 +88,13 @@ Future RegisterNewUser(String imagelink, String Username, String Password,
       email: Email,
       password: Password,
       PhoneNo: Phone,
-      Intrests: '');
+       Address: Adress,
+      Intrests: '00000');
 
   final json = NewUser.toJson();
   await Register.set(json);
 }
+
+
 
 

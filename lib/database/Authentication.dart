@@ -51,7 +51,7 @@ Future<bool> register(String email, String password) async {
       //     e.toString().indexOf("["), e.toString().indexOf("]") + 2, "");
     } else if (e.code == 'email-already-in-use') {
       print('The account already exists for that email.');
-      setError(e.code);
+     // setError(e.code);
       String message = clearError(e.toString());
       // setError(e.toString());
       // String message = e.toString().replaceRange(

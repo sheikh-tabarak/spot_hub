@@ -2,35 +2,39 @@
 
 import 'package:flutter/material.dart';
 import 'package:spot_hub/configurations/BigText.dart';
-import 'package:spot_hub/screens/ResturantsView/AddFood.dart';
+import 'package:spot_hub/screens/Loading.dart';
+import 'package:spot_hub/screens/ResturantsView/Dashboard.dart';
 import 'package:spot_hub/screens/ResturantsView/ResturantAccount.dart';
 import 'package:spot_hub/screens/ResturantsView/ResturantItems.dart';
 
 import '../../configurations/AppColors.dart';
 
-class MainResturant extends StatefulWidget {
-  const MainResturant({super.key});
+class ManageBussiness extends StatefulWidget {
+  const ManageBussiness({super.key});
 
   @override
-  State<MainResturant> createState() => _MainResturantState();
+  State<ManageBussiness> createState() => _ManageBussinessState();
 }
 
-class _MainResturantState extends State<MainResturant> {
+class _ManageBussinessState extends State<ManageBussiness> {
   @override
   void initState() {
     super.initState();
   }
 
-  int _PageIndex = 1;
+  int _PageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      drawer:const Drawer(width: 200,
+      child:Loading(message: "This is Drawer")),
       backgroundColor: AppColors.lightBackgroundColor,
       appBar: AppBar(
         title: 
         _PageIndex==0?
-        const Text('Add New Food Item'):
+        const Text('Statistcs'):
         _PageIndex==1?
          const Text('All Items'):
          _PageIndex==2?
@@ -41,7 +45,7 @@ class _MainResturantState extends State<MainResturant> {
         backgroundColor: AppColors.PrimaryColor,
       ),
       body: _PageIndex == 0
-          ? const AddFood()
+          ?  Dashboard()
           : _PageIndex == 1
               ? const ResturantItems()
               : _PageIndex == 2
@@ -58,7 +62,7 @@ class _MainResturantState extends State<MainResturant> {
         // unselectedItemColor: Colors.white,
         selectedItemColor: AppColors.PrimaryColor,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add Item'),
+          BottomNavigationBarItem(icon: Icon(Icons.analytics), label: 'Dashboard'),
           BottomNavigationBarItem(icon: Icon(Icons.fastfood), label: 'Items'),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_circle), label: 'Resturant'),

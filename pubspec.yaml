@@ -52,10 +52,17 @@ dependencies:
   carousel_slider: ^4.2.1
   url_launcher: ^6.1.10
   firebase_auth: ^4.4.0
-  cloud_firestore: ^4.5.0
+  cloud_firestore: 
   connectivity_plus: ^3.0.3
   internet_connection_checker: ^1.0.0+1
   overlay_loader_with_app_icon: ^0.0.3
+  geolocator: ^9.0.2
+  fluttertoast:
+  location: ^4.4.0
+  geocoding: ^2.1.0
+  quickalert:
+  countup:
+  fl_chart:
 
   
 

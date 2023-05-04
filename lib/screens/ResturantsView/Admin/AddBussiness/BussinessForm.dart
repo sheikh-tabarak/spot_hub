@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
@@ -15,6 +17,7 @@ class BussinessForm extends StatefulWidget {
 }
 
 class _BussinessFormState extends State<BussinessForm> {
+   bool isLoading = false;
   late List<Step> steps;
   bool isResturant = true;
   String _selectedCity = "Karachi";
@@ -67,6 +70,7 @@ class _BussinessFormState extends State<BussinessForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.PrimaryColor,
         title: BigText(
           text: "Spothub for Bussiness",
           color: Colors.white,
@@ -103,16 +107,34 @@ class _BussinessFormState extends State<BussinessForm> {
                   }
                 else
                   {
+                    if (_bussinessName.text.isNotEmpty &&
+                        _bussinessEmail.text.isNotEmpty &&
+                        _bussinessPhone.text.isNotEmpty)
+                      {
+                        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Gonna Register")))
 
-                    if(_bussinessName.text.isNotEmpty&&_bussinessEmail.text.isNotEmpty&&_bussinessPhone.text.isNotEmpty){
-                                            // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Gonna Register")))
+                        RegisterBussiness(
+                            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/330px-User_icon_2.svg.png",
+                            _bussinessName.text,
+                            _bussinessEmail.text,
+                            _selectedCity.toString(),
+                            _bussinessAddress.text,
+                            _bussinessPhone.text,
+                            _bussinessType.text,
+                            _bussinessWebsite.text),
 
-                    RegisterBussiness("https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/330px-User_icon_2.svg.png", _bussinessName.text, _bussinessEmail.text, _selectedCity.toString(),
-                    _bussinessAddress.text, _bussinessPhone.text, _bussinessType.text, _bussinessWebsite.text)
-                    }
-                    else{
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Some required of fields are empty")))
-                    }
+                        QuickAlert.show(
+                          context: context,
+                          type: QuickAlertType.success,
+                          text: 'Bussiness Registered Successfully!',
+                        )
+
+                      }
+                    else
+                      {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Some required of fields are empty")))
+                      }
                     // showDialog(
                     //     context: context,
                     //     builder: (context) => UnderConstruction(message: "No step Back",))

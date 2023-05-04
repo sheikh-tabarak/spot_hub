@@ -130,7 +130,7 @@ class NoLogin extends StatelessWidget {
                               PageRouteBuilder(
                                 pageBuilder:
                                     (context, animation, secondaryAnimation) =>
-                                        const Signup(),
+                                         Signup(),
                                 transitionsBuilder: (context, animation,
                                         secondaryAnimation, child) =>
                                     SlideTransition(

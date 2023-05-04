@@ -10,6 +10,7 @@ import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/database/Authentication.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
+import 'package:spot_hub/screens/ResturantsView/Admin/AddBussiness/BussinessForm.dart';
 import 'package:spot_hub/screens/UserView/Admin/Login.dart';
 import 'package:spot_hub/screens/UserView/User/Account/EditAccountDetails.dart';
 
@@ -195,15 +196,24 @@ class _CustomerAccountState extends State<CustomerAccount> {
                         color: const Color.fromARGB(255, 237, 237, 237)),
                     child: const Icon(Icons.favorite),
                   ),
-                  Container(
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(20),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: const Color.fromARGB(255, 237, 237, 237)),
-                    child: Icon(
-                        AmIBussiness == false ? Icons.add : Icons.business),
+                  GestureDetector(
+
+                    onTap: () {
+                      Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => BussinessForm()));
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(20),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: const Color.fromARGB(255, 237, 237, 237)),
+                      child: Icon(
+                          AmIBussiness == false ? Icons.add : Icons.business),
+                    ),
                   ),
                   Container(
                     margin: const EdgeInsets.all(10),

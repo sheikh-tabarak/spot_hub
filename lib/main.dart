@@ -3,9 +3,12 @@ import 'dart:io';
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:spot_hub/Utilities/Location.dart';
+import 'package:spot_hub/Utilities/LocationWidget.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
+import 'package:spot_hub/screens/ResturantsView/ManageBussiness.dart';
 import 'package:spot_hub/screens/UserView/Admin/Login.dart';
 import 'package:spot_hub/screens/UserView/User/Account/CustomerAccount.dart';
 import 'package:spot_hub/screens/UserView/User/DevelopersTeam.dart';
@@ -54,7 +57,7 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return  MaterialApp(
       debugShowCheckedModeBanner: false,
     // builder: (context, child) {
       
@@ -68,7 +71,7 @@ class _MyAppState extends State<MyApp> {
                 home:
                 Scaffold(
           body: 
-          Login()
+          ManageBussiness()
          
          
 //MainPage(PI:1,MainUser: MainUser, isLoggedin: isLoggedin)

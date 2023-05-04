@@ -2,16 +2,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:overlay_loader_with_app_icon/overlay_loader_with_app_icon.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/database/Authentication.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
+import 'package:spot_hub/screens/Loading.dart';
 import 'package:spot_hub/screens/UserView/Admin/RecordIntrests.dart';
 import 'package:spot_hub/screens/UserView/Admin/Signup.dart';
 import 'package:spot_hub/screens/UserView/Home/MainPage.dart';
-import 'package:spot_hub/screens/loading.dart';
 import 'package:spot_hub/widgets/others/PrimayButton.dart';
 import 'package:spot_hub/widgets/others/PlaneTextField.dart';
-
 import '../../../configurations/Dimensions.dart';
 import '../../../configurations/SmallText.dart';
 import '../../../models/DummyData.dart';
@@ -28,6 +29,7 @@ class _LoginState extends State<Login> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   String thisiserror = "";
+  String LoadingMessage = "Logging in";
 
   // String onetimeusername = '';
   // String onetimepassword = '';
@@ -52,18 +54,38 @@ class _LoginState extends State<Login> {
     return Scaffold(
       backgroundColor: AppColors.darkBackgroundColor,
       body: widget.isLoading == true
-          ? OverlayLoaderWithAppIcon(
-            borderRadius:20,
-            circularProgressColor:AppColors.PrimaryColor,
-            overlayOpacity: 1,
-            //appIconSize: 10,
-            overlayBackgroundColor: Colors.black,
-        isLoading: true,
-        appIcon:  Icon(Icons.stop_circle,color: AppColors.PrimaryColor,),
-       // Image.asset('assets/images/appicon.png',width: 10,),
-        child: Container(
-       child: Text("")
-    ))
+          ? 
+        // Center(child: SizedBox(width: 1,),)
+        //  QuickAlert.show(
+
+        //                           context: context,
+        //                           type: QuickAlertType.loading,
+        //                           text: 'Account Registered Successfully!',
+        //                         //  confirmBtnText:"Login",
+        //                        //   confirmBtnColor: AppColors.PrimaryColor,
+        //                           // onConfirmBtnTap: () {
+        //                           //   Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => Login())));
+        //                           // },
+                                  
+        //                           backgroundColor:Colors.white
+        //                         )
+          Loading(
+              message: LoadingMessage,
+            )
+
+
+          //       OverlayLoaderWithAppIcon(
+          //         borderRadius:20,
+          //         circularProgressColor:AppColors.PrimaryColor,
+          //         overlayOpacity: 1,
+          //         //appIconSize: 10,
+          //         overlayBackgroundColor: Colors.black,
+          //     isLoading: true,
+          //     appIcon:  Icon(Icons.stop_circle,color: AppColors.PrimaryColor,),
+          //    // Image.asset('assets/images/appicon.png',width: 10,),
+          //     child: Container(
+          //    child: Text("")
+          // ))
           : Container(
               alignment: Alignment.center,
               child: SingleChildScrollView(
@@ -83,7 +105,7 @@ class _LoginState extends State<Login> {
                         height: 30,
                       ),
                       Container(
-                        margin: EdgeInsets.only(left: 12, right: 12),
+                        margin: const EdgeInsets.only(left: 12, right: 12),
                         padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
                           color: thisiserror == "" ? Colors.black : Colors.red,
@@ -104,7 +126,7 @@ class _LoginState extends State<Login> {
                                   ? Colors.black
                                   : Colors.white,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Expanded(
@@ -143,15 +165,23 @@ class _LoginState extends State<Login> {
                       PrimaryButton(
                           icon: Icons.login,
                           TapAction: () async {
+                                //  QuickAlert.show(
+
+                                //   context: context,
+                                //   type: QuickAlertType.loading,
+                                //   text: LoadingMessage,
+                                //   backgroundColor:Colors.white,
+                                //   autoCloseDuration:Duration()
+                                // );
+                               
                             setState(() {
                               widget.isLoading = true;
                             });
                             if (_emailController.text.isEmpty ||
                                 _passwordController.text.isEmpty) {
                               setState(() {
-                              thisiserror = "One or more fields are empty";
-                              widget.isLoading = false;
-                         
+                                thisiserror = "One or more fields are empty";
+                                widget.isLoading = false;
                               });
                             } else {
                               bool shouldLogin = await signIn(
@@ -159,11 +189,15 @@ class _LoginState extends State<Login> {
                                   _passwordController.text);
 
                               if (shouldLogin) {
+                                
+                                setState(() {
+                                LoadingMessage="Logged In Successfully";
+                              });
                                 Navigator.pushReplacement(
                                     context,
-                                  MaterialPageRoute(
-                                        builder: (context) =>  MainPage(
-                                          PI: 0,
+                                    MaterialPageRoute(
+                                        builder: (context) => MainPage(
+                                            PI: 0,
                                             MainUser: UserClass(
                                                 IsBussiness: false,
                                                 image: "image",
@@ -171,19 +205,17 @@ class _LoginState extends State<Login> {
                                                 password: "password",
                                                 email: "email",
                                                 PhoneNo: "PhoneNo",
-                                                Intrests: "Intrests", 
-                                                Address: 'address'
-                                                ),
+                                                Intrests: "Intrests",
+                                                Address: 'address'),
                                             isLoggedin: true)));
                               } else {
-
                                 setState(() {
-
                                   thisiserror = message.toString().replaceRange(
                                       message.toString().indexOf("["),
                                       message.toString().indexOf("]") + 2,
                                       "");
-                                       widget.isLoading = false;
+                                  widget.isLoading = false;
+                              
                                   print("this is after > " + thisiserror);
                                 });
                               }
@@ -291,7 +323,7 @@ class _LoginState extends State<Login> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) =>  MainPage(
+                                          builder: (context) => MainPage(
                                             PI: 0,
                                             isLoggedin: false,
                                           ),
@@ -312,7 +344,7 @@ class _LoginState extends State<Login> {
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const Signup()))
+                                        builder: (context) => Signup()))
                               },
                           text: 'Sign Up',
                           color: AppColors.SecodaryColor),

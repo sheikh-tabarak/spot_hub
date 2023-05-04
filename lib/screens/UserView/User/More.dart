@@ -7,7 +7,7 @@ import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/DummyData.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
 import 'package:spot_hub/screens/ResturantsView/Admin/AddBussiness/BussinessForm.dart';
-import 'package:spot_hub/screens/ResturantsView/MainResturant.dart';
+import 'package:spot_hub/screens/ResturantsView/ManageBussiness.dart';
 import 'package:spot_hub/screens/UserView/Admin/Login.dart';
 import 'package:spot_hub/screens/UserView/User/AddReview.dart';
 import 'package:spot_hub/screens/UserView/User/DevelopersTeam.dart';
@@ -111,7 +111,8 @@ class More extends StatelessWidget {
                         ),
                         //   subtitle: Text("This is activity Button"),
                       ),
-                      MainUser.IsBussiness==true?ListTile(
+                     
+                      ListTile(
                         onTap: () => {
                           Navigator.push(
                               context,
@@ -127,13 +128,13 @@ class More extends StatelessWidget {
                           text: "Add your Bussiness",
                         ),
                         //   subtitle: Text("This is activity Button"),
-                      ):
+                      ),
                       ListTile(
                         onTap: () => {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => MainResturant()))
+                                  builder: (context) => ManageBussiness()))
                         },
 
                         leading: Icon(

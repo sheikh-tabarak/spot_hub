@@ -6,7 +6,7 @@ import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
-import 'package:spot_hub/models/UserModels/Bussiness.dart';
+import 'package:spot_hub/models/BusinessModels/Bussiness.dart';
 
 class BussinessProfile extends StatelessWidget {
   final Bussiness B;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
-import 'package:spot_hub/screens/UserView/Admin/Login.dart';
+import 'package:spot_hub/screens/UserLogin/Admin/Login.dart';
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({super.key});

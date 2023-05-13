@@ -4,15 +4,15 @@ import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/DummyData.dart';
-import 'package:spot_hub/models/Products/FoodItems.dart';
-import 'package:spot_hub/models/UserModels/Bussiness.dart';
-import 'package:spot_hub/screens/UserView/User/ScrollableProductDetailPage.dart';
+import 'package:spot_hub/models/BusinessModels/Product.dart';
+import 'package:spot_hub/models/BusinessModels/Bussiness.dart';
+import 'package:spot_hub/screens/UserLogin/User/ScrollableProductDetailPage.dart';
 import 'package:spot_hub/widgets/PopupModals/BussinessProfile.dart';
 import 'package:spot_hub/widgets/PopupModals/ProductContact.dart';
 import 'package:spot_hub/widgets/Product/ProductTitleSection.dart';
 
 class ProductCard extends StatelessWidget {
-  final FoodItem products;
+  final Product products;
 
   const ProductCard({super.key, required this.products});
 
@@ -28,7 +28,9 @@ class ProductCard extends StatelessWidget {
           BussinessPhone: "N/A",
           BussinessType: "N/A",
           BussinessWebsite: "N/A",
-          BussinessEmail: 'N/A');
+          BussinessEmail: 'N/A',
+         Reports: 0
+          );
       for (int i = 0; i < DummyBussinesses.length; i++) {
         if (DummyBussinesses[i].BussinessId == products.BussinessId) {
           B = DummyBussinesses[i];

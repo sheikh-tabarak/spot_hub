@@ -27,7 +27,8 @@ class MemberDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return 
+    Container(
       padding: EdgeInsets.all(Dimensions.height40),
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -127,5 +128,6 @@ class MemberDetails extends StatelessWidget {
         ],
       ),
     );
+ 
   }
 }

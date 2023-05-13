@@ -1,8 +1,8 @@
 // ignore_for_file: file_names, constant_identifier_names
 
-import 'package:spot_hub/models/Products/FoodItems.dart';
+import 'package:spot_hub/models/BusinessModels/Product.dart';
 import 'package:spot_hub/models/ReviewModels/Reviews.dart';
-import 'package:spot_hub/models/UserModels/Bussiness.dart';
+import 'package:spot_hub/models/BusinessModels/Bussiness.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
 
 // const DummyUsers = [
@@ -49,7 +49,9 @@ import 'package:spot_hub/models/UserModels/UserClass.dart';
       BussinessAddress: "123 Main St",
       BussinessPhone: "555-1234",
       BussinessType: "Hotel",
-      BussinessWebsite: "grandhotel.com"),
+      BussinessWebsite: "grandhotel.com",
+      Reports: 0
+      ),
 
   Bussiness(
       BussinessId: "SHB2",
@@ -60,7 +62,9 @@ import 'package:spot_hub/models/UserModels/UserClass.dart';
       BussinessAddress: "456 State St",
       BussinessPhone: "555-5678",
       BussinessType: "Restaurant",
-      BussinessWebsite: "pastapalace.com"),
+      BussinessWebsite: "pastapalace.com",
+      Reports: 0
+      ),
 
   Bussiness(
       BussinessId: "SHB3",
@@ -71,7 +75,9 @@ import 'package:spot_hub/models/UserModels/UserClass.dart';
       BussinessAddress: "789 Fifth Ave",
       BussinessPhone: "555-9012",
       BussinessType: "Hotel",
-      BussinessWebsite: "theplazahotel.com"),
+      BussinessWebsite: "theplazahotel.com",
+      Reports: 0
+    ),
 
   Bussiness(
       BussinessId: "SHB4",
@@ -82,7 +88,10 @@ import 'package:spot_hub/models/UserModels/UserClass.dart';
       BussinessAddress: "101 Main St",
       BussinessPhone: "555-3456",
       BussinessType: "Restaurant",
-      BussinessWebsite: "burgerbistro.com"),
+      BussinessWebsite: "burgerbistro.com",
+      
+       Reports: 0
+      ),
 
   Bussiness(
       BussinessId: "SHB5",
@@ -93,13 +102,15 @@ import 'package:spot_hub/models/UserModels/UserClass.dart';
       BussinessAddress: "234 Market St",
       BussinessPhone: "555-7890",
       BussinessType: "Hotel",
-      BussinessWebsite: "ritzcarlton.com")
+      BussinessWebsite: "ritzcarlton.com",
+      Reports: 0
+      )
 ];
 
 
 
 const DummyProducts = [
-  FoodItem(
+  Product(
     isRecommended: true,
   Id: 'SHFP1',
   BussinessId: 'SHB5',
@@ -110,7 +121,7 @@ const DummyProducts = [
   rating: 5,
   reviews: 44
   ),
-  FoodItem(
+  Product(
     isRecommended: false,
     Id: 'SHFP2',
   BussinessId: 'SHB1',
@@ -123,7 +134,7 @@ const DummyProducts = [
       rating: 1.3,
       reviews: 34
       ),
-  FoodItem(
+  Product(
     isRecommended: false,
     Id: 'SHFP3',
   BussinessId: 'SHB1',
@@ -134,7 +145,7 @@ const DummyProducts = [
       Price: 9.99,
       rating: 4.3,
       reviews: 32),
-  FoodItem(
+  Product(
     isRecommended: false,
     Id: 'SHFP4',
   BussinessId: 'SHB1',
@@ -146,7 +157,7 @@ const DummyProducts = [
       Price: 10.99,
       rating: 4.0,
       reviews: 12),
-  FoodItem(
+  Product(
     isRecommended: true,
     Id: 'SHFP5',
   BussinessId: 'SHB1',
@@ -158,7 +169,7 @@ const DummyProducts = [
       Price: 13.99,
       rating: 5,
       reviews: 5),
-  FoodItem(
+  Product(
     isRecommended: false,
     Id: 'SHFP6',
   BussinessId: 'SHB3',
@@ -170,7 +181,7 @@ const DummyProducts = [
       Price: 8.99,
       rating: 3.3,
       reviews: 2),
-  FoodItem(
+  Product(
     isRecommended: false,
     Id: 'SHFP7',
   BussinessId: 'SHB3',
@@ -182,7 +193,7 @@ const DummyProducts = [
       Price: 11.99,
       rating: 3.3,
       reviews: 12),
-  FoodItem(
+  Product(
     isRecommended: false,
     Id: 'SHFP8',
   BussinessId: 'SHB4',
@@ -193,7 +204,7 @@ const DummyProducts = [
       Price: 14.99,
       rating: 4.7,
       reviews: 43),
-  FoodItem(
+  Product(
     isRecommended: false,
     Id: 'SHFP9',
   BussinessId: 'SHB2',
@@ -205,7 +216,7 @@ const DummyProducts = [
       Price: 12.99,
       rating: 3.0,
       reviews: 70),
-  FoodItem(
+  Product(
     isRecommended: false,
     Id: 'SHFP10',
   BussinessId: 'SHB2',
@@ -216,7 +227,7 @@ const DummyProducts = [
       Price: 9.99,
       rating: 2.3,
       reviews: 3),
-  FoodItem(
+  Product(
     isRecommended: false,
     Id: 'SHFP11',
   BussinessId: 'SHB1',
@@ -227,7 +238,7 @@ const DummyProducts = [
       Price: 11.99,
       rating: 1.0,
       reviews: 0),
-  FoodItem(
+  Product(
     isRecommended: true,
     Id: 'SHFP12',
   BussinessId: 'SHB1',
@@ -239,7 +250,7 @@ const DummyProducts = [
       Price: 16.99,
       rating: 3.1,
       reviews: 5),
-  FoodItem(
+  Product(
     isRecommended: false,
     Id: 'SHFP13',
   BussinessId: 'SHB5',

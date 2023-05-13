@@ -51,7 +51,7 @@ Future<bool> register(String email, String password) async {
       //     e.toString().indexOf("["), e.toString().indexOf("]") + 2, "");
     } else if (e.code == 'email-already-in-use') {
       print('The account already exists for that email.');
-     // setError(e.code);
+      // setError(e.code);
       String message = clearError(e.toString());
       // setError(e.toString());
       // String message = e.toString().replaceRange(
@@ -82,17 +82,17 @@ Future<bool> updateAccountInfo(String name, String Address, String Imagelink,
         .collection('user')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .update({
-          'Address':Address,
-           'Intrests': Intrests,
-           'PhoneNo': Phone,
-           'image': Imagelink,
-           'username': name
-           });
-           setError("Updated Sucessfully");
+      'Address': Address,
+      'Intrests': Intrests,
+      'PhoneNo': Phone,
+      'image': Imagelink,
+      'username': name
+    });
+    setError("Updated Sucessfully");
     return true;
   } catch (e) {
     setError(e.toString());
-    print("This is error: "+message);
+    print("This is error: " + message);
     //  String message = clearError(e.toString());
     return false;
   }

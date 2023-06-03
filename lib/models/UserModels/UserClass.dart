@@ -14,17 +14,18 @@ class UserClass {
   final String PhoneNo;
   final String Address;
   final String Intrests;
+  final String UserId;
 
-  const UserClass({
-    required this.IsBussiness,
-    required this.image,
-    required this.username,
-    required this.password,
-    required this.email,
-    required this.PhoneNo,
-    required this.Address,
-    required this.Intrests,
-  });
+  const UserClass(
+      {required this.IsBussiness,
+      required this.image,
+      required this.username,
+      required this.password,
+      required this.email,
+      required this.PhoneNo,
+      required this.Address,
+      required this.Intrests,
+      required this.UserId});
 
   Map<String, dynamic> toJson() => {
         'IsBussiness': IsBussiness,
@@ -33,8 +34,9 @@ class UserClass {
         'password': password,
         'email': email,
         'PhoneNo': PhoneNo,
-         "Address": Address,
+        "Address": Address,
         'Intrests': Intrests,
+        'UserId': UserId
       };
 
   factory UserClass.fromSnapshot(
@@ -47,8 +49,9 @@ class UserClass {
       password: data["password"],
       email: data["email"],
       PhoneNo: data["PhoneNo"],
-       Address: data["Address"],
+      Address: data["Address"],
       Intrests: data["Intrests"],
+      UserId: data["UserId"],
     );
   }
 }
@@ -67,9 +70,28 @@ Future<UserClass> getUserData() async {
       password: ds.get('password'),
       email: ds.get('email'),
       PhoneNo: ds.get('PhoneNo'),
-       Address: ds.get('Address'),
+      Address: ds.get('Address'),
       Intrests: ds.get('Intrests'),
-      );
+      UserId: ds.get("UserId"));
+  print(Email);
+
+  return U;
+}
+
+Future<UserClass> getSpecificUserData(String UserId) async {
+  DocumentSnapshot ds = await _db.collection("user").doc(UserId).get();
+  String Email = ds.get('email');
+
+  UserClass U = UserClass(
+      IsBussiness: ds.get('IsBussiness'),
+      image: ds.get('image'),
+      username: ds.get('username'),
+      password: ds.get('password'),
+      email: ds.get('email'),
+      PhoneNo: ds.get('PhoneNo'),
+      Address: ds.get('Address'),
+      Intrests: ds.get('Intrests'),
+      UserId: ds.get("UserId"));
   print(Email);
 
   return U;
@@ -88,13 +110,14 @@ Future RegisterNewUser(String imagelink, String Username, String Password,
       email: Email,
       password: Password,
       PhoneNo: Phone,
-       Address: Adress,
-      Intrests: '00000');
+      Address: Adress,
+      Intrests: '00000',
+      UserId: FirebaseAuth.instance.currentUser!.uid);
 
   final json = NewUser.toJson();
   await Register.set(json);
 }
 
-
-
-
+Stream<QuerySnapshot<Map<String, dynamic>>> SpotHubUsers() {
+  return FirebaseFirestore.instance.collection('user').snapshots();
+}

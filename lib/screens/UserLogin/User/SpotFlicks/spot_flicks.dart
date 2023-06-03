@@ -1,5 +1,7 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:spot_hub/configurations/AppColors.dart';
+import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/screens/UserLogin/User/SpotFlicks/content_screen.dart';
 import 'package:spot_hub/screens/UserLogin/User/SpotFlicks/content_screen.dart';
 
@@ -17,13 +19,16 @@ class SpotFlicks extends StatelessWidget {
     // 'https://www.youtube.com/shorts/emIfC4zw-Rc',
     // 'https://www.youtube.com/shorts/q5SH4F3U2NU',
     // 'https://www.youtube.com/shorts/Ln7dLmfby6w'
-
-
-
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          backgroundColor: AppColors.PrimaryColor,
+          title: BigText(
+            text: "Spot Flicks",
+            color: Colors.white,
+          )),
       body: SafeArea(
         child: Container(
           child: Stack(

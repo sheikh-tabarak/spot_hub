@@ -43,7 +43,8 @@ class TeamBox extends StatelessWidget {
             ),
             builder: (BuildContext bc) {
               return MemberDetails(
-                  AssetImagelink: AssetImagelink,
+                Detailsof: "DevTeam",
+                  Link: AssetImage(AssetImagelink),
                   title: title,
                   role: role,
                   post: post,

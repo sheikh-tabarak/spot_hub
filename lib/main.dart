@@ -1,15 +1,21 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/BussinessHome.dart';
+import 'package:spot_hub/screens/BussinessLogin/ManageProducts/ScrapProducts.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageReports/MyReports.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageProducts/AddProduct.dart';
+import 'package:spot_hub/screens/UserLogin/Admin/ForgetPassword.dart';
+import 'package:spot_hub/screens/UserLogin/Home/MainPage.dart';
+import 'package:spot_hub/screens/UserLogin/User/MainHome.dart';
 
 import 'screens/BussinessLogin/ManageBussiness/AddNewBussiness.dart';
 import 'screens/BussinessLogin/ScrapBussiness.dart';
 import 'screens/UserLogin/Admin/Login.dart';
 import 'screens/UserLogin/SearchFrame/MainSearch.dart';
+import 'screens/UserLogin/chat/ChatScreen.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,32 +52,16 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
         debugShowCheckedModeBanner: false,
-        // builder: (context, child) {
-
-        //     return StreamBuilder<ConnectivityResult>(
-        //         stream: InternetConnectionService().connectionStatusController.stream,
-        //         builder: (context, snapshot) {
-        //             final conenctivityResult = snapshot.data;
-        //             if (connectivityResult == ConnectivityResult.none || connectivityResult == null) return NoInternetScreen();
-
-        //             return
-        home: Scaffold(body: MyReports()
-
-//MainPage(PI:1,MainUser: MainUser, isLoggedin: isLoggedin)
-            //isDeviceConnected==true?
-            // CustomerAccount()
-            //:Text("Out of Internet"),
-            //   MainUser: UserClass(
-            //       IsBussiness: true,
-            //       image: "image",
-            //       username: "username",
-            //       password: "password",
-            //       email: "email",
-            //       PhoneNo: "PhoneNo",
-            //       Intrests: "Intrests"),
-            //
+        home: Scaffold(
+            body: Login()
+          //  BussinessHome()
+           //      MainPage(isLoggedin: true,PI: 2,)
+        //          ChatScreen(
+        //   ChatUserId: "pcWl3UXJKKNz5H0Evlb6Xftl0523", InitiateDate: Timestamp.now().toString(),
+        // )
+            // BussinessHome(PageIndex: 0,)
 
             ));
   }

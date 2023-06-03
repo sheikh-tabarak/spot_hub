@@ -7,6 +7,9 @@ import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
+import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/BussinessHome.dart';
+import 'package:spot_hub/screens/BussinessLogin/ManageProducts/ScrapProducts.dart';
+import 'package:spot_hub/screens/BussinessLogin/ScrapBussiness.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -32,6 +35,54 @@ class _DashboardState extends State<Dashboard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Wrap(children: [
+                Material(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    elevation: 8,
+                    child: Container(
+                        height: 70,
+                        // width: 185,
+                        // padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          // color: AppColors.PrimaryColor,
+                        ),
+                        child: ListTile(
+                          leading: Icon(
+                            Icons.web,
+                            color: AppColors.PrimaryColor,
+                            size: 25,
+                          ),
+                          title: BigText(text: "Already have the store ?"),
+                          subtitle:
+                              SmallText(text: "Transfer your products here"),
+                          trailing: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: ((context) =>
+                                          ScrapProducts())));
+                            },
+                            child: Container(
+                              height: 40,
+                              width: 40,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: AppColors.PrimaryColor,
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: Icon(
+                                Icons.get_app_rounded,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        )))
+              ]),
+              const SizedBox(
+                height: 15,
+              ),
               _noOfProducts == 0
                   ? Wrap(children: [
                       Material(
@@ -94,7 +145,7 @@ class _DashboardState extends State<Dashboard> {
                               end: _noOfProducts,
                               duration: Duration(seconds: 3),
                               separator: ',',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontFamily: 'Poppins',
                                 fontSize: 30,
                                 color: Colors.white,
@@ -158,14 +209,25 @@ class _DashboardState extends State<Dashboard> {
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
-                                  children: const [
-                                    Icon(
+                                  children: [
+                                    const Icon(
                                       Icons.inventory,
                                       color: Colors.white,
                                     ),
-                                    Icon(
-                                      Icons.arrow_forward,
-                                      color: Colors.white,
+                                    IconButton(
+                                      icon: const Icon(
+                                        Icons.arrow_forward,
+                                        color: Colors.white,
+                                      ),
+                                      onPressed: () {
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: ((context) =>
+                                                    BussinessHome(
+                                                      PageIndex: 1,
+                                                    ))));
+                                      },
                                     ),
                                   ],
                                 )
@@ -196,14 +258,14 @@ class _DashboardState extends State<Dashboard> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.arrow_downward,
                                   color: Colors.white,
                                 ),
                                 SizedBox(
                                   height: 5,
                                 ),
-                                Row(
+                                const Row(
                                   children: [
                                     Text(
                                         style: TextStyle(

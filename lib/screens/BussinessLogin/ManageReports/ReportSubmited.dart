@@ -9,7 +9,8 @@ import 'package:spot_hub/screens/BussinessLogin/ManageReports/MyReports.dart';
 import 'package:spot_hub/widgets/others/PrimayButton.dart';
 
 class ReportSubmitted extends StatefulWidget {
-  const ReportSubmitted({super.key});
+  final String reportTitle;
+  const ReportSubmitted({super.key, required this.reportTitle});
 
   @override
   State<ReportSubmitted> createState() => _ReportSubmittedState();
@@ -40,7 +41,7 @@ class _ReportSubmittedState extends State<ReportSubmitted> {
             SmallText(
                 iscentre: true,
                 text:
-                    "Your report \"Report Title\" have been submitted to us, wait for response\n Track this in My Reports"),
+                    "Your report \"${widget.reportTitle}\" have been submitted to us, wait for response\n Track this in My Reports"),
             SizedBox(
               height: 10,
             ),

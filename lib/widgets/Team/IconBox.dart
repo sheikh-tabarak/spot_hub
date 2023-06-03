@@ -17,7 +17,9 @@ class IconBox extends StatefulWidget {
       required this.BoxIcon,
       required this.BoxText,
       required this.BoxWidth,
-      required this.BoxLink});
+      required this.BoxLink
+
+      });
 
   @override
   State<IconBox> createState() => _IconBoxState();
@@ -47,8 +49,8 @@ Future<void>? _launched;
               top: Dimensions.height15,
               bottom: Dimensions.height15,
               left: Dimensions.width20,
-              right: Dimensions.width20),
-
+              right: Dimensions.width20
+              ),
           decoration: BoxDecoration(
             color: Color.fromARGB(255, 242, 242, 242),
             borderRadius: BorderRadius.circular(Dimensions.height10),

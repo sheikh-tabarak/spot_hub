@@ -34,8 +34,8 @@ class _CustomerAccountState extends State<CustomerAccount> {
       email: "guest@spothub.com",
       PhoneNo: "1234567890",
       Intrests: "11111",
-      Address: "Ghost Location"
-      );
+      Address: "Ghost Location",
+      UserId: "");
 
   String myEmail = "";
   bool AmIBussiness = false;
@@ -60,9 +60,9 @@ class _CustomerAccountState extends State<CustomerAccount> {
             password: value.password,
             email: value.email,
             PhoneNo: value.PhoneNo,
-            Intrests: value.Intrests, 
-            Address: value.Address
-            );
+            Intrests: value.Intrests,
+            Address: value.Address,
+            UserId: value.UserId);
 
         setState(() {
           AmIBussiness = MainUser.IsBussiness;
@@ -71,7 +71,7 @@ class _CustomerAccountState extends State<CustomerAccount> {
           myPhone = MainUser.PhoneNo;
           myimage = MainUser.image;
           myIntrests = MainUser.Intrests;
-          myAddress=MainUser.Address;
+          myAddress = MainUser.Address;
         });
 
         print(MainUser.PhoneNo + " - " + MainUser.email);
@@ -110,11 +110,11 @@ class _CustomerAccountState extends State<CustomerAccount> {
                             children: [
                               Container(
                                 padding: const EdgeInsets.all(5),
-                                child:  CircleAvatar(
-                                  radius: 50,
-                                  backgroundImage: NetworkImage(
-                                      myimage)// Image,
-                                ),
+                                child: CircleAvatar(
+                                    radius: 50,
+                                    backgroundImage:
+                                        NetworkImage(myimage) // Image,
+                                    ),
                               ),
                               Container(
                                 width: 40,
@@ -131,7 +131,6 @@ class _CustomerAccountState extends State<CustomerAccount> {
                               )
                             ],
                           ),
-
                           const SizedBox(
                             height: 10,
                           ),
@@ -197,12 +196,11 @@ class _CustomerAccountState extends State<CustomerAccount> {
                     child: const Icon(Icons.favorite),
                   ),
                   GestureDetector(
-
                     onTap: () {
                       Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AddNewBussiness()));
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AddNewBussiness()));
                     },
                     child: Container(
                       margin: const EdgeInsets.all(10),
@@ -320,7 +318,8 @@ class _CustomerAccountState extends State<CustomerAccount> {
                           ),
                           title: SmallText(size: 14, text: "Intrests"),
                           subtitle: SmallText(
-                            text: "1".allMatches(myIntrests).length.toString()+" Selected Intrests",
+                            text: "1".allMatches(myIntrests).length.toString() +
+                                " Selected Intrests",
                             color: Colors.red,
                           ),
                           trailing: const Icon(

@@ -370,6 +370,7 @@ class _AddNewBussinessState extends State<AddNewBussiness> {
                             });
                           },
                         ),
+                    
                       ),
                       const SizedBox(
                         height: 15,

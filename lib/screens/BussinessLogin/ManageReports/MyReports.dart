@@ -75,12 +75,11 @@ class _MyReportsState extends State<MyReports> {
                                           printInfo();
                                         },
                                         onTap: () async {
-                                         // String Load;
-
+                                          // String Load;
 
                                           await GetSingleReport(e['ReportId'])
                                               .then((value) {
-                                          //  value.ReportId;
+                                            //  value.ReportId;
 
                                             showBottomSheet(
                                                 context: context,
@@ -105,7 +104,6 @@ class _MyReportsState extends State<MyReports> {
                                                             .ReportResponse,
                                                         Rstatus: value
                                                             .ReportStatus));
-                                         
                                           });
                                         },
                                         child: Container(
@@ -173,7 +171,8 @@ class _MyReportsState extends State<MyReports> {
                                           ),
                                         ),
                                       );
-                                    }).toList())
+                                    })
+                                    .toList())
                                 : Center(
                                     child: BigText(text: "No Report yet"),
                                   ),

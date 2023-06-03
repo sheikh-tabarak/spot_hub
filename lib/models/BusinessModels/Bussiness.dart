@@ -13,18 +13,18 @@ class Bussiness {
   final String BussinessWebsite;
   final int Reports;
 
-  const Bussiness(
-      {required this.BussinessId,
-      required this.BussinessImageUrl,
-      required this.BussinessName,
-      required this.BussinessEmail,
-      required this.BussinessCity,
-      required this.BussinessAddress,
-      required this.BussinessPhone,
-      required this.BussinessType,
-      required this.BussinessWebsite,
-     required this.Reports,
-      });
+  const Bussiness({
+    required this.BussinessId,
+    required this.BussinessImageUrl,
+    required this.BussinessName,
+    required this.BussinessEmail,
+    required this.BussinessCity,
+    required this.BussinessAddress,
+    required this.BussinessPhone,
+    required this.BussinessType,
+    required this.BussinessWebsite,
+    required this.Reports,
+  });
 
   Map<String, dynamic> toJson() => {
         'BussinessId': BussinessId,
@@ -36,7 +36,7 @@ class Bussiness {
         "BussinessPhone": BussinessPhone,
         'BussinessType': BussinessType,
         'BussinessWebsite': BussinessWebsite,
-       'Reports': Reports,
+        'Reports': Reports,
       };
 
   factory Bussiness.fromSnapshot(
@@ -52,11 +52,10 @@ class Bussiness {
       BussinessPhone: data["BussinessPhone"],
       BussinessType: data["BussinessType"],
       BussinessWebsite: data["BussinessWebsite"],
-     Reports: data["Reports"],
+      Reports: data["Reports"],
     );
   }
 }
-
 
 Future RegisterBussiness(
     String imagelink,
@@ -66,9 +65,9 @@ Future RegisterBussiness(
     String _BAddress,
     String _BPhone,
     String _BType,
-    String BWeb
+    String BWeb) async {
 
-    ) async {
+      
   await FirebaseFirestore.instance
       .collection('user')
       .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -92,7 +91,7 @@ Future RegisterBussiness(
     BussinessPhone: _BPhone,
     BussinessType: _BType,
     BussinessWebsite: BWeb,
-    Reports:0,
+    Reports: 0,
   );
 
   final json = NewBussines.toJson();

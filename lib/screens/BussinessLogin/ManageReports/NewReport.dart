@@ -6,6 +6,7 @@ import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/models/BusinessModels/Reports.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/BussinessHome.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageReports/ReportSubmited.dart';
+import 'package:spot_hub/screens/Loading.dart';
 import 'package:spot_hub/widgets/others/BoxedTextField.dart';
 import 'package:spot_hub/widgets/others/PrimayButton.dart';
 
@@ -17,94 +18,98 @@ class NewReport extends StatefulWidget {
 }
 
 class _NewReportState extends State<NewReport> {
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     TextEditingController _titleController = TextEditingController();
     TextEditingController _bodyController = TextEditingController();
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.PrimaryColor,
-        title: BigText(
-          text: "Post New Request",
-          color: Colors.white,
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          //  width:,
-          padding: const EdgeInsets.all(20),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                // BigText(
-                //   text: 'Add new food item',
-                //   color: Colors.white,
-                // ),
-                // Container(
-                //   child: ,
-                // )
-
-                BoxedTextField(
-                    TapAction: () {},
-                    controller: _titleController,
-                    placeholder: 'Title',
-                    icon: Icons.title_outlined),
-
-                TextField(
-                  controller: _bodyController,
-                  keyboardType: TextInputType.multiline,
-                  maxLines: 4,
-                  decoration: InputDecoration(
-                      hintText: "Enter your report",
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              width: 1, color: AppColors.PrimaryColor))),
-                )
-                // BoxedTextField(
-                //   placeholder: 'Report Content',
-                //   icon: Icons.details,
-                //   TapAction: () {},
-                //   controller: titleController,
-                // ),
-
-                // BoxedTextField(
-                //   placeholder: 'Category',
-                //   icon: Icons.category,
-                //   TapAction: () {},
-                //   controller: titleController,
-                // ),
-                // BoxedTextField(
-                //   placeholder: 'Price',
-                //   icon: Icons.price_check,
-                //   TapAction: () {},
-                //   controller: titleController,
-                // ),
-                // BoxedTextField(
-                //   placeholder: 'Location',
-                //   icon: Icons.pin_drop,
-                //   TapAction: () {},
-                //   controller: titleController,
-                // ),
-              ],
+    return _isLoading == false
+        ? Scaffold(
+            appBar: AppBar(
+              backgroundColor: AppColors.PrimaryColor,
+              title: BigText(
+                text: "Post New Request",
+                color: Colors.white,
+              ),
             ),
-          ),
-        ),
-      ),
-      bottomNavigationBar: Container(
-        height: 80,
-        child: PrimaryButton(
-            TapAction: () async {
-              await PostReport(_titleController.text, _bodyController.text);
+            body: SingleChildScrollView(
+              child: Padding(
+                //  width:,
+                padding: const EdgeInsets.all(20),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      BoxedTextField(
+                          TapAction: () {},
+                          controller: _titleController,
+                          placeholder: 'Title',
+                          icon: Icons.title_outlined),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      TextField(
+                        controller: _bodyController,
 
-              Navigator.push(context,
-                  MaterialPageRoute(builder: ((context) => ReportSubmitted())));
-            },
-            text: 'Post Request ',
-            color: AppColors.PrimaryColor,
-            icon: Icons.add),
-      ),
-    );
+                        keyboardType: TextInputType.multiline,
+                        //minLines: 1,
+                        maxLines: 4,
+                        decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            hintText: "What is the problem you are facing?",
+                            prefixIcon: Icon(Icons.read_more),
+                            fillColor: AppColors.lightBackgroundColor,
+                            prefixIconColor: AppColors.PrimaryColor,
+                            filled: true,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 1,
+                                  color: Color.fromARGB(255, 200, 200, 200)),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            //   hoverColor: AppColors.PrimaryColor,
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  width: 1, color: AppColors.PrimaryColor),
+                              borderRadius: BorderRadius.circular(05),
+                            ),
+                            focusColor: AppColors.PrimaryColor),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            bottomNavigationBar: Container(
+              height: 80,
+              child: PrimaryButton(
+                  TapAction: () async {
+                    setState(() {
+                      _isLoading = true;
+                    });
+
+                    await PostReport(
+                        _titleController.text, _bodyController.text);
+
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => ReportSubmitted(
+                                  reportTitle: _titleController.text,
+                                ))));
+
+                    setState(() {
+                      _isLoading = false;
+                    });
+                  },
+                  text: 'Post Request ',
+                  color: AppColors.PrimaryColor,
+                  icon: Icons.add),
+            ),
+          )
+        : Scaffold(
+            body: Loading(message: "Sending your report"),
+          );
   }
 }

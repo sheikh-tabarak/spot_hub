@@ -17,6 +17,7 @@ import 'package:spot_hub/screens/UserLogin/User/More.dart';
 import 'package:spot_hub/screens/UserLogin/User/NoLogin.dart';
 import 'package:spot_hub/screens/UserLogin/SearchFrame/SearchPage.dart';
 import 'package:spot_hub/screens/UserLogin/User/SpotFlicks/spot_flicks.dart';
+import 'package:spot_hub/screens/UserLogin/chat/MessengerScreen.dart';
 import 'package:spot_hub/widgets/Product/ProductCard.dart';
 import 'package:spot_hub/widgets/others/ChoiceIcon.dart';
 
@@ -35,8 +36,8 @@ class MainPage extends StatefulWidget {
         email: "",
         PhoneNo: "",
         Intrests: "",
-        Address: ""
-        ),
+        Address: "",
+        UserId: ""),
     required this.isLoggedin,
     required this.PI,
   }) : super(key: key);
@@ -65,6 +66,7 @@ class _MainPageState extends State<MainPage> {
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/330px-User_icon_2.svg.png";
   String myIntrests = "10101";
   String myAddress = "Gujranwala";
+  String myUserID = "";
 
   @override
   initState() {
@@ -83,18 +85,19 @@ class _MainPageState extends State<MainPage> {
             password: value.password,
             email: value.email,
             PhoneNo: value.PhoneNo,
-            Address:value.Address,
-            Intrests: value.Intrests);
+            Address: value.Address,
+            Intrests: value.Intrests,
+            UserId: value.UserId);
 
         setState(() {
           AmIBussiness = widget.MainUser.IsBussiness;
           myName = widget.MainUser.username;
           myEmail = widget.MainUser.email;
           myPhone = widget.MainUser.PhoneNo;
-          myAddress=widget.MainUser.Address;
+          myAddress = widget.MainUser.Address;
           myimage = widget.MainUser.image;
           myIntrests = widget.MainUser.Intrests;
-          
+          myUserID = widget.MainUser.UserId;
         });
 
         print(widget.MainUser.PhoneNo + " - " + widget.MainUser.email);
@@ -174,14 +177,14 @@ class _MainPageState extends State<MainPage> {
                         ),
                   label: 'Account'),
               const BottomNavigationBarItem(
-                  icon: Icon(Icons.movie), label: 'Spot Flicks'),
+                  icon: Icon(Icons.chat), label: 'Message'),
               const BottomNavigationBarItem(
                   icon: Icon(Icons.menu), label: 'More'),
 
               //  BottomNavigationBarItem(icon: Icon(Icons.menu),label: 'More')
             ]),
         body: _PageIndex == 2
-            ? SpotFlicks()
+            ? MessengerScreen()
             : _PageIndex == 3
                 ? More(
                     MainUser: UserClass(
@@ -191,9 +194,9 @@ class _MainPageState extends State<MainPage> {
                         password: "",
                         email: myEmail,
                         PhoneNo: myPhone,
-                        Intrests: myIntrests, 
-                        Address: myAddress
-                        ),
+                        Intrests: myIntrests,
+                        Address: myAddress,
+                        UserId: ""),
                     isLoggedin: widget.isLoggedin)
                 : _PageIndex == 1 && widget.isLoggedin == true
                     ?
@@ -396,7 +399,7 @@ class _MainPageState extends State<MainPage> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                       MainSearch(
+                                                      MainSearch(
                                                           Results:
                                                               "Fast Food")));
                                         },
@@ -438,7 +441,7 @@ class _MainPageState extends State<MainPage> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                       MainSearch(
+                                                      MainSearch(
                                                           Results:
                                                               "Chineese")));
                                         },

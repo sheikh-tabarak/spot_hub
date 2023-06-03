@@ -1,91 +1,34 @@
-// ignore_for_file: avoid_print, file_names
-
 import 'package:flutter/material.dart';
-import 'package:overlay_loader_with_app_icon/overlay_loader_with_app_icon.dart';
-import 'package:quickalert/models/quickalert_type.dart';
-import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
-import 'package:spot_hub/database/Authentication.dart';
-import 'package:spot_hub/models/UserModels/UserClass.dart';
+import 'package:spot_hub/configurations/BigText.dart';
+import 'package:spot_hub/configurations/Dimensions.dart';
+import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/screens/Loading.dart';
-import 'package:spot_hub/screens/UserLogin/Admin/ForgetPassword.dart';
-import 'package:spot_hub/screens/UserLogin/Admin/RecordIntrests.dart';
+import 'package:spot_hub/screens/UserLogin/Admin/Login.dart';
 import 'package:spot_hub/screens/UserLogin/Admin/Signup.dart';
 import 'package:spot_hub/screens/UserLogin/Home/MainPage.dart';
-import 'package:spot_hub/widgets/others/PrimayButton.dart';
 import 'package:spot_hub/widgets/others/PlaneTextField.dart';
-import '../../../configurations/Dimensions.dart';
-import '../../../configurations/SmallText.dart';
-import '../../../models/DummyData.dart';
+import 'package:spot_hub/widgets/others/PrimayButton.dart';
 
-class Login extends StatefulWidget {
-  bool isLoading = false;
-  Login({super.key});
+class ForgetPassword extends StatefulWidget {
+  const ForgetPassword({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<ForgetPassword> createState() => _ForgetPasswordState();
 }
 
-class _LoginState extends State<Login> {
+class _ForgetPasswordState extends State<ForgetPassword> {
   TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
   String thisiserror = "";
-  String LoadingMessage = "Logging in";
-
-  // String onetimeusername = '';
-  // String onetimepassword = '';
-
-  // User U = new User(
-  //     image: '',
-  //     username: '',
-  //     password: '',
-  //     email: '',
-  //     PhoneNo: '',
-  //     Intrests: '');
-
-  @override
-  initState() {
-    _emailController.text = "tabarakyaseen@gmail.com";
-    _passwordController.text = "12341234";
-  }
-
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-    UserClass Ue;
     return Scaffold(
       backgroundColor: AppColors.darkBackgroundColor,
-      body: widget.isLoading == true
-          ?
-          // Center(child: SizedBox(width: 1,),)
-          //  QuickAlert.show(
-
-          //                           context: context,
-          //                           type: QuickAlertType.loading,
-          //                           text: 'Account Registered Successfully!',
-          //                         //  confirmBtnText:"Login",
-          //                        //   confirmBtnColor: AppColors.PrimaryColor,
-          //                           // onConfirmBtnTap: () {
-          //                           //   Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => Login())));
-          //                           // },
-
-          //                           backgroundColor:Colors.white
-          //                         )
-          Loading(
-              message: LoadingMessage,
+      body: isLoading == true
+          ? Loading(
+              message: "Sending the reset link to email...",
             )
-
-          //       OverlayLoaderWithAppIcon(
-          //         borderRadius:20,
-          //         circularProgressColor:AppColors.PrimaryColor,
-          //         overlayOpacity: 1,
-          //         //appIconSize: 10,
-          //         overlayBackgroundColor: Colors.black,
-          //     isLoading: true,
-          //     appIcon:  Icon(Icons.stop_circle,color: AppColors.PrimaryColor,),
-          //    // Image.asset('assets/images/appicon.png',width: 10,),
-          //     child: Container(
-          //    child: Text("")
-          // ))
           : Container(
               alignment: Alignment.center,
               child: SingleChildScrollView(
@@ -101,14 +44,24 @@ class _LoginState extends State<Login> {
                       const SizedBox(
                         height: 40,
                       ),
+
                       const SizedBox(
                         height: 30,
                       ),
+                      BigText(
+                        text: "Forget Password",
+                        size: 20,
+                        color: AppColors.PrimaryColor,
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+
                       Container(
                         margin: const EdgeInsets.only(left: 12, right: 12),
                         padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
-                          color: thisiserror == "" ? Colors.black : Colors.red,
+                          color: thisiserror == "" ? Colors.black : Colors.green,
                           borderRadius: BorderRadius.circular(7),
                         ),
                         child: Row(
@@ -121,7 +74,7 @@ class _LoginState extends State<Login> {
                           //   crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Icon(
-                              Icons.error,
+                              Icons.check_circle,
                               color: thisiserror == ""
                                   ? Colors.black
                                   : Colors.white,
@@ -152,16 +105,16 @@ class _LoginState extends State<Login> {
                         placeholder: 'Email',
                         controller: _emailController,
                       ),
-                      PlaneTextField(
-                        onChange: (value) => {
-                          setState(() {
-                            thisiserror = "";
-                          })
-                        },
-                        icon: Icons.lock,
-                        placeholder: 'Password',
-                        controller: _passwordController,
-                      ),
+                      // PlaneTextField(
+                      //   onChange: (value) => {
+                      //     setState(() {
+                      //       thisiserror = "";
+                      //     })
+                      //   },
+                      //   icon: Icons.lock,
+                      //   placeholder: 'Password',
+                      //   controller: _passwordController,
+                      // ),
                       PrimaryButton(
                           icon: Icons.login,
                           TapAction: () async {
@@ -175,51 +128,57 @@ class _LoginState extends State<Login> {
                             // );
 
                             setState(() {
-                              widget.isLoading = true;
+                              isLoading = true;
+
+                              thisiserror = "Email Sent to entered address";
                             });
-                            if (_emailController.text.isEmpty ||
-                                _passwordController.text.isEmpty) {
-                              setState(() {
-                                thisiserror = "One or more fields are empty";
-                                widget.isLoading = false;
-                              });
-                            } else {
-                              bool shouldLogin = await signIn(
-                                  _emailController.text,
-                                  _passwordController.text);
+                            setState(() {
+                              isLoading = false;
+                            });
 
-                              if (shouldLogin) {
-                                setState(() {
-                                  LoadingMessage = "Logged In Successfully";
-                                });
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => MainPage(
-                                            PI: 0,
-                                            MainUser: UserClass(
-                                                IsBussiness: false,
-                                                image: "image",
-                                                username: "username",
-                                                password: "password",
-                                                email: "email",
-                                                PhoneNo: "PhoneNo",
-                                                Intrests: "Intrests",
-                                                Address: 'address',
-                                                UserId: "userid"),
-                                            isLoggedin: true)));
-                              } else {
-                                setState(() {
-                                  thisiserror = message.toString().replaceRange(
-                                      message.toString().indexOf("["),
-                                      message.toString().indexOf("]") + 2,
-                                      "");
-                                  widget.isLoading = false;
+                            // if (_emailController.text.isEmpty ||
+                            //     _passwordController.text.isEmpty) {
+                            //   setState(() {
+                            //     thisiserror = "One or more fields are empty";
+                            //     widget.isLoading = false;
+                            //   });
+                            // } else {
+                            //   bool shouldLogin = await signIn(
+                            //       _emailController.text,
+                            //       _passwordController.text);
 
-                                  print("this is after > " + thisiserror);
-                                });
-                              }
-                            }
+                            //   if (shouldLogin) {
+                            //     setState(() {
+                            //       LoadingMessage = "Logged In Successfully";
+                            //     });
+                            //     Navigator.pushReplacement(
+                            //         context,
+                            //         MaterialPageRoute(
+                            //             builder: (context) => MainPage(
+                            //                 PI: 0,
+                            //                 MainUser: UserClass(
+                            //                     IsBussiness: false,
+                            //                     image: "image",
+                            //                     username: "username",
+                            //                     password: "password",
+                            //                     email: "email",
+                            //                     PhoneNo: "PhoneNo",
+                            //                     Intrests: "Intrests",
+                            //                     Address: 'address',
+                            //                     UserId: "userid"),
+                            //                 isLoggedin: true)));
+                            //   } else {
+                            //     setState(() {
+                            //       thisiserror = message.toString().replaceRange(
+                            //           message.toString().indexOf("["),
+                            //           message.toString().indexOf("]") + 2,
+                            //           "");
+                            //       widget.isLoading = false;
+
+                            //       print("this is after > " + thisiserror);
+                            //     });
+                            //   }
+                            // }
                             // onetimeusername = "",
                             // onetimepassword = "",
 
@@ -303,7 +262,7 @@ class _LoginState extends State<Login> {
                             //         'Entered Email: ${_emailController.text},\nEntered Password: ${_passwordController.text}')
                             //   },
                           },
-                          text: 'Login',
+                          text: 'Send Email',
                           color: AppColors.PrimaryColor),
                       SizedBox(
                         height: Dimensions.height30,
@@ -312,7 +271,7 @@ class _LoginState extends State<Login> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SmallText(
-                            text: 'Don\'t have an account ?',
+                            text: 'Have a password ?',
                             color: const Color.fromARGB(255, 174, 174, 174),
                           ),
                           SizedBox(
@@ -323,42 +282,11 @@ class _LoginState extends State<Login> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => MainPage(
-                                            PI: 0,
-                                            isLoggedin: false,
-                                          ),
+                                          builder: (context) => Login(),
                                         ))
                                   },
                               child: SmallText(
-                                text: "Guest Mode",
-                                color: AppColors.PrimaryColor,
-                              )),
-                        ],
-                      ),
-                      SizedBox(
-                        height: Dimensions.height10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SmallText(
-                            text: 'Forget Password ?',
-                            color: const Color.fromARGB(255, 174, 174, 174),
-                          ),
-                          SizedBox(
-                            width: Dimensions.height10,
-                          ),
-                          GestureDetector(
-                              onTap: () => {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              ForgetPassword(),
-                                        ))
-                                  },
-                              child: SmallText(
-                                text: "Reset it",
+                                text: "Login",
                                 color: AppColors.PrimaryColor,
                               )),
                         ],
@@ -374,7 +302,7 @@ class _LoginState extends State<Login> {
                                     MaterialPageRoute(
                                         builder: (context) => Signup()))
                               },
-                          text: 'Sign Up',
+                          text: 'Sign up',
                           color: AppColors.SecodaryColor),
                     ],
                   ),

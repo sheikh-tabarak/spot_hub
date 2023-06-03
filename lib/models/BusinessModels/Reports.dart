@@ -20,6 +20,7 @@ class Reports {
     required this.ReportStatus,
   });
 
+
   Map<String, dynamic> toJson() => {
         'UserId': UserId,
         'ReportId': ReportId,

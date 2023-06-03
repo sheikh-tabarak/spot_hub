@@ -11,13 +11,16 @@ class PrimaryButton extends StatelessWidget {
   final Color color;
   final IconData icon;
   final double ButtonRadius;
+  final double marginValue;
+
   const PrimaryButton(
       {super.key,
       required this.TapAction,
       required this.text,
       required this.color, 
       required this.icon,
-      this.ButtonRadius=10
+      this.ButtonRadius=10,
+      this.marginValue=15
       });
 
   @override
@@ -30,8 +33,8 @@ class PrimaryButton extends StatelessWidget {
 
         alignment: Alignment.center,
         // padding: const EdgeInsets.all(10),
-        margin: const EdgeInsets.all(10),
-        padding: const EdgeInsets.all(15),
+        margin:  EdgeInsets.all(marginValue),
+        padding:  const EdgeInsets.all(15),
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(ButtonRadius),

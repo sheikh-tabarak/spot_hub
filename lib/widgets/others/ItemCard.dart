@@ -34,28 +34,14 @@ class ItemCard extends StatelessWidget {
             })
       },
       child: Container(
-        // margin: const EdgeInsets.all(10),
-        //  padding: const EdgeInsets.all(10),
+
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: Colors.white,
 
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: Colors.grey.withOpacity(0.5),
-          //     spreadRadius: 3,
-          //     blurRadius: 4,
-          //     offset: const Offset(0, 0), // changes position of shadow
-          //   ),
-          // ]
-
-          // boxShadow: BoxShadow(Colors.black,Offset.zero,0,0,BlurStyle.normal),
+     
         ),
         child: ListTile(
-          // onLongPress: () => {
-          //   Navigator.push(context,
-          //       MaterialPageRoute(builder: (context) => const ResturantAccount()))
-          // },
           leading: CircleAvatar(
             backgroundImage: AssetImage('assets/images/fastfood.png'),
             radius: 20,
@@ -69,5 +55,6 @@ class ItemCard extends StatelessWidget {
         ),
       ),
     );
+  
   }
 }

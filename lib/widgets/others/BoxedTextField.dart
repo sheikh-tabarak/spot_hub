@@ -10,7 +10,7 @@ class BoxedTextField extends StatelessWidget {
   final Function TapAction;
   //final bool isRequired;
   bool isEmpty = false;
-
+  int maxLines;
   ///final Function onChange;
   int multiline = 0;
   //TextEditingController controller = TextEditingController();
@@ -20,6 +20,7 @@ class BoxedTextField extends StatelessWidget {
     required this.icon,
     required this.controller,
     required this.TapAction,
+    this.maxLines=1
    // required this.isRequired,
   });
 
@@ -31,7 +32,7 @@ class BoxedTextField extends StatelessWidget {
         child: TextField(
           controller: controller,
           keyboardType: TextInputType.multiline,
-          minLines: 1,
+          maxLines: maxLines,
           cursorColor: AppColors.PrimaryColor,
           onChanged: (value) => TapAction(value),
           decoration: InputDecoration(

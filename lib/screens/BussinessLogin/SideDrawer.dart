@@ -4,9 +4,13 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
+import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/BussinessHome.dart';
+import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/ContactSupport.dart';
+import 'package:spot_hub/screens/BussinessLogin/ManageProducts/ScrapProducts.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageReports/MyReports.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageProducts/AddProduct.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageProducts/ProductsList.dart';
+import 'package:spot_hub/screens/BussinessLogin/ScrapBussiness.dart';
 import 'package:spot_hub/screens/UserLogin/Admin/Login.dart';
 import 'package:spot_hub/screens/UserLogin/Home/MainPage.dart';
 
@@ -88,13 +92,43 @@ class _SideDrawerState extends State<SideDrawer> {
                       ),
                     ),
                   ),
+                  // Button : Direct Upload
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => ScrapProducts())));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(3),
+                      decoration: BoxDecoration(
+                          color: isHovering
+                              ? AppColors.PrimaryColor
+                              : Colors.white),
+                      child: ListTile(
+                        leading: Icon(
+                          Icons.upload,
+                          color: isHovering
+                              ? Colors.white
+                              : AppColors.PrimaryColor,
+                        ),
+                        title: SmallText(
+                          text: "Direct Upload",
+                          color: isHovering ? Colors.white : Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
                   // Button : Products List
                   InkWell(
                     onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ProductsList()));
+                              builder: (context) => BussinessHome(
+                                    PageIndex: 1,
+                                  )));
                     },
                     child: Container(
                       padding: EdgeInsets.all(3),
@@ -116,7 +150,7 @@ class _SideDrawerState extends State<SideDrawer> {
                       ),
                     ),
                   ),
-                  // Button : Review Report
+                  // Button : My Reports
                   InkWell(
                     onTap: () {
                       Navigator.push(context,
@@ -136,7 +170,7 @@ class _SideDrawerState extends State<SideDrawer> {
                               : AppColors.PrimaryColor,
                         ),
                         title: SmallText(
-                          text: "Reviews Report",
+                          text: "My Reports",
                           color: isHovering ? Colors.white : Colors.black,
                         ),
                       ),
@@ -167,7 +201,12 @@ class _SideDrawerState extends State<SideDrawer> {
                   ),
                   // Button : Contact Support
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ContactSupport()));
+                    },
                     child: Container(
                       padding: EdgeInsets.all(3),
                       decoration: BoxDecoration(

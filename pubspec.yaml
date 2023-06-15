@@ -41,7 +41,7 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: 
+  cupertino_icons: ^1.0.5
   animated_splash_screen: 
   get:
   flutter_launcher_icons: 
@@ -57,14 +57,15 @@ dependencies:
   overlay_loader_with_app_icon: 
   geolocator: 
   fluttertoast:
-  location: 
-  geocoding:
+  #location: 
+  #geocoding:
   quickalert:
   countup:
   fl_chart:
   http: ^0.13.6
   html: ^0.15.3
   intl: ^0.18.1
+  geocoding: ^2.1.0
 
   
 

@@ -188,7 +188,7 @@ class _MainPageState extends State<MainPage> {
             : _PageIndex == 3
                 ? More(
                     MainUser: UserClass(
-                        IsBussiness: false,
+                        IsBussiness: AmIBussiness,
                         image: myimage,
                         username: myName,
                         password: "",

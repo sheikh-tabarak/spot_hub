@@ -6,6 +6,7 @@ import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/BusinessModels/Product.dart';
+import 'package:spot_hub/screens/BussinessLogin/ManageProducts/AddProduct.dart';
 import 'package:spot_hub/screens/Loading.dart';
 //import 'package:spot_hub/widgets/others/ItemCard.dart';
 
@@ -23,91 +24,123 @@ class _ProductsListState extends State<ProductsList> {
   Widget build(BuildContext context) {
     return isLoading == false
         ? Scaffold(
-          body: SingleChildScrollView(
-              physics: AlwaysScrollableScrollPhysics(),
-              child: StreamBuilder(
-                  stream: ProductsofBussiness(),
-                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                    SizedBox(
-                      height: Dimensions.height10,
-                    ),
-                    //   BigText(text: 'This is Resturant Items', color: AppColors.PrimaryColor),
-        
-                    snapshot.hasData
-                        ? ListView(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                            children: snapshot.data!.docs.map((e) {
-                            // itemBuilder: (context, index) {
-                            return 
-                            // ListTile(
-                            //   title: BigText(text: e["Price"].toString(), color: Colors.black,),
-                            // );
-                            GestureDetector(
-                              onTap: () => {
-                                showModalBottomSheet(
-                                    context: context,
-                                    builder: (BuildContext bc) {
-                                      return Container(
-                                        decoration: const BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(15),
-                                                topRight:
-                                                    Radius.circular(15))),
-                                        child: Column(
-                                          children:  [
-                                            ListTile(
-                                              leading: Icon(Icons.edit),
-                                              title: Text('Edit'),
-                                            ),
-                                            ListTile(
-                                              leading: Icon(Icons.delete),
-                                              title: Text('Delete'),
-                                            )
-                                          ],
+            body: SingleChildScrollView(
+                physics: AlwaysScrollableScrollPhysics(),
+                child: StreamBuilder(
+                    stream: ProductsofBussiness(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: Dimensions.height10,
+                          ),
+                          //   BigText(text: 'This is Resturant Items', color: AppColors.PrimaryColor),
+
+                          snapshot.hasData
+                              ? ListView(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  children: snapshot.data!.docs.map((e) {
+                                    // itemBuilder: (context, index) {
+                                    return
+                                        // ListTile(
+                                        //   title: BigText(text: e["Price"].toString(), color: Colors.black,),
+                                        // );
+                                        GestureDetector(
+                                      onTap: () => {
+                                        showModalBottomSheet(
+                                            context: context,
+                                            builder: (BuildContext bc) {
+                                              return Container(
+                                                decoration: const BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                            topLeft: Radius
+                                                                .circular(15),
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    15))),
+                                                child: Column(
+                                                  children: [
+                                                    ListTile(
+                                                      onTap: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        AddProduct(
+                                                                          titleId:
+                                                                              e["Id"],
+                                                                          title:
+                                                                              e["title"],
+                                                                          description:
+                                                                              e["description"],
+                                                                          // category:
+                                                                          //     e["category"],
+                                                                          Price:
+                                                                              e["Price"],
+                                                                          image:
+                                                                              e["image"],
+                                                                        )));
+                                                      },
+                                                      leading: Icon(Icons.edit),
+                                                      title: Text('Edit'),
+                                                    ),
+                                                    ListTile(
+                                                      leading:
+                                                          Icon(Icons.delete),
+                                                      title: Text('Delete'),
+                                                    )
+                                                  ],
+                                                ),
+                                              );
+                                            })
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          color: Colors.white,
                                         ),
-                                      );
-                                    })
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.white,
-                                ),
-                                child: ListTile(
-                                  leading: CircleAvatar(
-                                    backgroundImage: NetworkImage(e['image']),
-                                    radius: 40,
-                                  ),
-                                  title:
-                                  // BigText(text: "test"),
-                                   BigText(text: "${e['title'].toString().substring(0,22)}..."),
-                                  subtitle:  SmallText(text:
-                                      "${e['description'].toString().substring(0,70)}..."),
-                                  trailing: 
-                                  //BigText(text: "test")
-                                   BigText(
-                                    text: e['Price'].toString(),
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              ),
-                            );
-                         
-                         
-                          }).toList())
-                        : Center(
-                            child: BigText(
-                                text:
-                                    "Oho, Seems there is no product added yet"),
-                          )
-                      ],
-                    );
-                  })),
-        )
+                                        child: ListTile(
+                                          leading: CircleAvatar(
+                                            backgroundImage:
+                                                NetworkImage(e['image']),
+                                            radius: 40,
+                                          ),
+                                          title:
+                                              // BigText(text: "test"),
+                                              BigText(
+                                                  text:
+                                                      "${e['title'].toString().length > 22 ? e['title'].toString().substring(0, 22) : e['title']}"
+                                                  // .toString().substring(0, 22)}..."
+                                                  ),
+                                          subtitle: SmallText(
+                                              text:
+                                                  "${e['description'].toString().length > 70 ? e['description'].toString().substring(0, 70) : e['description']}"
+                                              //.toString().substring(0, 70)}..."
+                                              ),
+                                          trailing:
+                                              //BigText(text: "test")
+                                              BigText(
+                                            text: e['Price'].toString(),
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }).toList())
+                              : Center(
+                                  child: BigText(
+                                      text:
+                                          "Oho, Seems there is no product added yet"),
+                                )
+                        ],
+                      );
+                    })),
+          )
         : Loading(message: "Loading Products");
   }
 }

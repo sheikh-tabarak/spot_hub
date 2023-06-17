@@ -66,6 +66,8 @@ dependencies:
   html: ^0.15.3
   intl: ^0.18.1
   geocoding: ^2.1.0
+  file_picker: ^5.2.10
+  firebase_storage: ^11.2.3
 
   
 

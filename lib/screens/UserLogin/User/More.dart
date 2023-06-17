@@ -15,24 +15,63 @@ import 'package:spot_hub/screens/UserLogin/User/MainHome.dart';
 import 'package:spot_hub/screens/UserLogin/Home/MainPage.dart';
 import 'package:spot_hub/widgets/others/PrimayButton.dart';
 
-class More extends StatelessWidget {
+class More extends StatefulWidget {
   final bool isLoggedin;
   final UserClass MainUser;
   const More({super.key, required this.MainUser, required this.isLoggedin});
 
   @override
+  State<More> createState() => _MoreState();
+}
+
+class _MoreState extends State<More> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: AppColors.PrimaryColor,
-          title: const Text("Spot hub"),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(0),
-          child: Column(
-            children: [
-              Container(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: AppColors.PrimaryColor,
+        title: const Text("Spot hub"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(0),
+        child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      width: 1,
+                      color: const Color.fromARGB(255, 218, 218, 218)),
+                  borderRadius: const BorderRadius.all(Radius.circular(5))),
+              child: ListTile(
+                  leading: Image(
+                    image: NetworkImage(
+                        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/330px-User_icon_2.svg.png"),
+                    width: 60,
+                    height: 60,
+                  ),
+                  title: Text(widget.MainUser.username),
+                  subtitle: Text(widget.MainUser.email),
+                  trailing: TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => Login()));
+                      },
+                      child: widget.isLoggedin == false
+                          ? const Text("Login")
+                          : const Text("Logout"))
+                  //         ElevatedButton.styleFrom(
+                  //   backgroundColor: AppColors.PrimaryColor,
+                  // ),
+
+                  //  onPressed: () {  },
+
+                  ),
+            ),
+            SingleChildScrollView(
+              child: Container(
                 margin: const EdgeInsets.all(10),
                 padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
@@ -40,175 +79,147 @@ class More extends StatelessWidget {
                         width: 1,
                         color: const Color.fromARGB(255, 218, 218, 218)),
                     borderRadius: const BorderRadius.all(Radius.circular(5))),
-                child: ListTile(
-                    leading: Image(
-                      image: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/330px-User_icon_2.svg.png"),
-                      width: 60,
-                      height: 60,
+                child: Column(
+                  children: [
+                    ListTile(
+                      onTap: () => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MainPage(
+                                      PI: 1,
+                                      MainUser: widget.MainUser,
+                                      isLoggedin: false,
+                                    )))
+                      },
+                      leading: Icon(
+                        Icons.account_circle_sharp,
+                        color: AppColors.PrimaryColor,
+                      ),
+                      title: Text("My Profile"),
+
+                      //   subtitle: Text("This is activity Button"),
                     ),
-                    title: Text(MainUser.username),
-                    subtitle: Text(MainUser.email),
-                    trailing: TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) => Login()));
-                        },
-                        child: isLoggedin == false
-                            ? const Text("Login")
-                            : const Text("Logout"))
-                    //         ElevatedButton.styleFrom(
-                    //   backgroundColor: AppColors.PrimaryColor,
-                    // ),
-
-                    //  onPressed: () {  },
-
+                    ListTile(
+                      onTap: () => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AddReview(
+                                    ProductToReview: DummyProducts[6])))
+                      },
+                      leading: Icon(
+                        Icons.published_with_changes,
+                        color: AppColors.PrimaryColor,
+                      ),
+                      title: SmallText(
+                        text: "Add Review",
+                      ),
+                      //   subtitle: Text("This is activity Button"),
                     ),
-              ),
-              SingleChildScrollView(
-                child: Container(
-                  margin: const EdgeInsets.all(10),
-                  padding: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                          width: 1,
-                          color: const Color.fromARGB(255, 218, 218, 218)),
-                      borderRadius: const BorderRadius.all(Radius.circular(5))),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        onTap: () => {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MainPage(
-                                    PI: 1,
-                                        MainUser: MainUser,
-                                        isLoggedin: false,
-                                      )))
-                        },
-                        leading: Icon(
-                          Icons.account_circle_sharp,
-                          color: AppColors.PrimaryColor,
-                        ),
-                        title: Text("My Profile"),
+                    widget.MainUser.IsBussiness == false
+                        ? ListTile(
+                            onTap: () => {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                print(widget.MainUser.IsBussiness);
+                                return AddNewBussiness();
+                              }))
+                            },
 
-                        //   subtitle: Text("This is activity Button"),
-                      ),
-                      ListTile(
-                        onTap: () => {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AddReview(
-                                      ProductToReview: DummyProducts[6])))
-                        },
-                        leading: Icon(
-                          Icons.published_with_changes,
-                          color: AppColors.PrimaryColor,
-                        ),
-                        title: SmallText(
-                          text: "Add Review",
-                        ),
-                        //   subtitle: Text("This is activity Button"),
-                      ),
-                     
-                      ListTile(
-                        onTap: () => {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AddNewBussiness()))
-                        },
+                            leading: Icon(
+                              Icons.add,
+                              color: AppColors.PrimaryColor,
+                            ),
+                            title: SmallText(
+                              text: "Add your Bussiness",
+                            ),
+                            //   subtitle: Text("This is activity Button"),
+                          )
+                        : ListTile(
+                            onTap: () => {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => BussinessHome()))
+                            },
 
-                        leading: Icon(
-                          Icons.add,
-                          color: AppColors.PrimaryColor,
-                        ),
-                        title: SmallText(
-                          text: "Add your Bussiness",
-                        ),
-                        //   subtitle: Text("This is activity Button"),
-                      ),
-                      ListTile(
-                        onTap: () => {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => BussinessHome()))
-                        },
+                            leading: Icon(
+                              Icons.business_outlined,
+                              color: AppColors.PrimaryColor,
+                            ),
+                            title: SmallText(
+                              text: "Manage your Bussiness",
+                            ),
+                            //   subtitle: Text("This is activity Button"),
+                          ),
+                    ListTile(
+                      onTap: () => {
+                        // showModalBottomSheet(context: context, builder: (context)=>
+                        // Column(children: const [
 
-                        leading: Icon(
-                          Icons.business_outlined,
-                          color: AppColors.PrimaryColor,
-                        ),
-                        title: SmallText(
-                          text: "Manage your Bussiness",
-                        ),
-                        //   subtitle: Text("This is activity Button"),
-                      ),
-                      ListTile(
-                        onTap: () => {
-                          // showModalBottomSheet(context: context, builder: (context)=>
-                          // Column(children: const [
+                        // ],)),
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const DevelopersTeam())),
+                      },
 
-                          // ],)),
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const DevelopersTeam())),
-                        },
+                      leading: Icon(
+                        Icons.developer_board,
+                        color: AppColors.PrimaryColor,
+                      ),
+                      title: SmallText(
+                        text: "Develors Team",
+                      ),
+                      //   subtitle: Text("This is activity Button"),
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        Icons.favorite,
+                        color: AppColors.PrimaryColor,
+                      ),
+                      title: SmallText(text: "Favorites"),
 
-                        leading: Icon(
-                          Icons.developer_board,
-                          color: AppColors.PrimaryColor,
-                        ),
-                        title: SmallText(
-                          text: "Develors Team",
-                        ),
-                        //   subtitle: Text("This is activity Button"),
+                      //   subtitle: Text("This is activity Button"),
+                    ),
+                    ListTile(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const MapsView()));
+                      },
+                      leading: Icon(
+                        Icons.pin_drop,
+                        color: AppColors.PrimaryColor,
                       ),
-                      ListTile(
-                        leading: Icon(
-                          Icons.favorite,
-                          color: AppColors.PrimaryColor,
-                        ),
-                        title: SmallText(text: "Favorites"),
-
-                        //   subtitle: Text("This is activity Button"),
+                      title: SmallText(text: "Select Location"),
+                      //   subtitle: Text("This is activity Button"),
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        Icons.settings,
+                        color: AppColors.PrimaryColor,
                       ),
-                      ListTile(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const MapsView()));
-                        },
-                        leading:  Icon(Icons.pin_drop, color: AppColors.PrimaryColor,),
-                        title: SmallText(text: "Select Location"),
-                        //   subtitle: Text("This is activity Button"),
-                      ),
-                      ListTile(
-                        leading:  Icon(Icons.settings, color: AppColors.PrimaryColor,),
-                        title: SmallText(text: "Settings"),
-                        //   subtitle: Text("This is activity Button"),
-                      ),
-                    
-                    ],
-                  ),
+                      title: SmallText(text: "Settings"),
+                      //   subtitle: Text("This is activity Button"),
+                    ),
+                  ],
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
-        // bottomNavigationBar: Container(
-        //     height: 100,
-        //     child: PrimaryButton(
-        //       text: "Developers Team",
-        //       TapAction: () {},
-        //       color: AppColors.PrimaryColor,
-        //       icon: Icons.developer_board,
-        //     ))
-            );
+      ),
+      // bottomNavigationBar: Container(
+      //     height: 100,
+      //     child: PrimaryButton(
+      //       text: "Developers Team",
+      //       TapAction: () {},
+      //       color: AppColors.PrimaryColor,
+      //       icon: Icons.developer_board,
+      //     ))
+    );
   }
 }

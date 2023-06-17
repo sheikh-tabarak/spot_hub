@@ -11,6 +11,7 @@ import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/database/Authentication.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/AddNewBussiness.dart';
+import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/BussinessHome.dart';
 import 'package:spot_hub/screens/UserLogin/Admin/Login.dart';
 import 'package:spot_hub/screens/UserLogin/User/Account/EditAccountDetails.dart';
 
@@ -195,24 +196,43 @@ class _CustomerAccountState extends State<CustomerAccount> {
                         color: const Color.fromARGB(255, 237, 237, 237)),
                     child: const Icon(Icons.favorite),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AddNewBussiness()));
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.all(10),
-                      padding: const EdgeInsets.all(20),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: const Color.fromARGB(255, 237, 237, 237)),
-                      child: Icon(
-                          AmIBussiness == false ? Icons.add : Icons.business),
-                    ),
-                  ),
+                  AmIBussiness == false
+                      ? GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AddNewBussiness()));
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(20),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color:
+                                    const Color.fromARGB(255, 237, 237, 237)),
+                            child: Icon(Icons.add),
+                          ),
+                        )
+                      : GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => BussinessHome()));
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(20),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color:
+                                    const Color.fromARGB(255, 237, 237, 237)),
+                            child: Icon(Icons.business),
+                          ),
+                        ),
                   Container(
                     margin: const EdgeInsets.all(10),
                     padding: const EdgeInsets.all(20),

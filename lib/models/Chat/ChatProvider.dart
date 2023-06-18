@@ -15,8 +15,8 @@ class Chat {
 
   Chat({
     required this.ChatUserId,
-     required this.ChatUsername,
-      required this.ChatUserimage,
+    required this.ChatUsername,
+    required this.ChatUserimage,
     required this.unReadMessages,
     required this.LatestMessage,
     required this.initiateTime,
@@ -25,8 +25,8 @@ class Chat {
 
   Map<String, dynamic> toJson() => {
         'ChatUserId': ChatUserId,
-          'ChatUsername': ChatUsername,
-            'ChatUserimage': ChatUserimage,
+        'ChatUsername': ChatUsername,
+        'ChatUserimage': ChatUserimage,
         'unReadMessages': unReadMessages,
         'LatestMessage': LatestMessage,
         'initiateTime': initiateTime,
@@ -53,28 +53,22 @@ Future initiateChat(
   // String Image
   // String Message
 ) async {
+  String _SenderUsername = "Spothub User";
+  String _SenderImage = "";
 
-  String _SenderUsername="Spothub User";
-  String _SenderImage="";
-
-  String _Recieverusername="Spothub User";
-  String _RecieverImage="";
+  String _Recieverusername = "Spothub User";
+  String _RecieverImage = "";
 
   await getSpecificUserData(UserId).then((value) {
-    _Recieverusername=value.username;
-    _RecieverImage=value.image;
-  }
-    );
-  
+    _Recieverusername = value.username;
+    _RecieverImage = value.image;
+  });
 
-
-   await getSpecificUserData(FirebaseAuth.instance.currentUser!.uid).then((value) {
-    _SenderUsername=value.username;
-    _SenderImage=value.image;
-  }
-    );
-
-
+  await getSpecificUserData(FirebaseAuth.instance.currentUser!.uid)
+      .then((value) {
+    _SenderUsername = value.username;
+    _SenderImage = value.image;
+  });
 
   bool _isInitiated = false;
 
@@ -85,10 +79,8 @@ Future initiateChat(
       .doc(UserId);
 
   final initiateSender = Chat(
-
-
     ChatUserId: UserId,
-    ChatUsername:_Recieverusername,
+    ChatUsername: _Recieverusername,
     ChatUserimage: _RecieverImage,
     unReadMessages: 0,
     LatestMessage: "You are now friends",
@@ -106,7 +98,6 @@ Future initiateChat(
       .doc(FirebaseAuth.instance.currentUser!.uid);
 
   final initiateReciever = Chat(
-
     ChatUserId: FirebaseAuth.instance.currentUser!.uid,
     ChatUserimage: _SenderImage,
     ChatUsername: _SenderUsername,
@@ -136,7 +127,6 @@ Future initiateChat(
   //     .update({
   //   'LatestMessage': "Message",
   // });
-
 }
 
 Future Deletechat(
@@ -151,6 +141,7 @@ Future Deletechat(
       .collection('chat')
       .doc(UserId)
       .collection('messages');
+
   var dsm = await deleteSendersMessages.get();
   for (var docs in dsm.docs) {
     await docs.reference.delete();
@@ -161,12 +152,12 @@ Future Deletechat(
       .doc(FirebaseAuth.instance.currentUser!.uid)
       .collection("chat")
       .doc(UserId)
-      .delete().then((value) {
-        print("your record deleted");
-      });
+      .delete()
+      .then((value) {
+    print("your record deleted");
+  });
 
-
-      var deleteRecieversMessages = FirebaseFirestore.instance
+  var deleteRecieversMessages = FirebaseFirestore.instance
       .collection("user")
       .doc(UserId)
       .collection('chat')
@@ -182,10 +173,11 @@ Future Deletechat(
       .doc(UserId)
       .collection("chat")
       .doc(FirebaseAuth.instance.currentUser!.uid)
-      .delete().then((value) {
-        print("Reciever's record deleted");
-      });;
-
+      .delete()
+      .then((value) {
+    print("Reciever's record deleted");
+  });
+  ;
 
   //     .collection("user")
   //     .doc(FirebaseAuth.instance.currentUser!.uid)

@@ -239,15 +239,13 @@ class _MessengerScreenState extends State<MessengerScreen> {
 
                               return GestureDetector(
                                 onTap: () async {
-                                 
-await readAllMessages(e["ChatUserId"]);
+                                  await readAllMessages(e["ChatUserId"]);
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: ((context) => ChatScreen(
                                                 ChatUserId: e["ChatUserId"],
-                                              )))); 
-                                              
+                                              ))));
                                 },
                                 child: Container(
                                   padding: EdgeInsets.only(bottom: 5),

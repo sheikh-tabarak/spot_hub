@@ -39,6 +39,7 @@ class AddProduct extends StatefulWidget {
 }
 
 class _AddProductState extends State<AddProduct> {
+  String _LoaingCommands = "Fetching product";
   String imageaddress = "";
   String imagetoUpload = "";
   bool isLoading = false;
@@ -158,22 +159,16 @@ class _AddProductState extends State<AddProduct> {
                           // height: Dimensions.PageView,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
-                              image: widget.titleId == "" && imageaddress == ""
+                              image: imageaddress != ""
                                   ? DecorationImage(
                                       image: FileImage(
                                         File(imageaddress),
-                                      )
-                                      //NetworkImage(url)
-
-                                      ,
+                                      ),
                                       fit: BoxFit.cover
                                       // AssetImage(imageaddress)
                                       )
                                   : DecorationImage(
-                                      image: NetworkImage(widget.image)
-                                      //NetworkImage(url)
-
-                                      ,
+                                      image: NetworkImage(widget.image),
                                       fit: BoxFit.cover
                                       // AssetImage(imageaddress)
                                       ),
@@ -198,6 +193,7 @@ class _AddProductState extends State<AddProduct> {
                       ? () async {
                           setState(() {
                             isLoading = true;
+                            _LoaingCommands = "Uploading your product Image";
                           });
 
                           if (imageaddress != "") {
@@ -208,6 +204,10 @@ class _AddProductState extends State<AddProduct> {
                                     imageaddress)
                                 .then((value) => imageUploaded = value);
 
+                            setState(() {
+                              _LoaingCommands = "Adding your Product";
+                            });
+
                             await AddNewProduct(
                                 //  widget.titleId,
                                 imageUploaded,
@@ -215,6 +215,10 @@ class _AddProductState extends State<AddProduct> {
                                 _descController.text,
                                 _categoryController.text,
                                 double.parse(_priceController.text));
+
+                            setState(() {
+                              _LoaingCommands = "Resirecting to Product list";
+                            });
 
                             Navigator.push(
                                 context,
@@ -234,10 +238,19 @@ class _AddProductState extends State<AddProduct> {
                           if (imageaddress != "") {
                             String imageUploaded = "";
 
+                            setState(() {
+                              isLoading = true;
+                              _LoaingCommands = "Uploadng new Image";
+                            });
+
                             await uploadProductImage(
                                     '${_titleController.text} | ${DateTime.now().toString()}',
                                     imageaddress)
                                 .then((value) => imageUploaded = value);
+
+                            setState(() {
+                              _LoaingCommands = "Updating product information";
+                            });
 
                             // Edit information with new Image Address
                             await EditProduct(
@@ -249,6 +262,11 @@ class _AddProductState extends State<AddProduct> {
                               double.parse(_priceController.text),
                             );
                           } else {
+                            setState(() {
+                              isLoading = true;
+                              _LoaingCommands = "Updating product information";
+                            });
+
                             await EditProduct(
                               widget.titleId,
                               widget.image,
@@ -258,6 +276,16 @@ class _AddProductState extends State<AddProduct> {
                               double.parse(_priceController.text),
                             );
                           }
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) => BussinessHome(
+                                        PageIndex: 1,
+                                      ))));
+
+                          setState(() {
+                            isLoading = false;
+                          });
                         },
                   text: widget.titleId == "" ? 'Add Item' : 'Update',
                   color: AppColors.PrimaryColor,
@@ -265,7 +293,7 @@ class _AddProductState extends State<AddProduct> {
             ),
           )
         : Scaffold(
-            body: Loading(message: "Adding a new product..."),
+            body: Loading(message: _LoaingCommands),
           );
   }
 }

@@ -3,9 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
+import 'package:spot_hub/models/BusinessModels/Bussiness.dart';
 
 class MyBussinessProfile extends StatelessWidget {
-  const MyBussinessProfile({super.key});
+  final Bussiness CurrentB;
+  const MyBussinessProfile({super.key, required this.CurrentB});
 
   @override
   Widget build(BuildContext context) {
@@ -26,20 +28,19 @@ class MyBussinessProfile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CircleAvatar(
-                
                 radius: 40,
-                
-                backgroundColor:AppColors.PrimaryColor,
-                foregroundImage:
-                    AssetImage("assets/images/tabarak.jpg"),
+                backgroundColor: Colors.white,
+                foregroundImage: NetworkImage(CurrentB.BussinessImageUrl),
               )
             ],
           )
         ],
       ),
-      SizedBox(height: 10,),
+      SizedBox(
+        height: 10,
+      ),
       BigText(
-        text: 'Bussiness Name',
+        text: CurrentB.BussinessName,
         color: AppColors.PrimaryColor,
       ),
     ]);

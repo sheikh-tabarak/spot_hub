@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
@@ -89,6 +90,22 @@ class _ProductsListState extends State<ProductsList> {
                                                       title: Text('Edit'),
                                                     ),
                                                     ListTile(
+                                                      onTap: () async {
+                                                        setState(() {
+                                                          isLoading = true;
+                                                        });
+
+                                                        await deleteProduct(
+                                                            e["Id"]);
+
+                                                        setState(() {
+                                                          isLoading = false;
+                                                        });
+
+                                                        Fluttertoast.showToast(
+                                                            msg:
+                                                                "Product deleted Succesfully");
+                                                      },
                                                       leading:
                                                           Icon(Icons.delete),
                                                       title: Text('Delete'),

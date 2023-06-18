@@ -1,5 +1,8 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_core/firebase_core.dart' as firebase_core;
 
 String message = "";
 
@@ -72,6 +75,29 @@ Future<bool> register(String email, String password) async {
 
 logOut() {
   FirebaseAuth.instance.signOut();
+}
+
+// Method for Uploading Profile !!!
+
+Future<String> uploadProfilePicture(
+  String FileName,
+  String FilePath,
+) async {
+  File file = File(FilePath);
+  try {
+    FirebaseStorage storage = FirebaseStorage.instance;
+    Reference ref = storage
+        .ref('${FirebaseAuth.instance.currentUser!.email}/profile/')
+        .child(FileName);
+    await ref.putFile(File(FilePath));
+    String imageUrl = await ref.getDownloadURL();
+    print("Image URL : " + imageUrl);
+    return imageUrl;
+  } on firebase_core.FirebaseException catch (e) {
+    print(e);
+  }
+
+  return '';
 }
 
 // Method for Account Information update !!!

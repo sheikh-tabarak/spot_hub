@@ -1,5 +1,7 @@
 import 'dart:ffi';
+import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
@@ -31,6 +33,7 @@ class EditAccountDetails extends StatefulWidget {
 }
 
 class _EditAccountDetailsState extends State<EditAccountDetails> {
+  String imageaddress = "";
   String thisiserror = "Information Updated Successfully";
 
   String _Intrests = "11000";
@@ -84,46 +87,41 @@ class _EditAccountDetailsState extends State<EditAccountDetails> {
   }
 
   String _encodeIntrest() {
-  //  Char a, b, c, d, e, f = "0" as Char;
+    //  Char a, b, c, d, e, f = "0" as Char;
     String IntrestCode;
 
-    if(_desiSelected==true){
-      _i1="1";
+    if (_desiSelected == true) {
+      _i1 = "1";
+    } else {
+      _i1 = "0";
     }
-    else{
-        _i1="0";
+    if (_fastFoodSelected == true) {
+      _i2 = "1";
+    } else {
+      _i2 = "0";
     }
-    if(_fastFoodSelected==true){
-      _i2="1";
-    }
-     else{
-        _i2="0";
-    }
-    if(_chineseSelected==true){
-      _i3="1";
-    }
-     else{
-        _i3="0";
+    if (_chineseSelected == true) {
+      _i3 = "1";
+    } else {
+      _i3 = "0";
     }
 
-    if(_seaFoodSelected==true){
-      _i4="1";
-    }
-     else{
-        _i4="0";
+    if (_seaFoodSelected == true) {
+      _i4 = "1";
+    } else {
+      _i4 = "0";
     }
 
-    if(_otherSelected==true){
-      _i5="1";
-    }
-     else{
-        _i5="0";
+    if (_otherSelected == true) {
+      _i5 = "1";
+    } else {
+      _i5 = "0";
     }
 
     ///= wisdget.Intrests;
     IntrestCode = _i1 + _i2 + _i3 + _i4 + _i5;
-  //=IntrestCode;
-  print(IntrestCode);
+    //=IntrestCode;
+    print(IntrestCode);
     return IntrestCode;
   }
 
@@ -169,30 +167,61 @@ class _EditAccountDetailsState extends State<EditAccountDetails> {
               Stack(
                 alignment: Alignment.bottomRight,
                 children: [
-                   CircleAvatar(
-                    // align:Alignment.center,
-                    radius: 60,
-                    backgroundImage: NetworkImage("${widget.ImageLink.toString()}"),
-                  ),
-                  Container(
-                    width: 40,
-                    height: 40,
-                    padding: EdgeInsets.all(Dimensions.height10),
-                    alignment: Alignment.topRight,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: const [
-                          BoxShadow(
-                              color: Colors.black,
-                              offset: Offset.zero,
-                              blurRadius: 5,
-                              blurStyle: BlurStyle.normal,
-                              spreadRadius: -2)
-                        ],
-                        borderRadius: BorderRadius.circular(50)),
-                    child: Icon(
-                      Icons.edit,
-                      color: AppColors.PrimaryColor,
+                  imageaddress == ""
+                      ? CircleAvatar(
+                          radius: 60,
+                          backgroundImage:
+                              NetworkImage("${widget.ImageLink.toString()}"),
+                        )
+                      : CircleAvatar(
+                          radius: 60,
+                          backgroundImage: FileImage(
+                            File(imageaddress),
+                          ),
+
+                          //  NetworkImage("${widget.ImageLink.toString()}")
+                        ),
+                  GestureDetector(
+                    onTap: () async {
+                      final result = await FilePicker.platform.pickFiles(
+                        allowMultiple: false,
+                        type: FileType.custom,
+                        allowedExtensions: ['png', 'jpg'],
+                      );
+
+                      print(result!.files.single.path);
+                      if (result == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Error Uploading')));
+                      } else {
+                        final fileName = result.files.single.name;
+                        final filePath = result.files.single.path!;
+
+                        setState(() {
+                          imageaddress = result.files.single.path!;
+                        });
+                      }
+                    },
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      padding: EdgeInsets.all(Dimensions.height10),
+                      alignment: Alignment.topRight,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: const [
+                            BoxShadow(
+                                color: Colors.black,
+                                offset: Offset.zero,
+                                blurRadius: 5,
+                                blurStyle: BlurStyle.normal,
+                                spreadRadius: -2)
+                          ],
+                          borderRadius: BorderRadius.circular(50)),
+                      child: Icon(
+                        Icons.edit,
+                        color: AppColors.PrimaryColor,
+                      ),
                     ),
                   ),
                 ],
@@ -209,13 +238,8 @@ class _EditAccountDetailsState extends State<EditAccountDetails> {
                         borderRadius: BorderRadius.circular(7),
                       ),
                       child: Row(
-                        //  crossAxisAlignment: WrapCrossAlignment.center,
-                        // alignment: WrapAlignment.spaceEvenly,
-                        // direction: Axis.horizontal,
-                        //    mainAxisSize: MainAxisSize.min,
                         verticalDirection: VerticalDirection.down,
                         textDirection: TextDirection.ltr,
-                        //   crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Icon(
                             Icons.check_circle,
@@ -395,27 +419,31 @@ class _EditAccountDetailsState extends State<EditAccountDetails> {
             //Text("This is testing text"),
             Container(
           margin: EdgeInsets.all(Dimensions.height15),
-          height: 70,
+          height: 80,
           child: PrimaryButton(
               TapAction: () async {
-                //  print("Account Information Updated");
-
-                // setState(() {
-                //   _iserror = true;
-                // });
                 setState(() {
                   _iserror = true;
+                  thisiserror = "Uploading new Image...";
+                });
+
+                if (imageaddress != "") {
+                  await uploadProfilePicture("Profile_Picture", imageaddress)
+                      .then((value) => _ImageController.text = value);
+                }
+
+                setState(() {
                   thisiserror = "Saving Data...";
                 });
 
                 bool updated = await updateAccountInfo(
-                    _AddressController.text,
-                    _NameController.text,      
-                    _ImageController.text,
-                    _PhoneController.text,
-                    _Intrests,
+                  _AddressController.text,
+                  _NameController.text,
+                  _ImageController.text,
+                  _PhoneController.text,
+                  _Intrests,
                   //  _encodeIntrest()
-                    );
+                );
 
                 if (updated) {
                   updateAccountInfo(

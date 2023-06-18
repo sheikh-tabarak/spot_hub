@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spot_hub/Utilities/ScrappingData.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
+import 'package:spot_hub/models/Global/ProductsData.dart';
 import 'package:spot_hub/screens/Loading.dart';
 
 class ContactSupport extends StatefulWidget {
@@ -93,12 +94,15 @@ class _ContactSupportState extends State<ContactSupport> {
                             ),
                             onPressed: () async {
                               setState(() {
-                                isLoading=true;
+                                isLoading = true;
                               });
-                              await scrapeData();
+
+                              await showAllProducts();
+
+                              // await scrapeData();
                               print("done");
-                               setState(() {
-                                isLoading=false;
+                              setState(() {
+                                isLoading = false;
                               });
                             },
                           ),

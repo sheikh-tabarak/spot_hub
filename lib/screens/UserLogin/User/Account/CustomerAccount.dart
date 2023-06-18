@@ -12,6 +12,7 @@ import 'package:spot_hub/database/Authentication.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/AddNewBussiness.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/BussinessHome.dart';
+import 'package:spot_hub/screens/Loading.dart';
 import 'package:spot_hub/screens/UserLogin/Admin/Login.dart';
 import 'package:spot_hub/screens/UserLogin/User/Account/EditAccountDetails.dart';
 
@@ -78,12 +79,14 @@ class _CustomerAccountState extends State<CustomerAccount> {
         print(MainUser.PhoneNo + " - " + MainUser.email);
       });
     } catch (e) {}
+
+    //   isLoading = false;
   }
 
   @override
   Widget build(BuildContext context) {
-    return isLoading == true
-        ? const Center(child: CircularProgressIndicator())
+    return myName == ""
+        ? Loading(message: "Fetching user information")
         : Column(
             children: [
               Stack(

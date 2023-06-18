@@ -29,8 +29,7 @@ class ProductCard extends StatelessWidget {
           BussinessType: "N/A",
           BussinessWebsite: "N/A",
           BussinessEmail: 'N/A',
-         Reports: 0
-          );
+          Reports: 0);
       for (int i = 0; i < DummyBussinesses.length; i++) {
         if (DummyBussinesses[i].BussinessId == products.BussinessId) {
           B = DummyBussinesses[i];
@@ -117,7 +116,7 @@ class ProductCard extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       showModalBottomSheet(
-                        isScrollControlled:true,
+                          isScrollControlled: true,
                           enableDrag: true,
                           shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
@@ -128,8 +127,9 @@ class ProductCard extends StatelessWidget {
                           builder: (context) {
                             return Container(
                                 padding: const EdgeInsets.all(10),
-                                child: BussinessProfile(B: BussinessOfProduct(),)
-                                );
+                                child: BussinessProfile(
+                                  B: BussinessOfProduct(),
+                                ));
                           });
                     },
                     child: SmallText(

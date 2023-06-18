@@ -3,13 +3,16 @@
 import 'dart:ui';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
+import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/DummyData.dart';
 import 'package:spot_hub/models/BusinessModels/Product.dart';
+import 'package:spot_hub/models/Global/ProductsData.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
 import 'package:spot_hub/screens/UserLogin/User/Account/CustomerAccount.dart';
 import 'package:spot_hub/screens/UserLogin/SearchFrame/MainSearch.dart';
@@ -490,6 +493,68 @@ class _MainPageState extends State<MainPage> {
                                 }).toList(),
                               ),
                             ),
+
+                            StreamBuilder(
+                                stream: ProductsOfAllBussinesses(),
+                                builder: (context,
+                                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                                  return snapshot.hasData
+                                      ? ListView(
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
+                                          shrinkWrap: true,
+                                          // This next line does the trick.
+                                          scrollDirection: Axis.vertical,
+                                          children:
+                                              snapshot.data!.docs.map((e) {
+                                            // if()
+
+                                            return GestureDetector(
+                                              onTap: () {},
+                                              child: ProductCard(
+                                                  products: Product(
+                                                      BussinessId:
+                                                          e["BussinessId"],
+                                                      Id: e["Id"],
+                                                      image: e["image"],
+                                                      description:
+                                                          e["description"],
+                                                      title: e["title"],
+                                                      Price: e["Price"],
+                                                      rating: e["rating"],
+                                                      reviews: e["reviews"],
+                                                      isRecommended:
+                                                          e["isRecommended"])),
+                                            );
+                                          }).toList())
+                                      : Container(
+                                          padding: EdgeInsets.all(10),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                  border: Border.all(
+                                                      width: 2.0,
+                                                      color: Color.fromARGB(
+                                                          255, 237, 237, 237)),
+                                                ),
+                                                alignment: Alignment.center,
+                                                child: Icon(Icons.add),
+                                              ),
+                                              SizedBox(
+                                                height: 5,
+                                              ),
+                                              SmallText(text: "Register")
+                                            ],
+                                          ),
+                                        );
+                                }),
 
                             ListView.builder(
                                 physics: const NeverScrollableScrollPhysics(),

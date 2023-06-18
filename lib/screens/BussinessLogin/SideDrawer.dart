@@ -15,7 +15,13 @@ import 'package:spot_hub/screens/UserLogin/Admin/Login.dart';
 import 'package:spot_hub/screens/UserLogin/Home/MainPage.dart';
 
 class SideDrawer extends StatefulWidget {
-  const SideDrawer({super.key});
+  final String BussinessImageUrl;
+  final String BussinessName;
+
+  const SideDrawer(
+      {super.key,
+      required this.BussinessImageUrl,
+      required this.BussinessName});
 
   @override
   State<SideDrawer> createState() => _SideDrawerState();
@@ -28,14 +34,15 @@ class _SideDrawerState extends State<SideDrawer> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Wrap(
+      body: Column(
         children: [
           // InkWell(
           //   onTap: () => null,
 
           // ),
           Container(
-              padding: EdgeInsets.all(10),
+              width: 250,
+              padding: EdgeInsets.all(15),
               decoration: BoxDecoration(color: AppColors.PrimaryColor),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,21 +50,25 @@ class _SideDrawerState extends State<SideDrawer> {
                   Container(
                     width: 90,
                     height: 90,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(100)),
                       image: DecorationImage(
-                          image: AssetImage("assets/images/2desifood.png"),
+                          image: NetworkImage(widget.BussinessImageUrl),
+                          //AssetImage("assets/images/2desifood.png"),
                           fit: BoxFit.cover),
                     ),
                   ),
                   BigText(
-                    text: "Bussiness Name",
+                    text: widget.BussinessName,
                     color: Colors.white,
                   ),
-                  SmallText(
-                    text: "This is the description of this Bussiness",
-                    color: Colors.white,
-                  ),
+                  SizedBox(
+                    height: 10,
+                  )
+                  // SmallText(
+                  //   text: "This is the description of this Bussiness",
+                  //   color: Colors.white,
+                  // ),
                 ],
               )),
           Column(

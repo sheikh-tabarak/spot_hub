@@ -6,44 +6,92 @@ import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/DummyData.dart';
 import 'package:spot_hub/models/BusinessModels/Product.dart';
 import 'package:spot_hub/models/BusinessModels/Bussiness.dart';
+import 'package:spot_hub/models/Global/ProductsData.dart';
 import 'package:spot_hub/screens/UserLogin/User/ScrollableProductDetailPage.dart';
 import 'package:spot_hub/widgets/PopupModals/BussinessProfile.dart';
 import 'package:spot_hub/widgets/PopupModals/ProductContact.dart';
 import 'package:spot_hub/widgets/Product/ProductTitleSection.dart';
 
-class ProductCard extends StatelessWidget {
+class ProductCard extends StatefulWidget {
   final Product products;
+  //final Bussiness bussiness;
 
-  const ProductCard({super.key, required this.products});
+  const ProductCard({
+    super.key,
+    required this.products,
+  });
+
+  @override
+  State<ProductCard> createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<ProductCard> {
+  Bussiness CurrentBussiness = Bussiness(
+      BussinessId: "",
+      BussinessImageUrl: "",
+      BussinessName: "",
+      BussinessEmail: "",
+      BussinessCity: "",
+      BussinessAddress: "",
+      BussinessPhone: "",
+      BussinessType: "",
+      BussinessWebsite: "",
+      Reports: 0);
+
+  @override
+  void initState() {
+    BussinessOfProduct(widget.products.BussinessId).then((value) {
+      setState(() {
+        CurrentBussiness = Bussiness(
+          BussinessId: value.BussinessId,
+          BussinessName: value.BussinessName,
+          BussinessImageUrl: value.BussinessImageUrl,
+          BussinessEmail: value.BussinessEmail,
+          BussinessAddress: value.BussinessAddress,
+          BussinessCity: value.BussinessCity,
+          BussinessPhone: value.BussinessPhone,
+          BussinessType: value.BussinessType,
+          BussinessWebsite: value.BussinessWebsite,
+          Reports: value.Reports,
+        );
+      });
+    });
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    Bussiness BussinessOfProduct() {
-      Bussiness B = const Bussiness(
-          BussinessId: "N/A",
-          BussinessImageUrl: "N/A",
-          BussinessName: "N/A",
-          BussinessCity: "N/A",
-          BussinessAddress: "N/A",
-          BussinessPhone: "N/A",
-          BussinessType: "N/A",
-          BussinessWebsite: "N/A",
-          BussinessEmail: 'N/A',
-          Reports: 0);
-      for (int i = 0; i < DummyBussinesses.length; i++) {
-        if (DummyBussinesses[i].BussinessId == products.BussinessId) {
-          B = DummyBussinesses[i];
-        }
-      }
-      return B;
-    }
+    // Bussiness BussinessOfProduc(String bussinessId) {
+    //   Bussiness B = const Bussiness(
+    //     BussinessId: "N/A",
+    //     BussinessImageUrl: "N/A",
+    //     BussinessName: "N/A",
+    //     BussinessCity: "N/A",
+    //     BussinessAddress: "N/A",
+    //     BussinessPhone: "N/A",
+    //     BussinessType: "N/A",
+    //     BussinessWebsite: "N/A",
+    //     BussinessEmail: 'N/A',
+    //     Reports: 0,
+    //   );
+
+    //   for (int i = 0; i < DummyBussinesses.length; i++) {
+    //     if (DummyBussinesses[i].BussinessId == products.BussinessId) {
+    //       B = DummyBussinesses[i];
+    //     }
+    //   }
+    //   return B;
+    // }
 
     return GestureDetector(
-      onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  ScrollableProductDetailPage(SelectedProduct: products))),
+      onTap: () async {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ScrollableProductDetailPage(
+                    SelectedProduct: widget.products)));
+      },
       child: Container(
         margin: const EdgeInsets.all(10),
         padding: const EdgeInsets.all(10),
@@ -62,10 +110,10 @@ class ProductCard extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
                     image: DecorationImage(
-                        image: NetworkImage(products.image),
+                        image: NetworkImage(widget.products.image),
                         fit: BoxFit.cover)),
               ),
-              title: BigText(text: products.title),
+              title: BigText(text: widget.products.title),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -85,8 +133,7 @@ class ProductCard extends StatelessWidget {
                           ),
                           Wrap(
                             children: List.generate(
-                                products.rating.floor(),
-                                //OverallRating.floor()
+                                widget.products.rating.floor(),
                                 (index) => Icon(
                                       Icons.star,
                                       color: AppColors.PrimaryColor,
@@ -98,12 +145,12 @@ class ProductCard extends StatelessWidget {
                       SizedBox(
                         width: Dimensions.height10,
                       ),
-                      SmallText(text: products.rating.toString()),
+                      SmallText(text: widget.products.rating.toString()),
                       const SizedBox(
                         width: 5,
                       ),
                       SmallText(text: '| '),
-                      SmallText(text: products.reviews.toString()),
+                      SmallText(text: widget.products.reviews.toString()),
                       const SizedBox(
                         width: 5,
                       ),
@@ -114,7 +161,25 @@ class ProductCard extends StatelessWidget {
                     height: Dimensions.height5,
                   ),
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
+                      // await BussinessOfProduct(widget.products.BussinessId)
+                      //     .then((value) {
+                      //   setState(() {
+                      //     CurrentBussiness = Bussiness(
+                      //       BussinessId: value.BussinessId,
+                      //       BussinessName: value.BussinessName,
+                      //       BussinessImageUrl: value.BussinessImageUrl,
+                      //       BussinessEmail: value.BussinessEmail,
+                      //       BussinessAddress: value.BussinessAddress,
+                      //       BussinessCity: value.BussinessCity,
+                      //       BussinessPhone: value.BussinessPhone,
+                      //       BussinessType: value.BussinessType,
+                      //       BussinessWebsite: value.BussinessWebsite,
+                      //       Reports: value.Reports,
+                      //     );
+                      //   });
+                      // });
+
                       showModalBottomSheet(
                           isScrollControlled: true,
                           enableDrag: true,
@@ -126,14 +191,14 @@ class ProductCard extends StatelessWidget {
                           context: context,
                           builder: (context) {
                             return Container(
-                                padding: const EdgeInsets.all(10),
+                                // padding: const EdgeInsets.all(10),
                                 child: BussinessProfile(
-                                  B: BussinessOfProduct(),
-                                ));
+                              B: CurrentBussiness,
+                            ));
                           });
                     },
                     child: SmallText(
-                      text: BussinessOfProduct().BussinessName,
+                      text: CurrentBussiness.BussinessName,
                     ),
                   ),
                 ],
@@ -149,7 +214,7 @@ class ProductCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SmallText(text: "Fast Food"),
-                  products.isRecommended == true
+                  widget.products.isRecommended == true
                       ? Container(
                           // width: ==true?,
                           padding: const EdgeInsets.all(5),
@@ -191,11 +256,19 @@ class ProductCard extends StatelessWidget {
                                 padding: const EdgeInsets.all(10),
                                 child: ProductContact(
                                   BussinessName:
-                                      BussinessOfProduct().BussinessName,
-                                  Email: BussinessOfProduct().BussinessEmail,
-                                  Phone: BussinessOfProduct().BussinessPhone,
+                                      CurrentBussiness.BussinessName == ""
+                                          ? "N/A"
+                                          : CurrentBussiness.BussinessName,
+                                  Email: CurrentBussiness.BussinessEmail == ""
+                                      ? "N/A"
+                                      : CurrentBussiness.BussinessEmail,
+                                  Phone: CurrentBussiness.BussinessPhone == ""
+                                      ? "N/A"
+                                      : CurrentBussiness.BussinessPhone,
                                   website:
-                                      BussinessOfProduct().BussinessWebsite,
+                                      CurrentBussiness.BussinessWebsite == ""
+                                          ? "N/A"
+                                          : CurrentBussiness.BussinessWebsite,
                                 ));
                           });
                     },
@@ -225,7 +298,7 @@ class ProductCard extends StatelessWidget {
                   Row(
                     children: [
                       // Icon(Icons.pin_drop),
-                      SmallText(text: BussinessOfProduct().BussinessCity),
+                      SmallText(text: CurrentBussiness.BussinessCity),
                     ],
                   ),
                 ],

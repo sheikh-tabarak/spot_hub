@@ -5,15 +5,19 @@ import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
+import 'package:spot_hub/models/BusinessModels/Bussiness.dart';
 import 'package:spot_hub/models/DummyData.dart';
 import 'package:spot_hub/models/BusinessModels/Product.dart';
 import 'package:spot_hub/models/Global/ProductsData.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
+import 'package:spot_hub/screens/Loading.dart';
 import 'package:spot_hub/screens/UserLogin/User/Account/CustomerAccount.dart';
 import 'package:spot_hub/screens/UserLogin/SearchFrame/MainSearch.dart';
 import 'package:spot_hub/screens/UserLogin/User/More.dart';
@@ -26,7 +30,7 @@ import 'package:spot_hub/widgets/others/ChoiceIcon.dart';
 
 class MainPage extends StatefulWidget {
   UserClass MainUser;
-  final bool isLoggedin;
+  bool isLoggedin;
   final int PI;
 
   MainPage({
@@ -41,7 +45,7 @@ class MainPage extends StatefulWidget {
         Intrests: "",
         Address: "",
         UserId: ""),
-    required this.isLoggedin,
+    this.isLoggedin: true,
     required this.PI,
   }) : super(key: key);
 
@@ -74,6 +78,10 @@ class _MainPageState extends State<MainPage> {
   @override
   initState() {
     super.initState();
+
+    FirebaseAuth.instance.currentUser.isBlank == true
+        ? widget.isLoggedin == false
+        : widget.isLoggedin == true;
 
     _PageIndex = widget.PI;
 
@@ -130,7 +138,7 @@ class _MainPageState extends State<MainPage> {
             currentIndex: _PageIndex,
             selectedItemColor: AppColors.PrimaryColor,
             onTap: ((value) => {
-                  if (value == 1)
+                  if (value == 1 || value == 2)
                     {
                       if (widget.isLoggedin == false)
                         {
@@ -527,33 +535,35 @@ class _MainPageState extends State<MainPage> {
                                                           e["isRecommended"])),
                                             );
                                           }).toList())
-                                      : Container(
-                                          padding: EdgeInsets.all(10),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
-                                                  border: Border.all(
-                                                      width: 2.0,
-                                                      color: Color.fromARGB(
-                                                          255, 237, 237, 237)),
-                                                ),
-                                                alignment: Alignment.center,
-                                                child: Icon(Icons.add),
-                                              ),
-                                              SizedBox(
-                                                height: 5,
-                                              ),
-                                              SmallText(text: "Register")
-                                            ],
-                                          ),
-                                        );
+                                      : Loading(
+                                          message: "Fetching products data");
+                                  // Container(
+                                  //     padding: EdgeInsets.all(10),
+                                  //     child: Column(
+                                  //       crossAxisAlignment:
+                                  //           CrossAxisAlignment.center,
+                                  //       mainAxisAlignment:
+                                  //           MainAxisAlignment.center,
+                                  //       children: [
+                                  //         Container(
+                                  //           decoration: BoxDecoration(
+                                  //             borderRadius:
+                                  //                 BorderRadius.circular(50),
+                                  //             border: Border.all(
+                                  //                 width: 2.0,
+                                  //                 color: Color.fromARGB(
+                                  //                     255, 237, 237, 237)),
+                                  //           ),
+                                  //           alignment: Alignment.center,
+                                  //           child: Icon(Icons.add),
+                                  //         ),
+                                  //         SizedBox(
+                                  //           height: 5,
+                                  //         ),
+                                  //         SmallText(text: "Register")
+                                  //       ],
+                                  //     ),
+                                  //   );
                                 }),
 
                             ListView.builder(

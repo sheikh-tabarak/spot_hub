@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -6,22 +7,24 @@ import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/DummyData.dart';
 import 'package:spot_hub/models/BusinessModels/Product.dart';
+import 'package:spot_hub/models/Global/ProductsData.dart';
+import 'package:spot_hub/screens/Loading.dart';
 import 'package:spot_hub/screens/UserLogin/SearchFrame/widgets/FilterView.dart';
 import 'package:spot_hub/screens/UserLogin/SearchFrame/widgets/FilteredBox.dart';
 import 'package:spot_hub/widgets/Product/ProductCard.dart';
 
 class MainSearch extends StatefulWidget {
   final String Results;
-   String StarRating;
-   String reviewCount;
-   String PriceFilter;
+  String StarRating;
+  String reviewCount;
+  double PriceFilter;
 
-   MainSearch({
+  MainSearch({
     super.key,
     required this.Results,
-     this.StarRating="0",
-     this.reviewCount="0",
-     this.PriceFilter="0",
+    this.StarRating = "0",
+    this.reviewCount = "0",
+    this.PriceFilter = 0,
   });
 
   @override
@@ -36,6 +39,7 @@ class _MainSearchState extends State<MainSearch> {
 
   @override
   void initState() {
+    SearchTextControl.text = widget.Results;
     // TODO: implement initState
     for (var i = 0; i < DummyProducts.length; i++) {
       Previousindex.add(i);
@@ -83,7 +87,7 @@ class _MainSearchState extends State<MainSearch> {
     return Scaffold(
       appBar: AppBar(
         title: SmallText(
-          text: "Searching \"${widget.Results}\"",
+          text: "Searching \"${SearchTextControl.text}\"",
           size: 12,
           color: Colors.white,
         ),
@@ -211,9 +215,9 @@ class _MainSearchState extends State<MainSearch> {
                         text: "${widget.StarRating} Rating",
                         onCancel: (value) {
                           setState(() {
-                             widget.StarRating="0";
+                            widget.StarRating = "0";
                           });
-                         
+
                           print("Pressed$value");
                         },
                       )
@@ -328,44 +332,110 @@ class _MainSearchState extends State<MainSearch> {
           ),
 
           // SizedBox(height: 10,),
-          Container(
-            height: 550,
-            child: SingleChildScrollView(
-                child: ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: filteredIndexes.length,
-                    itemBuilder: (context, index) {
-                      return ProductCard(
-                          products: Product(
-                              isRecommended:
-                                  DummyProducts[filteredIndexes.elementAt(index)]
-                                      .isRecommended,
-                              BussinessId:
-                                  DummyProducts[filteredIndexes.elementAt(index)]
-                                      .BussinessId,
-                              Id: DummyProducts[filteredIndexes.elementAt(index)]
-                                  .Id,
-                              image:
-                                  DummyProducts[filteredIndexes.elementAt(index)]
-                                      .image,
-                              description:
-                                  DummyProducts[filteredIndexes.elementAt(index)]
-                                      .description,
-                              title:
-                                  DummyProducts[filteredIndexes.elementAt(index)]
-                                      .title,
-                              Price:
-                                  DummyProducts[filteredIndexes.elementAt(index)]
-                                      .Price,
-                              rating:
-                                  DummyProducts[filteredIndexes.elementAt(index)]
-                                      .rating,
-                              reviews:
-                                  DummyProducts[filteredIndexes.elementAt(index)]
-                                      .reviews));
-                    })),
-          )
+
+          StreamBuilder(
+              stream: ProductsOfAllBussinesses(),
+              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                return snapshot.hasData
+                    ? ListView(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        // This next line does the trick.
+                        scrollDirection: Axis.vertical,
+                        children: snapshot.data!.docs.map((e) {
+                          if (e["title"]
+                              .toString()
+                              .contains(SearchTextControl.text)) {
+                            if (widget.PriceFilter != 0 &&
+                                e["Price"] > widget.PriceFilter) {
+                              return GestureDetector(
+                                onTap: () {},
+                                child: ProductCard(
+                                    products: Product(
+                                        BussinessId: e["BussinessId"],
+                                        Id: e["Id"],
+                                        image: e["image"],
+                                        description: e["description"],
+                                        title: e["title"],
+                                        Price: e["Price"],
+                                        rating: e["rating"],
+                                        reviews: e["reviews"],
+                                        isRecommended: e["isRecommended"])),
+                              );
+                            }
+                          }
+
+                          return SizedBox();
+                          // if()
+                        }).toList())
+                    : Loading(message: "Fetching products data");
+                // Container(
+                //     padding: EdgeInsets.all(10),
+                //     child: Column(
+                //       crossAxisAlignment:
+                //           CrossAxisAlignment.center,
+                //       mainAxisAlignment:
+                //           MainAxisAlignment.center,
+                //       children: [
+                //         Container(
+                //           decoration: BoxDecoration(
+                //             borderRadius:
+                //                 BorderRadius.circular(50),
+                //             border: Border.all(
+                //                 width: 2.0,
+                //                 color: Color.fromARGB(
+                //                     255, 237, 237, 237)),
+                //           ),
+                //           alignment: Alignment.center,
+                //           child: Icon(Icons.add),
+                //         ),
+                //         SizedBox(
+                //           height: 5,
+                //         ),
+                //         SmallText(text: "Register")
+                //       ],
+                //     ),
+                //   );
+              }),
+
+          // Container(
+          //   height: 550,
+          //   child: SingleChildScrollView(
+          //       child: ListView.builder(
+          //           physics: const NeverScrollableScrollPhysics(),
+          //           shrinkWrap: true,
+          //           itemCount: filteredIndexes.length,
+          //           itemBuilder: (context, index) {
+          //             return ProductCard(
+          //                 products: Product(
+          //                     isRecommended:
+          //                         DummyProducts[filteredIndexes.elementAt(index)]
+          //                             .isRecommended,
+          //                     BussinessId:
+          //                         DummyProducts[filteredIndexes.elementAt(index)]
+          //                             .BussinessId,
+          //                     Id: DummyProducts[filteredIndexes.elementAt(index)]
+          //                         .Id,
+          //                     image:
+          //                         DummyProducts[filteredIndexes.elementAt(index)]
+          //                             .image,
+          //                     description:
+          //                         DummyProducts[filteredIndexes.elementAt(index)]
+          //                             .description,
+          //                     title:
+          //                         DummyProducts[filteredIndexes.elementAt(index)]
+          //                             .title,
+          //                     Price:
+          //                         DummyProducts[filteredIndexes.elementAt(index)]
+          //                             .Price,
+          //                     rating:
+          //                         DummyProducts[filteredIndexes.elementAt(index)]
+          //                             .rating,
+          //                     reviews:
+          //                         DummyProducts[filteredIndexes.elementAt(index)]
+          //                             .reviews));
+          //           })),
+          // )
         ],
       )),
     ); // Container widget

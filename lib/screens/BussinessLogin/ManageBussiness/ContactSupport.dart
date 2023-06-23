@@ -96,10 +96,6 @@ class _ContactSupportState extends State<ContactSupport> {
                               setState(() {
                                 isLoading = true;
                               });
-
-                              await showAllProducts();
-
-                              // await scrapeData();
                               print("done");
                               setState(() {
                                 isLoading = false;

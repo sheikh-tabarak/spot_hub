@@ -161,25 +161,7 @@ class _ProductCardState extends State<ProductCard> {
                     height: Dimensions.height5,
                   ),
                   GestureDetector(
-                    onTap: () async {
-                      // await BussinessOfProduct(widget.products.BussinessId)
-                      //     .then((value) {
-                      //   setState(() {
-                      //     CurrentBussiness = Bussiness(
-                      //       BussinessId: value.BussinessId,
-                      //       BussinessName: value.BussinessName,
-                      //       BussinessImageUrl: value.BussinessImageUrl,
-                      //       BussinessEmail: value.BussinessEmail,
-                      //       BussinessAddress: value.BussinessAddress,
-                      //       BussinessCity: value.BussinessCity,
-                      //       BussinessPhone: value.BussinessPhone,
-                      //       BussinessType: value.BussinessType,
-                      //       BussinessWebsite: value.BussinessWebsite,
-                      //       Reports: value.Reports,
-                      //     );
-                      //   });
-                      // });
-
+                    onTap: () {
                       showModalBottomSheet(
                           isScrollControlled: true,
                           enableDrag: true,

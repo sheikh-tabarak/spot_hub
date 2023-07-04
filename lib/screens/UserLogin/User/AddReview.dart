@@ -1,6 +1,5 @@
 // ignore_for_file: file_names, non_constant_identifier_names, unnecessary_new
 
-
 import 'package:flutter/material.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
@@ -21,7 +20,6 @@ class AddReview extends StatefulWidget {
 }
 
 class _AddReviewState extends State<AddReview> {
-
   List<String> products = [];
 
   late String SelectedProduct;
@@ -43,37 +41,40 @@ class _AddReviewState extends State<AddReview> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image.asset(
-              "assets/images/logo.png",
-              width: 50,
-              height: 50,
-            ),
-            BigText(
-              text: "Post Review",
-              color: AppColors.PrimaryColor,
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: SmallText(
-                text: "Cancel",
-                color: Colors.grey,
-              ),
-            )
-          ],
-        ),
-      ),
+          backgroundColor: AppColors.PrimaryColor,
+          title: BigText(
+            text: "Post Review",
+            color: Colors.white,
+          )
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Image.asset(
+          //       "assets/images/logo.png",
+          //       width: 50,
+          //       height: 50,
+          //     ),
+          //     BigText(
+          //       text: "Post Review",
+          //       color: AppColors.PrimaryColor,
+          //     ),
+          //     TextButton(
+          //       onPressed: () {
+          //         Navigator.pop(context);
+          //       },
+          //       child: SmallText(
+          //         text: "Cancel",
+          //         color: Colors.grey,
+          //       ),
+          //     )
+          //   ],
+          // ),
+          ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
-            // Drop Down list of Product, also need to uncomment the section in initia;izing state to get the data of all products 
+            // Drop Down list of Product, also need to uncomment the section in initia;izing state to get the data of all products
 
             // DropdownButton(
             //   value: SelectedProduct,
@@ -112,64 +113,108 @@ class _AddReviewState extends State<AddReview> {
             //   },
             // ),
 
-
- GestureDetector(
-  onTap:() => {
-   Navigator.push(context, MaterialPageRoute(builder: (context)=>const SearchPage(searchTitle: "",isSelection: true,)))
-  },
-   child: Container(
-     margin: const EdgeInsets.only(top: 20,left: 20,right: 20),
-     padding:EdgeInsets.all(5) ,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 1,
-                              color: const Color.fromARGB(255, 213, 213, 213)),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(5)),
-                        ),
-                        child: ListTile(
-                          leading: Container(
-                            width: 50,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 1,
-                                  color:
-                                      const Color.fromARGB(255, 213, 213, 213)),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(50)),
-                              image: DecorationImage(
-                                  image: NetworkImage(
-                                      widget.ProductToReview.image),
-                                  fit: BoxFit.cover),
+            GestureDetector(
+              onTap: () => {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SearchPage(
+                              searchTitle: "",
+                              isSelection: true,
+                            )))
+              },
+              child: Container(
+                  margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
+                  padding: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        width: 1,
+                        color: const Color.fromARGB(255, 213, 213, 213)),
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
+                  ),
+                  child: ListTile(
+                    leading: Container(
+                      width: 50,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 1,
+                            color: const Color.fromARGB(255, 213, 213, 213)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(50)),
+                        image: DecorationImage(
+                            image: NetworkImage(widget.ProductToReview.image),
+                            fit: BoxFit.cover),
+                      ),
+                    ),
+                    title: Padding(
+                      padding: const EdgeInsets.only(bottom: 3),
+                      child: SmallText(
+                          size: 14,
+                          color: Colors.black,
+                          text: widget.ProductToReview.title),
+                    ),
+                    subtitle: Row(
+                      children: [
+                        Stack(
+                          children: [
+                            Wrap(
+                              children: List.generate(
+                                  1,
+                                  //OverallRating.floor()
+                                  (index) => Icon(
+                                        Icons.star,
+                                        color: AppColors.PrimaryColor,
+                                        size: 20,
+                                      )),
                             ),
-                          ),
-                          title: Padding(
-                            padding: const EdgeInsets.only(bottom: 3),
-                            child: SmallText(
-                                size: 14,
-                                color: Colors.black,
-                                text: widget.ProductToReview.title),
-                          ),
-                          subtitle: SmallText(
-                              size: 11,
-                              color: const Color.fromARGB(255, 163, 163, 163),
-                              text: widget.ProductToReview.description),
-                          trailing: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SmallText(
-                                text: widget.ProductToReview.Price.toString(),
-                                color: AppColors.PrimaryColor,
-                                weight: FontWeight.w800,
-                              ),
-                            ],
-                          ),
-                        )),
- ),
+                            // Wrap(
+                            //   children: List.generate(
+                            //       widget.ProductToReview.rating.floor(),
+                            //       (index) => Icon(
+                            //             Icons.star,
+                            //             color: AppColors.PrimaryColor,
+                            //             size: 20,
+                            //           )),
+                            // ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: Dimensions.height10,
+                        ),
+                        SmallText(
+                            text: widget.ProductToReview.rating.toString()),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        SmallText(text: '| '),
+                        SmallText(
+                            text: widget.ProductToReview.reviews.toString()),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        SmallText(text: 'Reviews'),
+                      ],
+                    ),
+                    // SmallText(
+                    //     size: 11,
+                    //     color: const Color.fromARGB(255, 163, 163, 163),
+                    //     text: widget.ProductToReview.description),
+                    trailing: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SmallText(
+                          text: widget.ProductToReview.Price.toString(),
+                          color: AppColors.PrimaryColor,
+                          weight: FontWeight.w800,
+                        ),
+                      ],
+                    ),
+                  )),
+            ),
 
-           
             Container(
-              padding: const EdgeInsets.only(left:20,right: 20,bottom: 10,top: 10),
+              padding: const EdgeInsets.only(
+                  left: 20, right: 20, bottom: 10, top: 10),
               margin: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                   border: Border.all(
@@ -177,8 +222,6 @@ class _AddReviewState extends State<AddReview> {
                       color: const Color.fromARGB(255, 213, 213, 213))),
               child: Column(
                 children: [
-                 
-                  
                   Row(
                     children: [
                       BigText(
@@ -224,7 +267,10 @@ class _AddReviewState extends State<AddReview> {
                       TapAction: () {
                         showDialog(
                             context: context,
-                            builder: (context) => UnderConstruction(message: "Review Module is Under Consturuction yet",));
+                            builder: (context) => UnderConstruction(
+                                  message:
+                                      "Review Module is Under Consturuction yet",
+                                ));
                       },
                       text: "Publish Review",
                       color: AppColors.PrimaryColor,

@@ -10,7 +10,15 @@ import 'package:spot_hub/screens/UserLogin/SearchFrame/widgets/SelectionStripe.d
 import 'package:spot_hub/widgets/others/PrimayButton.dart';
 
 class FilterView extends StatefulWidget {
-  const FilterView({super.key});
+  int Star_Rating;
+  int reviewCount;
+
+  FilterView({
+    super.key,
+    this.Star_Rating = 0,
+    this.reviewCount = 0,
+    //required int StarRating
+  });
 
   @override
   State<FilterView> createState() => _FilterViewState();
@@ -49,7 +57,12 @@ class _FilterViewState extends State<FilterView> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        widget.Star_Rating = 0;
+                        widget.reviewCount = 0;
+                      });
+                    },
                     child: SmallText(
                       text: "Clear all Filters",
                       color: Color.fromARGB(255, 3, 70, 186),
@@ -64,8 +77,10 @@ class _FilterViewState extends State<FilterView> {
             Container(
               height: 60,
               child: SelectionStripe(
-                getValue: (value){
-                  print("it's new $value");
+                selectedItem: widget.Star_Rating,
+                getValue: (value) {
+                  widget.Star_Rating = value;
+                  print("it's new ${value + 1}");
                 },
                 items: StarRating,
               ),
@@ -78,8 +93,10 @@ class _FilterViewState extends State<FilterView> {
             Container(
               height: 60,
               child: SelectionStripe(
-                 getValue: (value){
-                  print("it's new $value");
+                selectedItem: widget.reviewCount,
+                getValue: (value) {
+                  widget.reviewCount = value;
+                  print("it's new ${value + 1}");
                 },
                 items: reviewCount,
               ),
@@ -106,13 +123,18 @@ class _FilterViewState extends State<FilterView> {
             ),
             PrimaryButton(
                 TapAction: () {
-                  // Navigator.pushReplacement(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => MainSearch(
-                  //               Results: "Results",
-                  //               StarRating: ,
-                  //             )));
+                  //  Navigator.pop(context);
+                  print("${widget.Star_Rating}<= for checking");
+                  Navigator.pop(context);
+
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MainSearch(
+                                //   Results: "Results",
+                                reviewCount: widget.reviewCount,
+                                StarRating: widget.Star_Rating,
+                              )));
                 },
                 text: 'Apply Filters',
                 color: AppColors.PrimaryColor,

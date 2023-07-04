@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, file_names
 
-class Reviews {
+class ReviewsModel {
   final String ProductId;
   final int ReviewId;
   final String Name;
@@ -8,7 +8,7 @@ class Reviews {
   final double Stars;
   final String TimeStamp;
 
-  const Reviews(
+  const ReviewsModel(
       {required this.ReviewId,
       required this.ProductId,
       required this.Name,

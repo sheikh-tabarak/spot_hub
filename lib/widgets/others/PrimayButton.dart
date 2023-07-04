@@ -12,16 +12,17 @@ class PrimaryButton extends StatelessWidget {
   final IconData icon;
   final double ButtonRadius;
   final double marginValue;
+  double padding;
 
-  const PrimaryButton(
+  PrimaryButton(
       {super.key,
       required this.TapAction,
       required this.text,
-      required this.color, 
+      required this.color,
       required this.icon,
-      this.ButtonRadius=10,
-      this.marginValue=15
-      });
+      this.ButtonRadius = 10,
+      this.marginValue = 15,
+      this.padding = 15});
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +30,12 @@ class PrimaryButton extends StatelessWidget {
       onTap: () => TapAction(),
       child: Container(
         width: double.maxFinite,
-    //    height:double.nan,
+        //    height:double.nan,
 
         alignment: Alignment.center,
         // padding: const EdgeInsets.all(10),
-        margin:  EdgeInsets.all(marginValue),
-        padding:  const EdgeInsets.all(15),
+        margin: EdgeInsets.all(marginValue),
+        padding: EdgeInsets.all(padding),
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(ButtonRadius),
@@ -42,8 +43,13 @@ class PrimaryButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: Colors.white,),
-            SizedBox(width: Dimensions.height10,),
+            Icon(
+              icon,
+              color: Colors.white,
+            ),
+            SizedBox(
+              width: Dimensions.height10,
+            ),
             SmallText(
               text: text,
               color: AppColors.textColor,
@@ -52,6 +58,5 @@ class PrimaryButton extends StatelessWidget {
         ),
       ),
     );
-
   }
 }

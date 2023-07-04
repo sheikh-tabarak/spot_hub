@@ -63,14 +63,6 @@ class Product {
 
 Future AddNewProduct(String thisisimage, String Ptitle, String PDescription,
     String PCategory, double PPrice) async {
-  // DocumentSnapshot ds = await _db
-  //     .collection("user")
-  //     .doc(FirebaseAuth.instance.currentUser!.uid)
-  //     .collection("bussiness")
-  //     .doc("B_${FirebaseAuth.instance.currentUser!.uid}")
-  //     .get();
-  // String _NoOfProducts = ds.get('NoofProducts').toString();
-
   final PostRequest = FirebaseFirestore.instance
       .collection('user')
       .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -78,15 +70,6 @@ Future AddNewProduct(String thisisimage, String Ptitle, String PDescription,
       .doc("B_${FirebaseAuth.instance.currentUser!.uid}")
       .collection("products")
       .doc();
-
-  // await FirebaseFirestore.instance
-  //     .collection('user')
-  //     .doc(FirebaseAuth.instance.currentUser!.uid)
-  //     .collection("bussiness")
-  //     .doc("B_${FirebaseAuth.instance.currentUser!.uid}")
-  //     .update({
-  //   'NoofProducts': FieldValue.increment(1),
-  // });
 
   final NewProduct = Product(
     BussinessId: "B_${FirebaseAuth.instance.currentUser!.uid}",

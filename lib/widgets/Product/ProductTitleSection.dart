@@ -11,6 +11,7 @@ import 'package:spot_hub/widgets/Product/StarsCard.dart';
 class ProductTitleSection extends StatefulWidget {
   final String text;
   final double Price;
+  final String City;
   final int NoofReviews;
   final double OverallRating;
   final Function ClickedFavorite;
@@ -20,6 +21,7 @@ class ProductTitleSection extends StatefulWidget {
   const ProductTitleSection(
       {super.key,
       required this.text,
+      required this.City,
       required this.NoofReviews,
       required this.OverallRating,
       required this.Price,
@@ -72,7 +74,7 @@ class _ProductTitleSectionState extends State<ProductTitleSection> {
             SizedBox(
               width: Dimensions.width5,
             ),
-            SmallText(text: "Gujranwala")
+            SmallText(text: widget.City)
           ],
         ),
         SizedBox(
@@ -80,7 +82,7 @@ class _ProductTitleSectionState extends State<ProductTitleSection> {
         ),
         Row(
           children: [
-            SmallText(text: ' '),
+            SmallText(text: "${widget.OverallRating.toString()} Stars "),
             Wrap(
               children: List.generate(
                   1,
@@ -94,17 +96,14 @@ class _ProductTitleSectionState extends State<ProductTitleSection> {
             SizedBox(
               width: Dimensions.height5,
             ),
-            SmallText(text: widget.NoofReviews.toString()),
+            //  SmallText(text: widget.OverallRating.toString()),
             const SizedBox(
               width: 5,
             ),
-            SmallText(text: ' reviews '),
-            
-            SmallText(text: "(300)"),
-           
+            //  SmallText(text: ' Stars '),
+            SmallText(text: "(${widget.NoofReviews} Reviews)"),
           ],
         ),
-
       ],
     );
   }

@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:spot_hub/models/BusinessModels/Bussiness.dart';
+import 'package:spot_hub/models/BusinessModels/Reviews.dart';
 
 final _db = FirebaseFirestore.instance;
 
@@ -64,6 +65,69 @@ Future<Bussiness> BussinessOfProduct(String BId) async {
   );
 
   return B;
+}
+
+Future PublishNewReview(
+  String _BId,
+  String Product_Id,
+  String Review,
+  double StarsR,
+) async {
+  DocumentSnapshot ds = await _db
+      .collection("user")
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .get();
+  String UserName = ds.get('username');
+
+  final PublishRequest = FirebaseFirestore.instance
+      .collection('user')
+      .doc(_BId.substring(2))
+      .collection("bussiness")
+      .doc(_BId)
+      .collection("products")
+      .doc(Product_Id)
+      .collection("reviews")
+      .doc();
+
+  final NewReview = Reviews(
+    ReviewId: PublishRequest.id,
+    ProductId: Product_Id,
+    Name: UserName,
+    Review: Review,
+    TimeStamp: DateTime.now().toString(),
+    Stars: StarsR,
+  );
+
+  DocumentSnapshot updateReview = await _db
+      .collection('user')
+      .doc(_BId.substring(2))
+      .collection("bussiness")
+      .doc(_BId)
+      .collection("products")
+      .doc(Product_Id)
+      .get();
+
+  double OldRating = ds.get('rating');
+  double NewRating = (OldRating + StarsR) / 2;
+
+  final json = NewReview.toJson();
+  await PublishRequest.set(json);
+
+  await FirebaseFirestore.instance
+      .collection('user')
+      .doc(_BId.substring(2))
+      .collection("bussiness")
+      .doc(_BId)
+      .collection("products")
+      .doc(Product_Id)
+      .update({
+    'rating': NewRating,
+    'reviews': FieldValue.increment(1),
+    // 'Price': PPrice,
+    // 'description': PDescription,
+    // 'image': thisisimage,
+    // 'title': Ptitle
+  });
 }
 
 

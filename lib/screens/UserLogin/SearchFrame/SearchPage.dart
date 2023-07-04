@@ -1,20 +1,28 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
+import 'package:spot_hub/models/BusinessModels/Product.dart';
 import 'package:spot_hub/models/DummyData.dart';
+import 'package:spot_hub/models/Global/ProductsData.dart';
+import 'package:spot_hub/screens/Loading.dart';
 import 'package:spot_hub/screens/UserLogin/User/AddReview.dart';
 import 'package:spot_hub/screens/UserLogin/SearchFrame/MainSearch.dart';
 import 'package:spot_hub/screens/UserLogin/User/ScrollableProductDetailPage.dart';
+import 'package:spot_hub/widgets/Product/ProductCard.dart';
+import 'package:spot_hub/widgets/others/PrimayButton.dart';
 //import 'package:geolocator/geolocator.dart';
 
 class SearchPage extends StatefulWidget {
+  String Results;
   final String searchTitle;
   final bool isSelection;
   final int index;
 
-  const SearchPage(
+  SearchPage(
       {super.key,
+      this.Results = "",
       this.index = 0,
       required this.searchTitle,
       this.isSelection = false});
@@ -24,59 +32,47 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  // List<String> StarRating = ["Any", "★ 3.0+", "★ 4.0+", "★ 5.0+"];
-  // List<String> reviewCount = ["N/A", "10+", "50+", "100+"];
-  // RangeValues _currentRangeValues = RangeValues(40, 80);
+  TextEditingController searchController = TextEditingController();
 
-  final duplicateItems = List<String>.generate(
-      DummyProducts.length, (index) => DummyProducts[index].title);
-  var items = <String>[];
-  late TextEditingController textControtroller =
-      TextEditingController(text: widget.searchTitle);
-  List<int> filteredIndexes = <int>[];
-  List<int> Previousindex = <int>[];
+  // final duplicateItems = List<String>.generate(
+  //     DummyProducts.length, (index) => DummyProducts[index].title);
+  // var items = <String>[];
+  // late TextEditingController textControtroller =
+  //     TextEditingController(text: widget.searchTitle);
+  // List<int> filteredIndexes = <int>[];
+  // List<int> Previousindex = <int>[];
 
-  @override
-  void initState() {
-    for (var i = 0; i < DummyProducts.length; i++) {
-      Previousindex.add(i);
-    }
-    filteredIndexes.clear();
-    filteredIndexes.addAll(Previousindex);
-    super.initState();
-  }
+  // void filterSearch(String query) {
+  //   //List<int> Previousindex = <int>[];
+  //   // List<int> filteredIndexes = <int>[];
 
-  void filterSearch(String query) {
-    //List<int> Previousindex = <int>[];
-    // List<int> filteredIndexes = <int>[];
+  //   if (query.isNotEmpty) {
+  //     Previousindex.clear();
+  //     for (int i = 0; i < DummyProducts.length; i++) {
+  //       if (DummyProducts[i].title.contains(query) ||
+  //           DummyProducts[i].description.contains(query)) {
+  //         Previousindex.add(i);
+  //       }
+  //     }
 
-    if (query.isNotEmpty) {
-      Previousindex.clear();
-      for (int i = 0; i < DummyProducts.length; i++) {
-        if (DummyProducts[i].title.contains(query) ||
-            DummyProducts[i].description.contains(query)) {
-          Previousindex.add(i);
-        }
-      }
+  //     setState(() {
+  //       filteredIndexes.clear();
+  //       filteredIndexes.addAll(Previousindex);
+  //     });
 
-      setState(() {
-        filteredIndexes.clear();
-        filteredIndexes.addAll(Previousindex);
-      });
+  //     print(filteredIndexes);
+  //     print(filteredIndexes.length);
 
-      print(filteredIndexes);
-      print(filteredIndexes.length);
-
-      return;
-    } else {
-      setState(() {
-        filteredIndexes.clear();
-        filteredIndexes.addAll(Previousindex);
-      });
-      print(filteredIndexes);
-      print(filteredIndexes.length);
-    }
-  }
+  //     return;
+  //   } else {
+  //     setState(() {
+  //       filteredIndexes.clear();
+  //       filteredIndexes.addAll(Previousindex);
+  //     });
+  //     print(filteredIndexes);
+  //     print(filteredIndexes.length);
+  //   }
+  // }
 
 //   void filterSearchResults(String query) {
 //   List<int> dummySearchList = <int>[];
@@ -121,7 +117,6 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     // textControtroller =
     //     TextEditingController(text: widget.searchTitle);
-    TextEditingController searchController = new TextEditingController();
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -157,41 +152,46 @@ class _SearchPageState extends State<SearchPage> {
                   children: [
                     Expanded(
                       child: TextField(
+                        onChanged: (value) {
+                          setState(() {
+                            widget.Results = value;
+                          });
+                        },
                         controller: searchController,
                         decoration: const InputDecoration(
                           hintText: "Search for products",
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                bottomLeft: Radius.circular(10)),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
                           ),
                         ),
                       ), // TextField widget
                     ), // Expanded widget
                     // SizedBox widget
-                    Container(
-                      margin: EdgeInsets.zero,
-                      padding: const EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        color: AppColors.PrimaryColor,
-                        borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(10),
-                            bottomRight: Radius.circular(10)),
-                      ),
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.search,
-                          color: Colors.white,
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MainSearch(
-                                      Results: searchController.text)));
-                        },
-                      ),
-                    ), // IconButton widget
+                    // Container(
+                    //   margin: EdgeInsets.zero,
+                    //   padding: const EdgeInsets.all(5),
+                    //   decoration: BoxDecoration(
+                    //     color: AppColors.PrimaryColor,
+                    //     borderRadius: const BorderRadius.only(
+                    //         topRight: Radius.circular(10),
+                    //         bottomRight: Radius.circular(10)),
+                    //   ),
+                    //   child: IconButton(
+                    //     icon: const Icon(
+                    //       Icons.search,
+                    //       color: Colors.white,
+                    //     ),
+                    //     onPressed: () {
+                    //       Navigator.push(
+                    //           context,
+                    //           MaterialPageRoute(
+                    //               builder: (context) => MainSearch(
+                    //                   Results: searchController.text)));
+                    //     },
+                    //   ),
+                    // ), // IconButton widget
                   ],
                 ),
                 // BoxedTextField(
@@ -281,91 +281,270 @@ class _SearchPageState extends State<SearchPage> {
                 //   ],
                 // ),
 
-                Container(
-                  // height: 10,
-                  child: ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: filteredIndexes.length,
-                      itemBuilder: (context, index) {
-                        return
-                            //   DummyProducts[filteredIndexes.elementAt(index)].username.contains(textControtroller.text)?
-                            Container(
-                                decoration: BoxDecoration(
-                                    border: Border.symmetric(
-                                        horizontal: BorderSide.lerp(
-                                            const BorderSide(
-                                                width: 0,
-                                                color: Color.fromARGB(
-                                                    255, 198, 198, 198)),
-                                            const BorderSide(width: 1),
-                                            0))),
-                                child: ListTile(
-                                  onTap: () => {
-                                    widget.isSelection == true
-                                        ? Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => AddReview(
-                                                    ProductToReview:
-                                                        DummyProducts[
-                                                            filteredIndexes
-                                                                .elementAt(
-                                                                    index)])))
-                                        : Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ScrollableProductDetailPage(
-                                                        SelectedProduct:
-                                                            DummyProducts[
-                                                                filteredIndexes
-                                                                    .elementAt(
-                                                                        index)])))
-                                  },
-                                  // minLeadingWidth: 50,
-                                  leading: Container(
-                                    width: 50,
-                                    // height: 50,
-                                    decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(50)),
-                                      image: DecorationImage(
-                                          image: NetworkImage(DummyProducts[
-                                                  filteredIndexes
-                                                      .elementAt(index)]
-                                              .image),
-                                          fit: BoxFit.cover),
-                                    ),
-                                  ),
+                StreamBuilder(
+                    stream: ProductsOfAllBussinesses(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      return snapshot.hasData
+                          ? ListView(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              // This next line does the trick.
+                              scrollDirection: Axis.vertical,
+                              children: snapshot.data!.docs.map((e) {
+                                if (e["title"]
+                                    .toString()
+                                    .contains(widget.Results)) {
+                                  // if (widget.PriceFilter != 0 &&
+                                  //     e["Price"] > widget.PriceFilter) {
+                                  return GestureDetector(
+                                    // onTap: () {
 
-                                  title: Padding(
-                                    padding: const EdgeInsets.only(bottom: 3),
-                                    child: SmallText(
-                                        size: 14,
-                                        color: Colors.black,
-                                        text: DummyProducts[filteredIndexes
-                                                .elementAt(index)]
-                                            .title),
-                                  ),
-                                  subtitle: SmallText(
-                                      size: 11,
-                                      color: const Color.fromARGB(
-                                          255, 163, 163, 163),
-                                      text: DummyProducts[
-                                              filteredIndexes.elementAt(index)]
-                                          .description),
-                                  trailing: SmallText(
-                                    text:
-                                        "\$ ${DummyProducts[filteredIndexes.elementAt(index)].Price.toString()}",
-                                    color: AppColors.PrimaryColor,
-                                    weight: FontWeight.w800,
-                                  ),
-                                ));
-                        // :Text("")
-                        // ;
-                      }),
-                ),
+                                    // },
+                                    child: Container(
+                                      margin: EdgeInsets.only(bottom: 15),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            width: 1,
+                                            color: const Color.fromARGB(
+                                                255, 224, 224, 224)),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10),
+                                        ),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          ListTile(
+                                            leading: Container(
+                                              width: 50,
+                                              height: 50,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(50)),
+                                                image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        e["image"]),
+                                                    fit: BoxFit.cover),
+                                              ),
+                                            ),
+                                            title: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 3),
+                                              child: SmallText(
+                                                  size: 14,
+                                                  color: Colors.black,
+                                                  text: e["title"]),
+                                            ),
+                                            subtitle: Row(
+                                              children: [
+                                                Stack(
+                                                  children: [
+                                                    Wrap(
+                                                      children: List.generate(
+                                                          5,
+                                                          //OverallRating.floor()
+                                                          (index) => const Icon(
+                                                                Icons.star,
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        255,
+                                                                        191,
+                                                                        135),
+                                                                size: 20,
+                                                              )),
+                                                    ),
+                                                    Wrap(
+                                                      children: List.generate(
+                                                          e["rating"].floor(),
+                                                          (index) => Icon(
+                                                                Icons.star,
+                                                                color: AppColors
+                                                                    .PrimaryColor,
+                                                                size: 20,
+                                                              )),
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  width: Dimensions.height10,
+                                                ),
+                                                SmallText(
+                                                    text:
+                                                        e["rating"].toString()),
+                                                const SizedBox(
+                                                  width: 5,
+                                                ),
+                                                SmallText(text: '| '),
+                                                SmallText(
+                                                    text: e["reviews"]
+                                                        .toString()),
+                                                const SizedBox(
+                                                  width: 5,
+                                                ),
+                                                SmallText(text: 'Reviews'),
+                                              ],
+                                            ),
+                                            trailing: SmallText(
+                                              text: e["Price"].toString(),
+                                              color: AppColors.PrimaryColor,
+                                              weight: FontWeight.w800,
+                                            ),
+                                          ),
+                                          PrimaryButton(
+                                              padding: 10,
+                                              TapAction: () {
+                                                Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) => AddReview(
+                                                            ProductToReview: Product(
+                                                                BussinessId: e[
+                                                                    "BussinessId"],
+                                                                Id: e["Id"],
+                                                                image:
+                                                                    e["image"],
+                                                                description: e[
+                                                                    "description"],
+                                                                title:
+                                                                    e["title"],
+                                                                Price:
+                                                                    e["Price"],
+                                                                rating:
+                                                                    e["rating"],
+                                                                reviews: e[
+                                                                    "reviews"],
+                                                                isRecommended: e[
+                                                                    "isRecommended"]))));
+                                              },
+                                              text: "Select",
+                                              color: AppColors.PrimaryColor,
+                                              icon: Icons.ads_click)
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }
+
+                                return SizedBox();
+                                // if()
+                              }).toList())
+                          : Loading(message: "Fetching products data");
+                      // Container(
+                      //     padding: EdgeInsets.all(10),
+                      //     child: Column(
+                      //       crossAxisAlignment:
+                      //           CrossAxisAlignment.center,
+                      //       mainAxisAlignment:
+                      //           MainAxisAlignment.center,
+                      //       children: [
+                      //         Container(
+                      //           decoration: BoxDecoration(
+                      //             borderRadius:
+                      //                 BorderRadius.circular(50),
+                      //             border: Border.all(
+                      //                 width: 2.0,
+                      //                 color: Color.fromARGB(
+                      //                     255, 237, 237, 237)),
+                      //           ),
+                      //           alignment: Alignment.center,
+                      //           child: Icon(Icons.add),
+                      //         ),
+                      //         SizedBox(
+                      //           height: 5,
+                      //         ),
+                      //         SmallText(text: "Register")
+                      //       ],
+                      //     ),
+                      //   );
+                    }),
+
+                // Container(
+                //   // height: 10,
+                //   child: ListView.builder(
+                //       physics: const NeverScrollableScrollPhysics(),
+                //       shrinkWrap: true,
+                //       itemCount: filteredIndexes.length,
+                //       itemBuilder: (context, index) {
+                //         return
+                //             //   DummyProducts[filteredIndexes.elementAt(index)].username.contains(textControtroller.text)?
+                //             Container(
+                //                 decoration: BoxDecoration(
+                //                     border: Border.symmetric(
+                //                         horizontal: BorderSide.lerp(
+                //                             const BorderSide(
+                //                                 width: 0,
+                //                                 color: Color.fromARGB(
+                //                                     255, 198, 198, 198)),
+                //                             const BorderSide(width: 1),
+                //                             0))),
+                //                 child: ListTile(
+                //                   onTap: () => {
+                //                     widget.isSelection == true
+                //                         ? Navigator.pushReplacement(
+                //                             context,
+                //                             MaterialPageRoute(
+                //                                 builder: (context) => AddReview(
+                //                                     ProductToReview:
+                //                                         DummyProducts[
+                //                                             filteredIndexes
+                //                                                 .elementAt(
+                //                                                     index)])))
+                //                         : Navigator.push(
+                //                             context,
+                //                             MaterialPageRoute(
+                //                                 builder: (context) =>
+                //                                     ScrollableProductDetailPage(
+                //                                         SelectedProduct:
+                //                                             DummyProducts[
+                //                                                 filteredIndexes
+                //                                                     .elementAt(
+                //                                                         index)])))
+                //                   },
+                //                   // minLeadingWidth: 50,
+                //                   leading: Container(
+                //                     width: 50,
+                //                     // height: 50,
+                //                     decoration: BoxDecoration(
+                //                       borderRadius: const BorderRadius.all(
+                //                           Radius.circular(50)),
+                //                       image: DecorationImage(
+                //                           image: NetworkImage(DummyProducts[
+                //                                   filteredIndexes
+                //                                       .elementAt(index)]
+                //                               .image),
+                //                           fit: BoxFit.cover),
+                //                     ),
+                //                   ),
+
+                //                   title: Padding(
+                //                     padding: const EdgeInsets.only(bottom: 3),
+                //                     child: SmallText(
+                //                         size: 14,
+                //                         color: Colors.black,
+                //                         text: DummyProducts[filteredIndexes
+                //                                 .elementAt(index)]
+                //                             .title),
+                //                   ),
+                //                   subtitle: SmallText(
+                //                       size: 11,
+                //                       color: const Color.fromARGB(
+                //                           255, 163, 163, 163),
+                //                       text: DummyProducts[
+                //                               filteredIndexes.elementAt(index)]
+                //                           .description),
+                //                   trailing: SmallText(
+                //                     text:
+                //                         "\$ ${DummyProducts[filteredIndexes.elementAt(index)].Price.toString()}",
+                //                     color: AppColors.PrimaryColor,
+                //                     weight: FontWeight.w800,
+                //                   ),
+                //                 ));
+                //         // :Text("")
+                //         // ;
+                //       }),
+
+                // ),
               ],
             ),
           ),

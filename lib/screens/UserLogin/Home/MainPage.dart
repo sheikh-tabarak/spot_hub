@@ -277,9 +277,8 @@ class _MainPageState extends State<MainPage> {
                                                     pageBuilder: (context,
                                                             animation,
                                                             secondaryAnimation) =>
-                                                        const SearchPage(
-                                                      searchTitle:
-                                                          "Recommended",
+                                                        MainSearch(
+                                                      recommended: true,
                                                     ),
                                                     transitionsBuilder: (context,
                                                             animation,
@@ -363,9 +362,7 @@ class _MainPageState extends State<MainPage> {
                                           PageRouteBuilder(
                                             pageBuilder: (context, animation,
                                                     secondaryAnimation) =>
-                                                const SearchPage(
-                                              searchTitle: "",
-                                            ),
+                                                MainSearch(),
                                             transitionsBuilder: (context,
                                                     animation,
                                                     secondaryAnimation,
@@ -566,26 +563,27 @@ class _MainPageState extends State<MainPage> {
                                   //   );
                                 }),
 
-                            ListView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: 5,
-                                itemBuilder: (context, index) {
-                                  return ProductCard(
-                                      products: Product(
-                                          isRecommended: true,
-                                          BussinessId: DummyBussinesses[index]
-                                              .BussinessId,
-                                          Id: DummyProducts[index].Id,
-                                          image: DummyProducts[index].image,
-                                          description:
-                                              DummyProducts[index].description,
-                                          title: DummyProducts[index].title,
-                                          Price: DummyProducts[index].Price,
-                                          rating: DummyProducts[index].rating,
-                                          reviews:
-                                              DummyProducts[index].reviews));
-                                }),
+                            // ListView.builder(
+                            //     physics: const NeverScrollableScrollPhysics(),
+                            //     shrinkWrap: true,
+                            //     itemCount: 5,
+                            //     itemBuilder: (context, index) {
+                            //       return ProductCard(
+                            //           products: Product(
+                            //               isRecommended: true,
+                            //               BussinessId: DummyBussinesses[index]
+                            //                   .BussinessId,
+                            //               Id: DummyProducts[index].Id,
+                            //               image: DummyProducts[index].image,
+                            //               description:
+                            //                   DummyProducts[index].description,
+                            //               title: DummyProducts[index].title,
+                            //               Price: DummyProducts[index].Price,
+                            //               rating: DummyProducts[index].rating,
+                            //               reviews:
+                            //                   DummyProducts[index].reviews));
+                            //     }),
+
                             // Padding(
                             //   padding: const EdgeInsets.only(top: 30),
                             //   child: Column(

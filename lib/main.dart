@@ -54,7 +54,10 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: Scaffold(body: Login()
+        home: Scaffold(
+            body:
+                //MainSearch(Results: "Burger")
+                Login()
             //  BussinessHome()
             //      MainPage(isLoggedin: true,PI: 2,)
             //          ChatScreen(

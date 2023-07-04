@@ -14,18 +14,22 @@ import 'package:spot_hub/screens/UserLogin/SearchFrame/widgets/FilteredBox.dart'
 import 'package:spot_hub/widgets/Product/ProductCard.dart';
 
 class MainSearch extends StatefulWidget {
-  final String Results;
-  String StarRating;
-  String reviewCount;
+  String Results;
+
+  int StarRating;
+  int reviewCount;
+
+  bool recommended;
+
   double PriceFilter;
 
-  MainSearch({
-    super.key,
-    required this.Results,
-    this.StarRating = "0",
-    this.reviewCount = "0",
-    this.PriceFilter = 0,
-  });
+  MainSearch(
+      {super.key,
+      this.Results = "",
+      this.StarRating = 0,
+      this.reviewCount = 0,
+      this.PriceFilter = 0,
+      this.recommended = false});
 
   @override
   State<MainSearch> createState() => _MainSearchState();
@@ -37,50 +41,53 @@ class _MainSearchState extends State<MainSearch> {
   List<int> filteredIndexes = <int>[];
   List<int> Previousindex = <int>[];
 
+  // String _SearchedText
+
   @override
   void initState() {
-    SearchTextControl.text = widget.Results;
-    // TODO: implement initState
-    for (var i = 0; i < DummyProducts.length; i++) {
-      Previousindex.add(i);
-    }
-    filteredIndexes.clear();
-    filteredIndexes.addAll(Previousindex);
-    SearchTextControl.text = widget.Results;
+    // SearchTextControl.text = widget.Results;
+    // // TODO: implement initState
+    // for (var i = 0; i < DummyProducts.length; i++) {
+    //   Previousindex.add(i);
+    // }
+    // filteredIndexes.clear();
+    // filteredIndexes.addAll(Previousindex);
+    // SearchTextControl.text = widget.Results;
+
     super.initState();
   }
 
-  void filterSearch(String query) {
-    //List<int> Previousindex = <int>[];
-    // List<int> filteredIndexes = <int>[];
+  // void filterSearch(String query) {
+  //   //List<int> Previousindex = <int>[];
+  //   // List<int> filteredIndexes = <int>[];
 
-    if (query.isNotEmpty) {
-      Previousindex.clear();
-      for (int i = 0; i < DummyProducts.length; i++) {
-        if (DummyProducts[i].title.contains(query) ||
-            DummyProducts[i].description.contains(query)) {
-          Previousindex.add(i);
-        }
-      }
+  //   if (query.isNotEmpty) {
+  //     Previousindex.clear();
+  //     for (int i = 0; i < DummyProducts.length; i++) {
+  //       if (DummyProducts[i].title.contains(query) ||
+  //           DummyProducts[i].description.contains(query)) {
+  //         Previousindex.add(i);
+  //       }
+  //     }
 
-      setState(() {
-        filteredIndexes.clear();
-        filteredIndexes.addAll(Previousindex);
-      });
+  //     setState(() {
+  //       filteredIndexes.clear();
+  //       filteredIndexes.addAll(Previousindex);
+  //     });
 
-      print(filteredIndexes);
-      print(filteredIndexes.length);
+  //     print(filteredIndexes);
+  //     print(filteredIndexes.length);
 
-      return;
-    } else {
-      setState(() {
-        filteredIndexes.clear();
-        filteredIndexes.addAll(Previousindex);
-      });
-      print(filteredIndexes);
-      print(filteredIndexes.length);
-    }
-  }
+  //     return;
+  //   } else {
+  //     setState(() {
+  //       filteredIndexes.clear();
+  //       filteredIndexes.addAll(Previousindex);
+  //     });
+  //     print(filteredIndexes);
+  //     print(filteredIndexes.length);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +112,7 @@ class _MainSearchState extends State<MainSearch> {
                   child: TextField(
                     onChanged: (value) {
                       setState(() {
-                        filterSearch(value);
+                        widget.Results = value;
                       });
                     },
                     controller: SearchTextControl,
@@ -149,78 +156,139 @@ class _MainSearchState extends State<MainSearch> {
             child: Wrap(
               alignment: WrapAlignment.start,
               children: [
-                Container(
-                  margin: EdgeInsets.only(top: 10, left: 10, bottom: 10),
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: AppColors.PrimaryColor),
-                  child: Wrap(
-                    alignment: WrapAlignment.center,
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: [
-                      // Column(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: [
-
-                      SmallText(
-                        text: "3.0+ Rating",
-                        color: Colors.white,
-                      ),
-                      //   ],
-                      //  ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Icon(
-                        Icons.cancel,
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 10, left: 10, bottom: 10),
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: AppColors.PrimaryColor),
-                  child: Wrap(
-                    alignment: WrapAlignment.center,
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: [
-                      // Column(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: [
-
-                      SmallText(
-                        text: "3.0+ Rating",
-                        color: Colors.white,
-                      ),
-                      //   ],
-                      //  ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Icon(
-                        Icons.cancel,
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
-                ),
-                widget.StarRating == "0"
+                widget.recommended == false
                     ? SizedBox()
-                    : FilteredBox(
-                        text: "${widget.StarRating} Rating",
-                        onCancel: (value) {
-                          setState(() {
-                            widget.StarRating = "0";
-                          });
+                    : Container(
+                        margin: EdgeInsets.only(top: 10, left: 10, bottom: 10),
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: AppColors.PrimaryColor),
+                        child: Wrap(
+                          alignment: WrapAlignment.center,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            // Column(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   children: [
+                            SmallText(
+                              text: "Recommended",
+                              color: Colors.white,
+                            ),
+                            //   ],
+                            //  ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  widget.recommended = false;
+                                });
+                              },
+                              child: Icon(
+                                Icons.cancel,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                widget.StarRating == 0
+                    ? SizedBox()
+                    : Container(
+                        margin: EdgeInsets.only(top: 10, left: 10, bottom: 10),
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: AppColors.PrimaryColor),
+                        child: Wrap(
+                          alignment: WrapAlignment.center,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            // Column(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   children: [
+                            SmallText(
+                              text: "${widget.StarRating + 2}.0+ Rating",
+                              color: Colors.white,
+                            ),
+                            //   ],
+                            //  ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  widget.StarRating = 0;
+                                });
+                              },
+                              child: Icon(
+                                Icons.cancel,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                widget.reviewCount == 0
+                    ? SizedBox()
+                    : Container(
+                        margin: EdgeInsets.only(top: 10, left: 10, bottom: 10),
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: AppColors.PrimaryColor),
+                        child: Wrap(
+                          alignment: WrapAlignment.center,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            // Column(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   children: [
 
-                          print("Pressed$value");
-                        },
-                      )
+                            SmallText(
+                              text: widget.reviewCount == 1
+                                  ? "10+ Reviews"
+                                  : widget.reviewCount == 2
+                                      ? "50+ Reviews"
+                                      : widget.reviewCount == 3
+                                          ? "100+ Reviews"
+                                          : "",
+                              color: Colors.white,
+                            ),
+                            //   ],
+                            //  ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  widget.reviewCount = 0;
+                                });
+                              },
+                              child: Icon(
+                                Icons.cancel,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                // widget.StarRating == 0
+                //     ? SizedBox()
+                //     : FilteredBox(
+                //         text: "${widget.StarRating} Rating",
+                //         onCancel: (value) {
+                //           setState(() {
+                //             widget.StarRating = 0;
+                //           });
+
+                //           print("Pressed$value");
+                //         },
+                //       )
               ],
             ),
           ),
@@ -233,6 +301,9 @@ class _MainSearchState extends State<MainSearch> {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
+                      print(
+                          "Rating=> ${widget.StarRating} Reviews=> ${widget.reviewCount}");
+
                       showModalBottomSheet(
                           enableDrag: true,
                           shape: const RoundedRectangleBorder(
@@ -242,7 +313,10 @@ class _MainSearchState extends State<MainSearch> {
                           ),
                           context: context,
                           builder: (context) {
-                            return FilterView();
+                            return FilterView(
+                              Star_Rating: widget.StarRating,
+                              reviewCount: widget.reviewCount,
+                            );
                           });
                     },
                     child: Container(
@@ -343,26 +417,24 @@ class _MainSearchState extends State<MainSearch> {
                         // This next line does the trick.
                         scrollDirection: Axis.vertical,
                         children: snapshot.data!.docs.map((e) {
-                          if (e["title"]
-                              .toString()
-                              .contains(SearchTextControl.text)) {
-                            if (widget.PriceFilter != 0 &&
-                                e["Price"] > widget.PriceFilter) {
-                              return GestureDetector(
-                                onTap: () {},
-                                child: ProductCard(
-                                    products: Product(
-                                        BussinessId: e["BussinessId"],
-                                        Id: e["Id"],
-                                        image: e["image"],
-                                        description: e["description"],
-                                        title: e["title"],
-                                        Price: e["Price"],
-                                        rating: e["rating"],
-                                        reviews: e["reviews"],
-                                        isRecommended: e["isRecommended"])),
-                              );
-                            }
+                          if (e["title"].toString().contains(widget.Results)) {
+                            // if (widget.PriceFilter != 0 &&
+                            //     e["Price"] > widget.PriceFilter) {
+                            return GestureDetector(
+                              onTap: () {},
+                              child: ProductCard(
+                                  products: Product(
+                                      BussinessId: e["BussinessId"],
+                                      Id: e["Id"],
+                                      image: e["image"],
+                                      description: e["description"],
+                                      title: e["title"],
+                                      Price: e["Price"],
+                                      rating: e["rating"],
+                                      reviews: e["reviews"],
+                                      isRecommended: e["isRecommended"])),
+                            );
+                            //   }
                           }
 
                           return SizedBox();

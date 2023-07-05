@@ -1,54 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
+import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
+import 'package:spot_hub/models/BusinessModels/Product.dart';
 
-class StarsCard extends StatelessWidget {
-  const StarsCard({super.key});
+class StarsCard extends StatefulWidget {
+  final double totalrating;
+  final int count;
+
+  StarsCard({super.key, required this.totalrating, required this.count});
+
+  @override
+  State<StarsCard> createState() => _StarsCardState();
+}
+
+class _StarsCardState extends State<StarsCard> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
-      children: [
-          Row(
-          children: [
-         
-            Wrap(
-              children: List.generate(
-                  5,
-                  //OverallRating.floor()
-                  (index) => Icon(
-                        Icons.star,
-                        color: AppColors.PrimaryColor,
-                        size: 20,
-                      )),
-            ),
-            SizedBox(
-              width: Dimensions.height10,
-            ),
-            SmallText(text: ' 5 Stars (73)', size: 20,),
-          ],
-        ),
-         const SizedBox(height: 5,),
-         Row(
-          children: [
-     
-            Stack(
-              children: [
-
-                Wrap(
+    return Container(
+      margin: EdgeInsets.only(right: 20, left: 20),
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+          color: Color.fromARGB(255, 230, 228, 224),
+          borderRadius: BorderRadius.all(Radius.circular(10))),
+      alignment: Alignment.center,
+      child: Column(
+        // crossAxisAlignment: CrossAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          BigText(
+            text: widget.totalrating.toString(),
+            color: AppColors.PrimaryColor,
+            size: 40,
+          ),
+          Stack(
+            children: [
+              Wrap(
                 children: List.generate(
                     5,
                     //OverallRating.floor()
-                    (index) => const Icon(
+                    (index) => Icon(
                           Icons.star,
-                          color:Color.fromARGB(255, 244, 206, 149),
+                          color: const Color.fromARGB(255, 255, 214, 151),
                           size: 20,
                         )),
               ),
               Wrap(
                 children: List.generate(
-                    4,
+                    widget.totalrating.ceil(),
                     //OverallRating.floor()
                     (index) => Icon(
                           Icons.star,
@@ -56,124 +61,16 @@ class StarsCard extends StatelessWidget {
                           size: 20,
                         )),
               ),
-              ],
-            ),
-            SizedBox(
-              width: Dimensions.height10,
-            ),
-            SmallText(text: ' 4 Stars (98)',size: 20,),
-          ],
-        ),
-         const SizedBox(height: 5,),
-         Row(
-          children: [
-            Stack(
-              children: [
-                Wrap(
-                children: List.generate(
-                    5,
-                    //OverallRating.floor()
-                    (index) => const Icon(
-                          Icons.star,
-                          color:Color.fromARGB(255, 244, 206, 149),
-                          size: 20,
-                        )),
-              ),
-              Wrap(
-                children: List.generate(
-                    3,
-                    //OverallRating.floor()
-                    (index) => Icon(
-                          Icons.star,
-                          color: AppColors.PrimaryColor,
-                          size: 20,
-                        )),
-              ),
-              ],
-            ),
-              SizedBox(
-              width: Dimensions.height10,
-            ),
-            SmallText(text: ' 3 Stars (160)',size: 20,),
-           
-          ],
-        ),
-         const SizedBox(height: 5,),
-         Row(
-          children: [
-           
-            Stack(
-              children: [
-
-                Wrap(
-                children: List.generate(
-                    5,
-                    //OverallRating.floor()
-                    (index) =>const Icon(
-                          Icons.star,
-                          color:Color.fromARGB(255, 244, 206, 149),
-                          size: 20,
-                        )),
-              ),
-              Wrap(
-                children: List.generate(
-                    2,
-                    //OverallRating.floor()
-                    (index) => Icon(
-                          Icons.star,
-                          color: AppColors.PrimaryColor,
-                          size: 20,
-                        )),
-              ),
-              ],
-            ),
-            SizedBox(
-              width: Dimensions.height10,
-            ),
-            SmallText(text: ' 2 Stars (16)', size: 20,),
-          
-
-          ],
-        ),
-         const SizedBox(height: 5,),
-         Row(
-          children: [
-            
-            
-            Stack(
-              children: [
-
-                Wrap(
-                children: List.generate(
-                    5,
-                    //OverallRating.floor()
-                    (index) => const Icon(
-                          Icons.star,
-                          color:Color.fromARGB(255, 244, 206, 149),
-                          size: 20,
-                        )),
-              ),
-              Wrap(
-                children: List.generate(
-                    1,
-                    //OverallRating.floor()
-                    (index) => Icon(
-                          Icons.star,
-                          color: AppColors.PrimaryColor,
-                          size: 20,
-                        )),
-              ),
-              ],
-            ),
-
+            ],
+          ),
           SizedBox(
-              width: Dimensions.height10,
-            ),
-            SmallText(text: ' 1 Stars (45)',size: 20,),
-          ],
-        ),
-         const SizedBox(height: 5,),
-      ],
+            height: 10,
+          ),
+          SmallText(
+            text: "${widget.count} Total Reviews",
+          )
+        ],
+      ),
     );
   }
 }

@@ -14,18 +14,17 @@ import 'package:spot_hub/screens/UserLogin/SearchFrame/widgets/FilteredBox.dart'
 import 'package:spot_hub/widgets/Product/ProductCard.dart';
 
 class MainSearch extends StatefulWidget {
+  final bool isLoggedIn;
   String Results;
-
   int StarRating;
   int reviewCount;
-
   bool recommended;
-
   double PriceFilter;
 
   MainSearch(
       {super.key,
       this.Results = "",
+      required this.isLoggedIn,
       this.StarRating = 0,
       this.reviewCount = 0,
       this.PriceFilter = 0,
@@ -314,6 +313,7 @@ class _MainSearchState extends State<MainSearch> {
                           context: context,
                           builder: (context) {
                             return FilterView(
+                              isLoggedIn: widget.isLoggedIn,
                               Star_Rating: widget.StarRating,
                               reviewCount: widget.reviewCount,
                             );
@@ -423,6 +423,7 @@ class _MainSearchState extends State<MainSearch> {
                             return GestureDetector(
                               onTap: () {},
                               child: ProductCard(
+                                  isLoggedin: widget.isLoggedIn,
                                   products: Product(
                                       BussinessId: e["BussinessId"],
                                       Id: e["Id"],

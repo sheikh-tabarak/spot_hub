@@ -13,10 +13,12 @@ import 'package:spot_hub/widgets/PopupModals/ProductContact.dart';
 import 'package:spot_hub/widgets/Product/ProductTitleSection.dart';
 
 class ProductCard extends StatefulWidget {
+  final bool isLoggedin;
   final Product products;
   //final Bussiness bussiness;
 
-  const ProductCard({
+  ProductCard({
+    required this.isLoggedin,
     super.key,
     required this.products,
   });
@@ -90,6 +92,7 @@ class _ProductCardState extends State<ProductCard> {
             context,
             MaterialPageRoute(
                 builder: (context) => ScrollableProductDetailPage(
+                    isLoggedin: widget.isLoggedin,
                     SelectedProduct: widget.products)));
       },
       child: Container(
@@ -175,6 +178,7 @@ class _ProductCardState extends State<ProductCard> {
                             return Container(
                                 // padding: const EdgeInsets.all(10),
                                 child: BussinessProfile(
+                              isLoggedIn: widget.isLoggedin,
                               B: CurrentBussiness,
                             ));
                           });

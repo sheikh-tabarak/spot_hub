@@ -10,11 +10,13 @@ import 'package:spot_hub/screens/UserLogin/SearchFrame/widgets/SelectionStripe.d
 import 'package:spot_hub/widgets/others/PrimayButton.dart';
 
 class FilterView extends StatefulWidget {
+  final bool isLoggedIn;
   int Star_Rating;
   int reviewCount;
 
   FilterView({
     super.key,
+    required this.isLoggedIn,
     this.Star_Rating = 0,
     this.reviewCount = 0,
     //required int StarRating
@@ -131,6 +133,7 @@ class _FilterViewState extends State<FilterView> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => MainSearch(
+                                isLoggedIn: widget.isLoggedIn,
                                 //   Results: "Results",
                                 reviewCount: widget.reviewCount,
                                 StarRating: widget.Star_Rating,

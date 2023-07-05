@@ -18,13 +18,19 @@ class OptionsScreen extends StatelessWidget {
             children: [
               Column(
                 children: const [
-                  SizedBox(height: 110),],
+                  SizedBox(height: 110),
+                ],
               ),
               Column(
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context,MaterialPageRoute(builder: (context) =>  BussinessProfile( B: DummyBussinesses[0]),));
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (context) =>
+                      //           BussinessProfile(B: DummyBussinesses[0]),
+                      //     ));
                     },
                     child: Container(
                       width: 40,
@@ -34,30 +40,36 @@ class OptionsScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(50),
                           image: DecorationImage(
                               image: NetworkImage(
-                                  DummyBussinesses[1].BussinessImageUrl),fit: BoxFit.cover)),
+                                  DummyBussinesses[1].BussinessImageUrl),
+                              fit: BoxFit.cover)),
                     ),
                   ),
                   SizedBox(height: 30),
-                   
                   GestureDetector(
                     onTap: () {
-                  Navigator.push(context,MaterialPageRoute(builder: (context) =>  ScrollableProductDetailPage(SelectedProduct: DummyProducts[0],),));
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (context) =>
+                      //       ScrollableProductDetailPage(
 
+                      //         SelectedProduct: DummyProducts[0],
+                      //       ),
+                      //     ));
                     },
                     child: Column(
                       children: [
                         Icon(Icons.link, color: Colors.white, size: 26),
-                    SizedBox(height: 5),
-                    SmallText(
-                      text: 'View',
-                      color: Colors.white,
-                      size: 16,
-                    ),
+                        SizedBox(height: 5),
+                        SmallText(
+                          text: 'View',
+                          color: Colors.white,
+                          size: 16,
+                        ),
                       ],
                     ),
                   ),
-                  
-                   SizedBox(height: 30),
+                  SizedBox(height: 30),
                   const Icon(Icons.add, color: Colors.white, size: 26),
                   SizedBox(height: 5),
                   SmallText(

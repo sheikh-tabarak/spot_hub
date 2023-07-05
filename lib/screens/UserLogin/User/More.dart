@@ -152,6 +152,7 @@ class _MoreState extends State<More> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => AddReview(
+                                              isSelected: false,
                                               ProductToReview:
                                                   DummyProducts[6])))
                                 }

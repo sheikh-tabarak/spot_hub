@@ -9,6 +9,7 @@ import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/Chat/ChatMessages.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
 import 'package:spot_hub/screens/Loading.dart';
+import 'package:spot_hub/screens/NoData.dart';
 import 'package:spot_hub/screens/UserLogin/User/SpotFlicks/spot_flicks.dart';
 import 'package:spot_hub/screens/UserLogin/chat/ChatScreen.dart';
 import 'package:spot_hub/widgets/Team/MemberDetails.dart';
@@ -205,32 +206,9 @@ class _MessengerScreenState extends State<MessengerScreen> {
             child: StreamBuilder(
                 stream: ChatInitiatedUsers(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  // if (snapshot.connectionState == ConnectionState.waiting) {
-                  //   return Center(
-                  //     child:
-                  //         CircularProgressIndicator(), // or the data you want to show while loading...
-                  //   );
-                  // }
-
-                  // if (snapshot.data!.docs.isEmpty) {
-                  //   return Column(
-                  //     mainAxisAlignment: MainAxisAlignment.center,
-                  //     crossAxisAlignment: CrossAxisAlignment.center,
-                  //     children: [
-                  //       Icon(
-                  //         Icons.hourglass_empty,
-                  //         size: 50,
-                  //         color: AppColors.PrimaryColor,
-                  //       ),
-                  //       SizedBox(
-                  //         height: 20,
-                  //       ),
-                  //       BigText(text: "No Chats"),
-                  //     ],
-                  //   );
-                  // } else {
-                  return snapshot.hasData
-                      ? ListView(
+                  if (snapshot.hasData) {
+                    if (snapshot.data!.docs.isNotEmpty) {
+                      return ListView(
                           scrollDirection: Axis.vertical,
                           children: snapshot.data!.docs.map(
                             (e) {
@@ -310,22 +288,120 @@ class _MessengerScreenState extends State<MessengerScreen> {
                                 ),
                               );
                             },
-                          ).toList())
-                      : Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.hourglass_empty,
-                              size: 50,
-                              color: AppColors.PrimaryColor,
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            BigText(text: "No Chats"),
-                          ],
-                        );
+                          ).toList());
+                    } else {
+                      return NoData(
+                        ImageLink: "assets/images/nochatsyet.png",
+                        title: "No Chats yet",
+                        subtitle:
+                            "There is nothing in the chats, start a new Conversation to see chats here",
+                      );
+                    }
+                  } else {
+                    return NoData(
+                      ImageLink: "assets/images/nochatsyet.png",
+                      title: "No Chats yet",
+                      subtitle:
+                          "There is nothing in the chats, start a new Conversation to see chats here",
+                    );
+                  }
+                  // return snapshot.hasData
+                  //     ? ListView(
+                  //         scrollDirection: Axis.vertical,
+                  //         children: snapshot.data!.docs.map(
+                  //           (e) {
+                  //             /// String name="Spothub user";
+                  //             String imageAddress;
+
+                  //             return GestureDetector(
+                  //               onTap: () async {
+                  //                 await readAllMessages(e["ChatUserId"]);
+                  //                 Navigator.push(
+                  //                     context,
+                  //                     MaterialPageRoute(
+                  //                         builder: ((context) => ChatScreen(
+                  //                               ChatUserId: e["ChatUserId"],
+                  //                             ))));
+                  //               },
+                  //               child: Container(
+                  //                 padding: EdgeInsets.only(bottom: 5),
+                  //                 decoration: BoxDecoration(
+                  //                   border: Border(
+                  //                     // top: BorderSide(width: 16.0, color: Colors.lightBlue.shade600),
+                  //                     bottom: BorderSide(
+                  //                         width: 2.0,
+                  //                         color: Color.fromARGB(
+                  //                             255, 237, 237, 237)),
+                  //                   ),
+                  //                 ),
+                  //                 //  padding: EdgeInsets.all(10),
+                  //                 child: ListTile(
+                  //                   leading: CircleAvatar(
+                  //                       radius: 30,
+                  //                       backgroundImage:
+                  //                           NetworkImage(e["ChatUserimage"])),
+                  //                   // SizedBox(height: 5,),
+                  //                   title: BigText(text: e["ChatUsername"]),
+                  //                   subtitle:
+                  //                       SmallText(text: e["LatestMessage"]),
+                  //                   trailing: Column(
+                  //                     mainAxisAlignment:
+                  //                         MainAxisAlignment.spaceBetween,
+                  //                     //   mainAxisAlignment: ma,
+                  //                     children: [
+                  //                       SmallText(
+                  //                         text: Dateformatter.format(
+                  //                             DateTime.parse(e["initiateTime"]
+                  //                                 .toString())),
+
+                  //                         //   "",
+                  //                         //DateFormat DateTime.parse(e["initiateTime"].toString()),
+                  //                         color: Colors.grey,
+                  //                       ),
+                  //                       e["unReadMessages"] == 0
+                  //                           ? SizedBox(
+                  //                               height: 1,
+                  //                             )
+                  //                           : Container(
+                  //                               alignment: Alignment.center,
+                  //                               width: 30,
+                  //                               height: 30,
+                  //                               padding:
+                  //                                   const EdgeInsets.all(5),
+                  //                               decoration: BoxDecoration(
+                  //                                   borderRadius:
+                  //                                       BorderRadius.circular(
+                  //                                           50),
+                  //                                   color:
+                  //                                       AppColors.PrimaryColor),
+                  //                               child: SmallText(
+                  //                                 text: e["unReadMessages"]
+                  //                                     .toString(),
+                  //                                 color: Colors.white,
+                  //                               ),
+                  //                             )
+                  //                     ],
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //             );
+                  //           },
+                  //         ).toList())
+                  //     : Column(
+                  //         mainAxisAlignment: MainAxisAlignment.center,
+                  //         crossAxisAlignment: CrossAxisAlignment.center,
+                  //         children: [
+                  //           Icon(
+                  //             Icons.hourglass_empty,
+                  //             size: 50,
+                  //             color: AppColors.PrimaryColor,
+                  //           ),
+                  //           SizedBox(
+                  //             height: 20,
+                  //           ),
+                  //           BigText(text: "No Chats"),
+                  //         ],
+                  //       );
                 }),
           ),
         ),

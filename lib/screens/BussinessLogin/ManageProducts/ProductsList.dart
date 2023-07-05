@@ -9,6 +9,7 @@ import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/BusinessModels/Product.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageProducts/AddProduct.dart';
 import 'package:spot_hub/screens/Loading.dart';
+import 'package:spot_hub/screens/NoData.dart';
 //import 'package:spot_hub/widgets/others/ItemCard.dart';
 
 class ProductsList extends StatefulWidget {
@@ -30,16 +31,18 @@ class _ProductsListState extends State<ProductsList> {
                 child: StreamBuilder(
                     stream: ProductsofBussiness(),
                     builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: Dimensions.height10,
-                          ),
-                          //   BigText(text: 'This is Resturant Items', color: AppColors.PrimaryColor),
+                      if (snapshot.hasData) {
+                        if (snapshot.data!.docs.isNotEmpty) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: Dimensions.height10,
+                              ),
 
-                          snapshot.hasData
-                              ? ListView(
+                              //   BigText(text: 'This is Resturant Items', color: AppColors.PrimaryColor),
+
+                              ListView(
                                   shrinkWrap: true,
                                   physics: NeverScrollableScrollPhysics(),
                                   children: snapshot.data!.docs.map((e) {
@@ -78,8 +81,6 @@ class _ProductsListState extends State<ProductsList> {
                                                                               e["title"],
                                                                           description:
                                                                               e["description"],
-                                                                          // category:
-                                                                          //     e["category"],
                                                                           Price:
                                                                               e["Price"],
                                                                           image:
@@ -149,13 +150,29 @@ class _ProductsListState extends State<ProductsList> {
                                       ),
                                     );
                                   }).toList())
-                              : Center(
-                                  child: BigText(
-                                      text:
-                                          "Oho, Seems there is no product added yet"),
-                                )
-                        ],
-                      );
+                              // : Center(
+                              //     child: BigText(
+                              //         text:
+                              //             "Oho, Seems there is no product added yet"),
+                              //   )
+                            ],
+                          );
+                        } else {
+                          return NoData(
+                            ImageLink: "assets/images/noproductsyet.png",
+                            title: "No Products yet",
+                            subtitle:
+                                "This store have no products yet,Click the plus icon on upper right cornet to add new product",
+                          );
+                        }
+                      } else {
+                        return NoData(
+                          ImageLink: "assets/images/noproductsyet.png",
+                          title: "NoProducts yet",
+                          subtitle:
+                              "This store have no products yet,Click the plus icon on upper right cornet to add new product",
+                        );
+                      }
                     })),
           )
         : Loading(message: "Loading Products");

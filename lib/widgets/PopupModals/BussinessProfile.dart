@@ -15,8 +15,9 @@ import 'package:spot_hub/widgets/Product/ProductCard.dart';
 import 'package:spot_hub/widgets/others/PrimaryWidgets/ImageViewer.dart';
 
 class BussinessProfile extends StatelessWidget {
+  final bool isLoggedIn;
   final Bussiness B;
-  BussinessProfile({super.key, required this.B});
+  BussinessProfile({super.key, required this.isLoggedIn, required this.B});
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +150,7 @@ class BussinessProfile extends StatelessWidget {
             ),
             sliver: SliverFillRemaining(
               child: Container(
-                //     height: double.maxFinite,
+                // height: double.maxFinite,
                 child: TabBarView(
                   children: [
                     Padding(
@@ -170,6 +171,7 @@ class BussinessProfile extends StatelessWidget {
                                       return GestureDetector(
                                           onTap: () {},
                                           child: ProductCard(
+                                              isLoggedin: isLoggedIn,
                                               products: Product(
                                                   BussinessId: e["BussinessId"],
                                                   Id: e["Id"],

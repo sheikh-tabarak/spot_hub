@@ -5,7 +5,6 @@ import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -278,6 +277,8 @@ class _MainPageState extends State<MainPage> {
                                                             animation,
                                                             secondaryAnimation) =>
                                                         MainSearch(
+                                                      isLoggedIn:
+                                                          widget.isLoggedin,
                                                       recommended: true,
                                                     ),
                                                     transitionsBuilder: (context,
@@ -362,7 +363,9 @@ class _MainPageState extends State<MainPage> {
                                           PageRouteBuilder(
                                             pageBuilder: (context, animation,
                                                     secondaryAnimation) =>
-                                                MainSearch(),
+                                                MainSearch(
+                                              isLoggedIn: widget.isLoggedin,
+                                            ),
                                             transitionsBuilder: (context,
                                                     animation,
                                                     secondaryAnimation,
@@ -408,6 +411,8 @@ class _MainPageState extends State<MainPage> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       MainSearch(
+                                                          isLoggedIn:
+                                                              widget.isLoggedin,
                                                           Results:
                                                               "Fast Food")));
                                         },
@@ -422,6 +427,8 @@ class _MainPageState extends State<MainPage> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       MainSearch(
+                                                          isLoggedIn:
+                                                              widget.isLoggedin,
                                                           Results:
                                                               "Sea Food")));
                                         },
@@ -436,6 +443,8 @@ class _MainPageState extends State<MainPage> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       MainSearch(
+                                                          isLoggedIn:
+                                                              widget.isLoggedin,
                                                           Results:
                                                               "Desi Food")));
                                         },
@@ -450,6 +459,8 @@ class _MainPageState extends State<MainPage> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       MainSearch(
+                                                          isLoggedIn:
+                                                              widget.isLoggedin,
                                                           Results:
                                                               "Chineese")));
                                         },
@@ -517,6 +528,7 @@ class _MainPageState extends State<MainPage> {
                                             return GestureDetector(
                                               onTap: () {},
                                               child: ProductCard(
+                                                  isLoggedin: widget.isLoggedin,
                                                   products: Product(
                                                       BussinessId:
                                                           e["BussinessId"],

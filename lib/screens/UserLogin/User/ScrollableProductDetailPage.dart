@@ -1,22 +1,34 @@
 // ignore_for_file: file_names, sized_box_for_whitespace
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:get/get.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/BusinessModels/Bussiness.dart';
 import 'package:spot_hub/models/BusinessModels/Product.dart';
 import 'package:spot_hub/models/Global/ProductsData.dart';
+import 'package:spot_hub/screens/NoData.dart';
+import 'package:spot_hub/screens/UserLogin/User/AddReview.dart';
 import 'package:spot_hub/widgets/PopupModals/BussinessProfile.dart';
 import 'package:spot_hub/widgets/Product/ProductTitleSection.dart';
 import 'package:spot_hub/widgets/Product/ReviewWidget.dart';
 import 'package:spot_hub/widgets/Product/StarsCard.dart';
+import 'package:spot_hub/widgets/others/PrimayButton.dart';
 
 class ScrollableProductDetailPage extends StatefulWidget {
   final int index;
+  final bool isLoggedin;
   final Product SelectedProduct;
-  const ScrollableProductDetailPage(
-      {super.key, this.index = 0, required this.SelectedProduct});
+  ScrollableProductDetailPage(
+      {super.key,
+      this.index = 0,
+      required this.SelectedProduct,
+      required this.isLoggedin});
 
   @override
   State<ScrollableProductDetailPage> createState() =>
@@ -25,6 +37,12 @@ class ScrollableProductDetailPage extends StatefulWidget {
 
 class _ScrollableProductDetailPageState
     extends State<ScrollableProductDetailPage> {
+  int _oneStar = 0;
+  int _twoStar = 0;
+  int _threeStar = 0;
+  int _fourStar = 0;
+  int _fiveStar = 0;
+
   Bussiness CurrentBussiness = Bussiness(
       BussinessId: "",
       BussinessImageUrl: "",
@@ -39,8 +57,48 @@ class _ScrollableProductDetailPageState
 
   bool isFavorite = false;
 
+  void _CalculateStars(double Stars) {
+    if (Stars == 5) {
+      setState(() {
+        _fiveStar = _fiveStar + 1;
+      });
+    } else if (Stars != 5) {
+      if (Stars < 5 || Stars == 4 || Stars > 4) {
+        setState(() {
+          _fourStar = _fourStar + 1;
+        });
+      }
+    } else if (Stars != 4) {
+      if (Stars < 4 || Stars == 3 || Stars > 3) {
+        setState(() {
+          _threeStar = _threeStar + 1;
+        });
+      }
+    } else if (Stars != 3) {
+      if (Stars < 3 || Stars == 2 || Stars > 2) {
+        setState(() {
+          _twoStar = _twoStar + 1;
+        });
+      }
+    } else if (Stars != 2) {
+      if (Stars < 2 || Stars == 1 || Stars > 1) {
+        setState(() {
+          _oneStar = _oneStar + 1;
+        });
+      }
+    }
+  }
+
   @override
-  void initState() {
+  initState() {
+    // FirebaseAuth.instance.currentUser == null
+    //     ? setState(() {
+    //         widget.isLoggedin == false;
+    //       })
+    //     : setState(() {
+    //         widget.isLoggedin == true;
+    //       });
+
     BussinessOfProduct(widget.SelectedProduct.BussinessId).then((value) {
       setState(() {
         CurrentBussiness = Bussiness(
@@ -80,7 +138,7 @@ class _ScrollableProductDetailPageState
               ],
             ),
             bottom: PreferredSize(
-              preferredSize: Size.fromHeight(Dimensions.height10 * 12),
+              preferredSize: Size.fromHeight(Dimensions.height10 * 17),
               child: Container(
                   // margin: EdgeInsets.only(top: 50),
                   decoration: BoxDecoration(
@@ -144,6 +202,7 @@ class _ScrollableProductDetailPageState
                                   return Container(
                                       // padding: const EdgeInsets.all(10),
                                       child: BussinessProfile(
+                                    isLoggedIn: widget.isLoggedin,
                                     B: CurrentBussiness,
                                   ));
                                 });
@@ -168,14 +227,6 @@ class _ScrollableProductDetailPageState
                               subtitle: Text(
                                   CurrentBussiness.BussinessType.toString()),
                             ),
-
-                            // Row(
-                            //   children: [
-                            //     CircleAvatar(
-                            //         backgroundImage: NetworkImage(
-                            //             CurrentBussiness.BussinessImageUrl))
-                            //   ],
-                            // ),
                           ),
                         )
                       ],
@@ -224,18 +275,124 @@ class _ScrollableProductDetailPageState
                 height: double.maxFinite,
                 child: TabBarView(
                   children: [
-                    ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: 5,
-                        itemBuilder: (context, thisindex) {
-                          return ReviewWidget(
-                            Name: "John Doe",
-                            Review: "Best of best",
-                            stars: 5,
-                            TimeStamp: DateTime.now().toString(),
-                          );
-                        }),
+                    SingleChildScrollView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 10,
+                          ),
+                          widget.isLoggedin == false
+                              ? SizedBox()
+                              : GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => AddReview(
+                                                ProductToReview:
+                                                    widget.SelectedProduct)));
+                                  },
+
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    //height: 5,
+                                    margin: EdgeInsets.all(15),
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          width: 1,
+                                          color: AppColors.PrimaryColor),
+                                    ),
+                                    //    padding: 10,
+                                    child: SmallText(
+                                      text: "Write a Review",
+                                      color: AppColors.PrimaryColor,
+                                    ),
+                                  ),
+
+                                  //    text: "Write a review",
+                                  //  color: AppColors.PrimaryColor,
+                                  //  icon: Icons.rate_review
+                                ),
+
+                          StreamBuilder(
+                              stream: ReviewsofThatProduct(
+                                  widget.SelectedProduct.Id,
+                                  widget.SelectedProduct.BussinessId),
+                              builder: ((context,
+                                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.hasData) {
+                                  if (snapshot.data!.docs.isNotEmpty) {
+                                    return ListView(
+                                        padding: EdgeInsets.zero,
+                                        physics: NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        // This next line does the trick.
+                                        scrollDirection: Axis.vertical,
+                                        children: snapshot.data!.docs.map((e) {
+                                          //  _CalculateStars(e['Stars']);
+                                          return ReviewWidget(
+                                            Name: e['Name'],
+                                            Review: e['Review'],
+                                            stars: e['Stars'],
+                                            TimeStamp: e['TimeStamp'],
+                                          );
+                                        }).toList());
+                                  } else {
+                                    return NoData(
+                                      ImageLink:
+                                          "assets/images/noreviewsyet.png",
+                                      title: "No Pulished Review",
+                                      subtitle:
+                                          "This Product have no Customer feedback yet, Just Login and write a Review now",
+                                    );
+                                  }
+                                } else {
+                                  return NoData(
+                                    ImageLink: "assets/images/noreviewsyet.png",
+                                    title: "No Pulished Reviews",
+                                    subtitle:
+                                        "This Product have no Customer feedback yet, Just Login and write a Review now",
+                                  );
+                                }
+                                // return snapshot.data!.docs.isNotEmpty &&
+                                //         snapshot.hasData
+                                //     ? ListView(
+                                //         padding: EdgeInsets.zero,
+                                //         physics: NeverScrollableScrollPhysics(),
+                                //         shrinkWrap: true,
+                                //         // This next line does the trick.
+                                //         scrollDirection: Axis.vertical,
+                                //         children: snapshot.data!.docs.map((e) {
+                                //           return ReviewWidget(
+                                //             Name: e['Name'],
+                                //             Review: e['Review'],
+                                //             stars: e['Stars'],
+                                //             TimeStamp: e['TimeStamp'],
+                                //           );
+                                //         }).toList())
+                                //     : SmallText(
+                                //         text:
+                                //             "This Product have no Review yet");
+                              }))
+                          // SmallText(text: "text"),
+                          // ListView.builder(
+                          //     padding: EdgeInsets.zero,
+                          //     physics: const NeverScrollableScrollPhysics(),
+                          //     shrinkWrap: true,
+                          //     itemCount: 5,
+                          //     itemBuilder: (context, thisindex) {
+                          //       return ReviewWidget(
+                          //         Name: "John Doe",
+                          //         Review: "Best of best",
+                          //         stars: 5,
+                          //         TimeStamp: DateTime.now().toString(),
+                          //       );
+                          //     }),
+                        ],
+                      ),
+                    ),
                     SingleChildScrollView(
                       physics: const NeverScrollableScrollPhysics(),
                       child: Container(
@@ -246,8 +403,30 @@ class _ScrollableProductDetailPageState
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            StarsCard(),
-                            SmallText(text: widget.SelectedProduct.description)
+                            StarsCard(
+                              totalrating: widget.SelectedProduct.rating,
+                              count: widget.SelectedProduct.reviews,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                                margin: EdgeInsets.only(right: 20, left: 20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SmallText(
+                                      text: "Description:",
+                                      color: AppColors.PrimaryColor,
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    SmallText(
+                                        text:
+                                            widget.SelectedProduct.description),
+                                  ],
+                                ))
                           ],
                         ),
                       ),

@@ -6,7 +6,7 @@ import 'package:spot_hub/configurations/Dimensions.dart';
 class RatingSlider extends StatefulWidget {
   final String title;
   final Function RecordRating;
-  double selectedStars = 3;
+  double selectedStars;
   int count = 0;
 
   List<String> messages = ["Not Good", "Average", "OK", "Good", "Great"];
@@ -14,7 +14,8 @@ class RatingSlider extends StatefulWidget {
   RatingSlider(
       {super.key,
       required this.title,
-      required this.RecordRating(double selectedStars)});
+      required this.RecordRating(double selectedStars),
+      required this.selectedStars});
 
   @override
   State<RatingSlider> createState() => _RatingSliderState();
@@ -55,7 +56,7 @@ class _RatingSliderState extends State<RatingSlider> {
                         setState(
                           () => {
                             widget.selectedStars = index.toDouble(),
-                            widget.RecordRating(widget.selectedStars + 1),
+                            widget.RecordRating(widget.selectedStars),
                           },
                         )
                       },
@@ -86,7 +87,7 @@ class _RatingSliderState extends State<RatingSlider> {
                         setState(
                           () => {
                             widget.selectedStars = index.toDouble(),
-                            widget.RecordRating(widget.selectedStars + 1),
+                            widget.RecordRating(widget.selectedStars),
                           },
                         )
                       },

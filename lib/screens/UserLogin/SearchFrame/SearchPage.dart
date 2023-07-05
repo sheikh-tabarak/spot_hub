@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
+import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/BusinessModels/Product.dart';
@@ -120,6 +121,12 @@ class _SearchPageState extends State<SearchPage> {
 
     return Scaffold(
         backgroundColor: Colors.white,
+        appBar: AppBar(
+            backgroundColor: AppColors.PrimaryColor,
+            title: BigText(
+              text: "Select a Product to Review",
+              color: Colors.white,
+            )),
         body: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(10),
@@ -286,6 +293,7 @@ class _SearchPageState extends State<SearchPage> {
                     builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                       return snapshot.hasData
                           ? ListView(
+                              padding: EdgeInsets.zero,
                               physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               // This next line does the trick.
@@ -301,7 +309,8 @@ class _SearchPageState extends State<SearchPage> {
 
                                     // },
                                     child: Container(
-                                      margin: EdgeInsets.only(bottom: 15),
+                                      margin:
+                                          EdgeInsets.only(bottom: 5, top: 5),
                                       decoration: BoxDecoration(
                                         border: Border.all(
                                             width: 1,
@@ -394,6 +403,7 @@ class _SearchPageState extends State<SearchPage> {
                                           PrimaryButton(
                                               padding: 10,
                                               TapAction: () {
+                                                Navigator.pop(context);
                                                 Navigator.pushReplacement(
                                                     context,
                                                     MaterialPageRoute(

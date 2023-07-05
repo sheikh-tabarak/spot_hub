@@ -153,7 +153,7 @@ class _BussinessHomeState extends State<BussinessHome> {
               title: widget.PageIndex == 0
                   ? const Text('Statistcs')
                   : widget.PageIndex == 1
-                      ? const Text('All Items')
+                      ? const Text('All Products')
                       : widget.PageIndex == 2
                           ? const Text('Kinara Hotel')
                           : const Text('Error'),

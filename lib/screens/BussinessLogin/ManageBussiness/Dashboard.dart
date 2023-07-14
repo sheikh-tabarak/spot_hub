@@ -16,7 +16,8 @@ import 'package:spot_hub/screens/BussinessLogin/ScrapBussiness.dart';
 import 'package:spot_hub/screens/Loading.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({super.key});
+  final Bussiness CurrentBussiness;
+  Dashboard({super.key, required this.CurrentBussiness});
 
   @override
   State<Dashboard> createState() => _DashboardState();
@@ -25,7 +26,7 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   int Total = 0;
   int _touchedIndex = -1;
-  double _noOfProducts = 0;
+  double _noOfProducts = 3;
   bool isLoading = false;
 
   //final List<Sector> sectors;
@@ -143,7 +144,8 @@ class _DashboardState extends State<Dashboard> {
                     height: 15,
                   ),
                   BigText(
-                    text: "Good Morning, Bussiness Name!",
+                    text:
+                        "Good Morning, ${widget.CurrentBussiness.BussinessName}",
                   ),
                   const SizedBox(
                     height: 5,
@@ -170,7 +172,7 @@ class _DashboardState extends State<Dashboard> {
                             children: [
                               Countup(
                                   begin: 0,
-                                  end: 5,
+                                  end: _noOfProducts,
                                   duration: Duration(seconds: 3),
                                   separator: ',',
                                   style: const TextStyle(
@@ -212,8 +214,8 @@ class _DashboardState extends State<Dashboard> {
                                   Column(
                                     children: [
                                       Countup(
-                                          begin: 1,
-                                          end: 20,
+                                          begin: 0,
+                                          end: 0,
                                           duration: Duration(seconds: 3),
                                           separator: ',',
                                           style: const TextStyle(

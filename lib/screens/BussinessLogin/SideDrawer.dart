@@ -13,6 +13,7 @@ import 'package:spot_hub/screens/BussinessLogin/ManageProducts/ProductsList.dart
 import 'package:spot_hub/screens/BussinessLogin/ScrapBussiness.dart';
 import 'package:spot_hub/screens/UserLogin/Admin/Login.dart';
 import 'package:spot_hub/screens/UserLogin/Home/MainPage.dart';
+import 'package:spot_hub/widgets/others/UnderConstruction.dart';
 
 class SideDrawer extends StatefulWidget {
   final String BussinessImageUrl;
@@ -197,6 +198,14 @@ class _SideDrawerState extends State<SideDrawer> {
                               ? AppColors.PrimaryColor
                               : Colors.white),
                       child: ListTile(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => UnderConstruction(
+                                      message:
+                                          "Settings Module is Under Construction")));
+                        },
                         leading: Icon(
                           Icons.settings,
                           color: isHovering

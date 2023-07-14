@@ -155,12 +155,12 @@ class _BussinessHomeState extends State<BussinessHome> {
                   : widget.PageIndex == 1
                       ? const Text('All Products')
                       : widget.PageIndex == 2
-                          ? const Text('Kinara Hotel')
+                          ? Text(CurrentBussiness.BussinessName.toString())
                           : const Text('Error'),
               backgroundColor: AppColors.PrimaryColor,
             ),
             body: widget.PageIndex == 0
-                ? Dashboard()
+                ? Dashboard(CurrentBussiness: CurrentBussiness)
                 : widget.PageIndex == 1
                     ? const ProductsList()
                     : widget.PageIndex == 2

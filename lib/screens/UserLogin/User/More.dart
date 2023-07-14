@@ -17,6 +17,7 @@ import 'package:spot_hub/screens/UserLogin/User/MainHome.dart';
 import 'package:spot_hub/screens/UserLogin/Home/MainPage.dart';
 import 'package:spot_hub/screens/UserLogin/User/NoLogin.dart';
 import 'package:spot_hub/widgets/others/PrimayButton.dart';
+import 'package:spot_hub/widgets/others/UnderConstruction.dart';
 
 class More extends StatefulWidget {
   final bool isLoggedin;
@@ -270,6 +271,14 @@ class _MoreState extends State<More> {
                           //   //   subtitle: Text("This is activity Button"),
                           // ),
                           ListTile(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => UnderConstruction(
+                                          message:
+                                              "Settings Module is Under Construction")));
+                            },
                             leading: Icon(
                               Icons.settings,
                               color: AppColors.PrimaryColor,

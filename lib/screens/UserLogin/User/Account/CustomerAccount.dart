@@ -15,6 +15,7 @@ import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/BussinessHome.da
 import 'package:spot_hub/screens/Loading.dart';
 import 'package:spot_hub/screens/UserLogin/Admin/Login.dart';
 import 'package:spot_hub/screens/UserLogin/User/Account/EditAccountDetails.dart';
+import 'package:spot_hub/widgets/others/UnderConstruction.dart';
 
 class CustomerAccount extends StatefulWidget {
   CustomerAccount({
@@ -236,14 +237,24 @@ class _CustomerAccountState extends State<CustomerAccount> {
                             child: Icon(Icons.business),
                           ),
                         ),
-                  Container(
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(20),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: const Color.fromARGB(255, 237, 237, 237)),
-                    child: const Icon(Icons.details),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UnderConstruction(
+                                  message:
+                                      "Details Module is Under Construction")));
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(20),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: const Color.fromARGB(255, 237, 237, 237)),
+                      child: const Icon(Icons.details),
+                    ),
                   ),
                   GestureDetector(
                     onTap: () async {

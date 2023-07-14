@@ -30,9 +30,10 @@ Future<bool> signIn(String email, String password) async {
   } catch (e) {
     setError(e.toString());
     String message = clearError(e.toString());
-//     setError(e.toString());
+
+// setError(e.toString());
 // String message = e.toString().replaceRange(e.toString().indexOf("["), e.toString().indexOf("]")+2, "");
-//  print(message);
+// print(message);
 
     return false;
   }

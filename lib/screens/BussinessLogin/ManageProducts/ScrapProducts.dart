@@ -1,25 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:spot_hub/Utilities/ScrappingData.dart';
+
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
+import 'package:spot_hub/screens/Loading.dart';
 import 'package:spot_hub/widgets/others/PrimayButton.dart';
 
 import '../../../widgets/others/BoxedTextField.dart';
 
 class ScrapProducts extends StatefulWidget {
-  const ScrapProducts({super.key});
+  String website;
+  ScrapProducts({
+    Key? key,
+    this.website = "",
+  }) : super(key: key);
 
   @override
   State<ScrapProducts> createState() => _ScrapProductsState();
 }
 
 class _ScrapProductsState extends State<ScrapProducts> {
-  String _selectedStore = "FoodPanda";
+  bool _isLoading = false;
+  String _selectedStore = "Uber Eats";
   TextEditingController _linkController = TextEditingController();
-  final List<String> _stores = [
-    'FoodPanda',
-   'Food Mania'
-  ];
+  final List<String> _stores = ['Uber Eats', 'FoodPanda'];
 
   @override
   Widget build(BuildContext context) {
@@ -32,91 +37,162 @@ class _ScrapProductsState extends State<ScrapProducts> {
           color: Colors.white,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Image(image: AssetImage("assets/images/productscrapposter.png")),
-            SizedBox(
-              height: 20,
-            ),
-            BigText(
-              text: "Add Products to your store, Smartly",
-              color: AppColors.PrimaryColor,
-              size: 25,
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            SmallText(
-                text:
-                    "Hustle free product addition using the built in store to any ote platform !"),
-            SizedBox(
-              height: 15,
-            ),
-            Container(
-              padding:
-                  const EdgeInsets.only(right: 10, left: 10, bottom: 2, top: 2),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(
-                    color: const Color.fromARGB(255, 200, 200, 200),
-                    width: 1,
-                  )),
-              child: DropdownButton(
-                isExpanded: true,
-                value: _selectedStore,
-                hint: SmallText(text: 'Select Platform'),
-                items: _stores.map((store) {
-                  return DropdownMenuItem(
-                    value: store,
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.location_city,
-                          color: AppColors.PrimaryColor,
+      body: _isLoading == true
+          ? Loading(message: "Fething products from your store")
+          : Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image(
+                      image:
+                          AssetImage("assets/images/productscrapposter.png")),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  BigText(
+                    text: "Add Products to your store, Smartly",
+                    color: AppColors.PrimaryColor,
+                    size: 25,
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  widget.website == "https://www.khizertikkashop.com/"
+                      ? Column(
+                          children: [
+                            SmallText(
+                                text:
+                                    "Hello, it seems we know you, Are you from khizar Tikka Shop ?\nIf yes then Import Product from your following website directly, either you can sync the inventory antytime later"),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            PrimaryButton(
+                                marginValue: 0,
+                                TapAction: () {},
+                                text: widget.website,
+                                color: AppColors.PrimaryColor,
+                                icon: Icons.web),
+                            // Container(
+                            //   padding: const EdgeInsets.only(
+                            //       right: 10, left: 10, bottom: 2, top: 2),
+                            //   decoration: BoxDecoration(
+                            //       color: Colors.white,
+                            //       borderRadius: BorderRadius.circular(5),
+                            //       border: Border.all(
+                            //         color: const Color.fromARGB(
+                            //             255, 200, 200, 200),
+                            //         width: 1,
+                            //       )),
+                            //   child: SmallText(text: widget.website),
+                            // ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            PrimaryButton(
+                                marginValue: 0,
+                                TapAction: () async {
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
+                                  await getProductsFromKhizarTikka();
+
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
+                                },
+                                text: "Verify and Import",
+                                color: AppColors.PrimaryColor,
+                                icon: Icons.download),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            PrimaryButton(
+                                marginValue: 0,
+                                TapAction: () {
+                                  setState(() {
+                                    widget.website = "";
+                                  });
+                                },
+                                text: "No I am not the one",
+                                color: Colors.black,
+                                icon: Icons.cancel)
+                          ],
+                        )
+                      : Column(
+                          children: [
+                            SmallText(
+                                text:
+                                    "Hustle free product addition using the built in store to any ote platform !"),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Container(
+                              padding: const EdgeInsets.only(
+                                  right: 10, left: 10, bottom: 2, top: 2),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                    color: const Color.fromARGB(
+                                        255, 200, 200, 200),
+                                    width: 1,
+                                  )),
+                              child: DropdownButton(
+                                isExpanded: true,
+                                value: _selectedStore,
+                                hint: SmallText(text: 'Select Platform'),
+                                items: _stores.map((store) {
+                                  return DropdownMenuItem(
+                                    value: store,
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.location_city,
+                                          color: AppColors.PrimaryColor,
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(store),
+                                      ],
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (selectedstore) {
+                                  setState(() {
+                                    _selectedStore = selectedstore!;
+                                  });
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            BoxedTextField(
+                              TapAction: () {},
+                              controller: _linkController,
+                              icon: Icons.business,
+                              placeholder:
+                                  'e.g \"https://foodpanda.com/store-name\""',
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            PrimaryButton(
+                                marginValue: 0,
+                                TapAction: () {
+                                  print("Clicked Import Button");
+                                },
+                                text: "Verify and Import",
+                                color: AppColors.PrimaryColor,
+                                icon: Icons.download)
+                          ],
                         ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(store),
-                      ],
-                    ),
-                  );
-                }).toList(),
-                onChanged: (selectedstore) {
-                  setState(() {
-                    _selectedStore = selectedstore!;
-                  });
-                },
+                ],
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
-            BoxedTextField(
-              TapAction: () {},
-              controller: _linkController,
-              icon: Icons.business,
-              placeholder: 'e.g \"https://foodpanda.com/store-name\""',
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            PrimaryButton(
-                marginValue: 0,
-                TapAction: () {
-                  print("Clicked Import Button");
-                },
-                text: "Verify and Import",
-                color: AppColors.PrimaryColor,
-                icon: Icons.download)
-          ],
-        ),
-      ),
     );
   }
 }

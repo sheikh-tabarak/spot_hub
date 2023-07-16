@@ -327,8 +327,7 @@ class _AddReviewState extends State<AddReview> {
                                                               UserId:
                                                                   e["UserId"]);
 
-                                                          // reviewController.text
-                                                          //     .trimRight();
+                                                         
 
                                                           TextEditingValue(
                                                             text:

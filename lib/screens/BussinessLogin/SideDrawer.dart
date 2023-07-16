@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
+import 'package:spot_hub/models/BusinessModels/Bussiness.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/BussinessHome.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/ContactSupport.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageProducts/ScrapProducts.dart';
@@ -16,13 +17,12 @@ import 'package:spot_hub/screens/UserLogin/Home/MainPage.dart';
 import 'package:spot_hub/widgets/others/UnderConstruction.dart';
 
 class SideDrawer extends StatefulWidget {
-  final String BussinessImageUrl;
-  final String BussinessName;
+  Bussiness currentBussiness;
 
-  const SideDrawer(
-      {super.key,
-      required this.BussinessImageUrl,
-      required this.BussinessName});
+  SideDrawer({
+    super.key,
+    required this.currentBussiness,
+  });
 
   @override
   State<SideDrawer> createState() => _SideDrawerState();
@@ -54,13 +54,14 @@ class _SideDrawerState extends State<SideDrawer> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(100)),
                       image: DecorationImage(
-                          image: NetworkImage(widget.BussinessImageUrl),
+                          image: NetworkImage(
+                              widget.currentBussiness.BussinessImageUrl),
                           //AssetImage("assets/images/2desifood.png"),
                           fit: BoxFit.cover),
                     ),
                   ),
                   BigText(
-                    text: widget.BussinessName,
+                    text: widget.currentBussiness.BussinessName,
                     color: Colors.white,
                   ),
                   SizedBox(
@@ -110,7 +111,10 @@ class _SideDrawerState extends State<SideDrawer> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: ((context) => ScrapProducts())));
+                              builder: ((context) => ScrapProducts(
+                                    website: widget
+                                        .currentBussiness.BussinessWebsite,
+                                  ))));
                     },
                     child: Container(
                       padding: EdgeInsets.all(3),

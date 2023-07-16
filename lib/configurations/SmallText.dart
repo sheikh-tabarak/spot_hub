@@ -25,16 +25,25 @@ class SmallText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text,
-        textAlign: iscentre == true ? TextAlign.center : TextAlign.left,
-        //   overflow: overFlow,
-        style: TextStyle(
-          fontFamily: 'Poppins',
-          //    fontSize: Dimensions.font12,
-          color: color,
-          fontWeight: weight == FontWeight.w400 ? FontWeight.w400 : weight,
-          height: height,
-          //  FontWeight:Weight,
-        ));
+    return // Flexible(
+        Text(text,
+            overflow: TextOverflow.fade,
+            maxLines: 1,
+            softWrap: false,
+            // overflow: TextOverflow.ellipsis,
+            // //   maxLines: 2,
+            // softWrap: true,
+            // overflow:TextStyle.lerp(a, b, t),
+            textAlign: iscentre == true ? TextAlign.center : TextAlign.left,
+            //   overflow: overFlow,
+            style: TextStyle(
+              fontFamily: 'Poppins',
+              //    fontSize: Dimensions.font12,
+              color: color,
+              fontWeight: weight == FontWeight.w400 ? FontWeight.w400 : weight,
+              height: height,
+              //  FontWeight:Weight,
+            ));
+    // );
   }
 }

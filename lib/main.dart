@@ -56,6 +56,7 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
             body:
+                //ScrapBussiness()
                 //MainSearch(Results: "Burger")
                 // Login()
                 //  BussinessHome()

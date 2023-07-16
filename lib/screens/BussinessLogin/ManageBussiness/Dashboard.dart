@@ -74,8 +74,10 @@ class _DashboardState extends State<Dashboard> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: ((context) =>
-                                              const ScrapProducts())));
+                                          builder: ((context) => ScrapProducts(
+                                                website: widget.CurrentBussiness
+                                                    .BussinessWebsite,
+                                              ))));
                                 },
                                 child: Container(
                                   height: 40,

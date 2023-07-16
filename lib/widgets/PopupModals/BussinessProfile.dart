@@ -68,29 +68,55 @@ class BussinessProfile extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 BigText(text: B.BussinessName),
-                                SmallText(text: B.BussinessAddress),
+
+                                // Row(
+                                //   children: [
+                                //     Expanded(
+                                //       flex: 1,
+                                //       child: Text(
+                                //         B.BussinessAddress,
+                                //         style: TextStyle(fontSize: 58),
+                                //         softWrap: false,
+                                //         maxLines: 1,
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
+
+                                // Text(
+                                //     overflow: TextOverflow.ellipsis,
+                                //     B.BussinessAddress),
+
+                                // Text(B.BussinessAddress,
+                                //     overflow: TextOverflow.fade,
+                                //     maxLines: 1,
+                                //     softWrap: false,
+                                //     style: TextStyle(
+                                //       fontFamily: 'Poppins',
+                                //     )),
+                                SmallText(text: B.BussinessCity),
                                 SizedBox(height: Dimensions.height5),
-                                Row(
-                                  children: [
-                                    Icon(Icons.star,
-                                        size: Dimensions.font15,
-                                        color: AppColors.PrimaryColor),
-                                    Icon(Icons.star,
-                                        size: Dimensions.font15,
-                                        color: AppColors.PrimaryColor),
-                                    Icon(Icons.star,
-                                        size: Dimensions.font15,
-                                        color: AppColors.PrimaryColor),
-                                    Icon(Icons.star,
-                                        size: Dimensions.font15,
-                                        color: AppColors.PrimaryColor),
-                                    Icon(Icons.star_border_outlined,
-                                        size: Dimensions.font15,
-                                        color: AppColors.PrimaryColor),
-                                    SizedBox(width: Dimensions.width5),
-                                    SmallText(text: '( ${B.Reports} Reviews )')
-                                  ],
-                                ),
+                                // Row(
+                                //   children: [
+                                //     // Icon(Icons.star,
+                                //     //     size: Dimensions.font15,
+                                //     //     color: AppColors.PrimaryColor),
+                                //     // Icon(Icons.star,
+                                //     //     size: Dimensions.font15,
+                                //     //     color: AppColors.PrimaryColor),
+                                //     // Icon(Icons.star,
+                                //     //     size: Dimensions.font15,
+                                //     //     color: AppColors.PrimaryColor),
+                                //     // Icon(Icons.star,
+                                //     //     size: Dimensions.font15,
+                                //     //     color: AppColors.PrimaryColor),
+                                //     // Icon(Icons.star_border_outlined,
+                                //     //     size: Dimensions.font15,
+                                //     //     color: AppColors.PrimaryColor),
+                                //     // SizedBox(width: Dimensions.width5),
+                                //     //      SmallText(text: '( ${B.Reports} Reviews )')
+                                //   ],
+                                // ),
                               ],
                             )
                           ],
@@ -153,66 +179,71 @@ class BussinessProfile extends StatelessWidget {
                 // height: double.maxFinite,
                 child: TabBarView(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: StreamBuilder(
-                          stream: ProductsofThatBussiness(B.BussinessId),
-                          builder:
-                              (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                            return snapshot.hasData
-                                ? ListView(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    // This next line does the trick.
-                                    scrollDirection: Axis.vertical,
-                                    children: snapshot.data!.docs.map((e) {
-                                      // if()
+                    SingleChildScrollView(
+                      physics: AlwaysScrollableScrollPhysics(),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: StreamBuilder(
+                            stream: ProductsofThatBussiness(B.BussinessId),
+                            builder: (context,
+                                AsyncSnapshot<QuerySnapshot> snapshot) {
+                              return snapshot.hasData
+                                  ? ListView(
+                                      physics: NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      // This next line does the trick.
+                                      scrollDirection: Axis.vertical,
+                                      children: snapshot.data!.docs.map((e) {
+                                        // if()
 
-                                      return GestureDetector(
-                                          onTap: () {},
-                                          child: ProductCard(
-                                              isLoggedin: isLoggedIn,
-                                              products: Product(
-                                                  BussinessId: e["BussinessId"],
-                                                  Id: e["Id"],
-                                                  image: e["image"],
-                                                  description: e["description"],
-                                                  title: e["title"],
-                                                  Category: e["Category"],
-                                                  Price: e["Price"],
-                                                  rating: e["rating"],
-                                                  reviews: e["reviews"],
-                                                  isRecommended:
-                                                      e["isRecommended"])));
-                                    }).toList())
-                                : Container(
-                                    padding: EdgeInsets.all(10),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                            border: Border.all(
-                                                width: 2.0,
-                                                color: Color.fromARGB(
-                                                    255, 237, 237, 237)),
+                                        return GestureDetector(
+                                            onTap: () {},
+                                            child: ProductCard(
+                                                isLoggedin: isLoggedIn,
+                                                products: Product(
+                                                    BussinessId:
+                                                        e["BussinessId"],
+                                                    Id: e["Id"],
+                                                    image: e["image"],
+                                                    description:
+                                                        e["description"],
+                                                    title: e["title"],
+                                                    Category: e["Category"],
+                                                    Price: e["Price"],
+                                                    rating: e["rating"],
+                                                    reviews: e["reviews"],
+                                                    isRecommended:
+                                                        e["isRecommended"])));
+                                      }).toList())
+                                  : Container(
+                                      padding: EdgeInsets.all(10),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                              border: Border.all(
+                                                  width: 2.0,
+                                                  color: Color.fromARGB(
+                                                      255, 237, 237, 237)),
+                                            ),
+                                            alignment: Alignment.center,
+                                            child: Icon(Icons.add),
                                           ),
-                                          alignment: Alignment.center,
-                                          child: Icon(Icons.add),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        SmallText(text: "Register")
-                                      ],
-                                    ),
-                                  );
-                          }),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          SmallText(text: "Register")
+                                        ],
+                                      ),
+                                    );
+                            }),
+                      ),
                     ),
 
                     Padding(
@@ -223,49 +254,51 @@ class BussinessProfile extends StatelessWidget {
                               (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                             return snapshot.hasData
                                 ? Wrap(
+                                    alignment: WrapAlignment.spaceBetween,
                                     // physics: NeverScrollableScrollPhysics(),
                                     // shrinkWrap: true,
                                     // This next line does the trick.
                                     //  scrollDirection: Axis.,
                                     children: snapshot.data!.docs.map((e) {
-                                    // if()
+                                      // if()
 
-                                    return GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => ImageViewer(
-                                                  imageUrl: e["image"]),
-                                            ),
+                                      return GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ImageViewer(
+                                                        imageUrl: e["image"]),
+                                              ),
+                                            );
+                                          },
+                                          child: Container(
+                                            margin: EdgeInsets.all(5),
+                                            width: 120,
+                                            height: 115,
+                                            decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        e["image"]),
+                                                    fit: BoxFit.cover)),
+                                          )
+
+                                          // ProductCard(
+                                          //     products: Product(
+                                          //         BussinessId: e["BussinessId"],
+                                          //         Id: e["Id"],
+                                          //         image: e["image"],
+                                          //         description: e["description"],
+                                          //         title: e["title"],
+                                          //         Price: e["Price"],
+                                          //         rating: e["rating"],
+                                          //         reviews: e["reviews"],
+                                          //         isRecommended:
+                                          //             e["isRecommended"]))
+
                                           );
-                                        },
-                                        child: Container(
-                                          margin: EdgeInsets.all(5),
-                                          width: 120,
-                                          height: 120,
-                                          decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                  image:
-                                                      NetworkImage(e["image"]),
-                                                  fit: BoxFit.cover)),
-                                        )
-
-                                        // ProductCard(
-                                        //     products: Product(
-                                        //         BussinessId: e["BussinessId"],
-                                        //         Id: e["Id"],
-                                        //         image: e["image"],
-                                        //         description: e["description"],
-                                        //         title: e["title"],
-                                        //         Price: e["Price"],
-                                        //         rating: e["rating"],
-                                        //         reviews: e["reviews"],
-                                        //         isRecommended:
-                                        //             e["isRecommended"]))
-
-                                        );
-                                  }).toList())
+                                    }).toList())
                                 : Loading(message: "Fetching your products");
                             //Container(
                             //   padding: EdgeInsets.all(10),

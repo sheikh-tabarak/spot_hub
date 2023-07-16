@@ -114,8 +114,7 @@ class _BussinessHomeState extends State<BussinessHome> {
               backgroundColor: Colors.white,
               width: 250,
               child: SideDrawer(
-                BussinessImageUrl: myBussinessImageUrl,
-                BussinessName: myBussinessName,
+                currentBussiness: CurrentBussiness,
               ),
             ),
             backgroundColor: AppColors.lightBackgroundColor,

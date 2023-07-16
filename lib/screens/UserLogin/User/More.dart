@@ -5,6 +5,7 @@ import 'package:spot_hub/Utilities/MapsView.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/database/Authentication.dart';
+import 'package:spot_hub/models/BusinessModels/Product.dart';
 import 'package:spot_hub/models/DummyData.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/AddNewBussiness.dart';
@@ -154,8 +155,19 @@ class _MoreState extends State<More> {
                                       MaterialPageRoute(
                                           builder: (context) => AddReview(
                                               isSelected: false,
-                                              ProductToReview:
-                                                  DummyProducts[6])))
+                                              ProductToReview: Product(
+                                                  BussinessId: "BussinessId",
+                                                  Id: "Id",
+                                                  image: "image",
+                                                  description: "description",
+                                                  title: "title",
+                                                  Category: "Category",
+                                                  Price: 00,
+                                                  rating: 11,
+                                                  reviews: 1,
+                                                  isRecommended: true)
+                                              // DummyProducts[6]
+                                              )))
                                 }
                             },
                             leading: Icon(

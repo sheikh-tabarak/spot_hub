@@ -99,159 +99,159 @@ const DummyBussinesses = [
       Reports: 0)
 ];
 
-const DummyProducts = [
-  Product(
-      isRecommended: true,
-      Id: 'SHFP1',
-      BussinessId: 'SHB5',
-      image:
-          'https://images.unsplash.com/photo-1615719413546-198b25453f85?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=500&ixid=MnwxfDB8MXxyYW5kb218MHx8cGl6emF8fHx8fHwxNjc3MTI3NDg2&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=500',
-      description:
-          "Delicious pizza topped with pepperoni, cheese, and fresh vegetables",
-      title: "Pepperoni Pizza",
-      Price: 12.99,
-      rating: 5,
-      reviews: 44),
-  Product(
-      isRecommended: false,
-      Id: 'SHFP2',
-      BussinessId: 'SHB1',
-      image:
-          "https://images.unsplash.com/photo-1590577976322-3d2d6e2130d5?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=500&ixid=MnwxfDB8MXxyYW5kb218MHx8c3VzaGl8fHx8fHwxNjc3MTI3NTc0&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=500",
-      description:
-          "Variety of fresh sushi rolls, including tuna, salmon, and avocado",
-      title: "Sushi Platter",
-      Price: 12.99,
-      rating: 1.3,
-      reviews: 34),
-  Product(
-      isRecommended: false,
-      Id: 'SHFP3',
-      BussinessId: 'SHB1',
-      image:
-          "https://images.unsplash.com/photo-1446611720526-39d16597055c?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=500&ixid=MnwxfDB8MXxyYW5kb218MHx8aGFtYnVyZ2VyfHx8fHx8MTY3NzEyNzc3MA&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=500",
-      description: "Juicy hamburger with all the fixings, served with fries",
-      title: "Hamburger and Fries",
-      Price: 9.99,
-      rating: 4.3,
-      reviews: 32),
-  Product(
-      isRecommended: false,
-      Id: 'SHFP4',
-      BussinessId: 'SHB1',
-      image:
-          "https://images.unsplash.com/photo-1518133683791-0b9de5a055f0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-      description:
-          "Three soft tacos filled with your choice of protein and topped with salsa, sour cream, and cheese",
-      title: "Taco Plate",
-      Price: 10.99,
-      rating: 4.0,
-      reviews: 12),
-  Product(
-      isRecommended: true,
-      Id: 'SHFP5',
-      BussinessId: 'SHB1',
-      image:
-          "https://www.indianhealthyrecipes.com/wp-content/uploads/2015/10/pizza-recipe-2.jpg",
-      description:
-          "Fettuccine Alfredo with grilled chicken and a side of garlic bread",
-      title: "Chicken Alfredo Pasta",
-      Price: 13.99,
-      rating: 5,
-      reviews: 5),
-  Product(
-      isRecommended: false,
-      Id: 'SHFP6',
-      BussinessId: 'SHB3',
-      image:
-          "https://www.indianhealthyrecipes.com/wp-content/uploads/2015/10/pizza-recipe-2.jpg",
-      description:
-          "Mixed greens with cherry tomatoes, cucumbers, and your choice of dressing",
-      title: "Garden Salad",
-      Price: 8.99,
-      rating: 3.3,
-      reviews: 2),
-  Product(
-      isRecommended: false,
-      Id: 'SHFP7',
-      BussinessId: 'SHB3',
-      image:
-          "https://www.indianhealthyrecipes.com/wp-content/uploads/2015/10/pizza-recipe-2.jpg",
-      description:
-          "Turkey, bacon, and avocado sandwich on toasted bread with lettuce and mayonnaise",
-      title: "Turkey Club Sandwich",
-      Price: 11.99,
-      rating: 3.3,
-      reviews: 12),
-  Product(
-      isRecommended: false,
-      Id: 'SHFP8',
-      BussinessId: 'SHB4',
-      image:
-          "https://www.indianhealthyrecipes.com/wp-content/uploads/2015/10/pizza-recipe-2.jpg",
-      description: "Golden fried chicken served with mashed potatoes and gravy",
-      title: "Fried Chicken Dinner",
-      Price: 14.99,
-      rating: 4.7,
-      reviews: 43),
-  Product(
-      isRecommended: false,
-      Id: 'SHFP9',
-      BussinessId: 'SHB2',
-      image:
-          "https://www.indianhealthyrecipes.com/wp-content/uploads/2015/10/pizza-recipe-2.jpg",
-      description:
-          "Stir-fried noodles with your choice of protein and vegetables",
-      title: "Stir-Fried Noodles",
-      Price: 12.99,
-      rating: 3.0,
-      reviews: 70),
-  Product(
-      isRecommended: false,
-      Id: 'SHFP10',
-      BussinessId: 'SHB2',
-      image:
-          "https://www.indianhealthyrecipes.com/wp-content/uploads/2015/10/pizza-recipe-2.jpg",
-      description: "Hearty bowl of chicken noodle soup, served with a roll",
-      title: "Chicken Noodle Soup",
-      Price: 9.99,
-      rating: 2.3,
-      reviews: 3),
-  Product(
-      isRecommended: false,
-      Id: 'SHFP11',
-      BussinessId: 'SHB1',
-      image:
-          "https://www.indianhealthyrecipes.com/wp-content/uploads/2015/10/pizza-recipe-2.jpg",
-      description: "Vegetable stir-fry with tofu and brown rice",
-      title: "Vegetable Stir-Fry",
-      Price: 11.99,
-      rating: 1.0,
-      reviews: 0),
-  Product(
-      isRecommended: true,
-      Id: 'SHFP12',
-      BussinessId: 'SHB1',
-      image:
-          "https://www.indianhealthyrecipes.com/wp-content/uploads/2015/10/pizza-recipe-2.jpg",
-      description:
-          "Slow-cooked BBQ ribs with a side of coleslaw and baked beans",
-      title: "BBQ Ribs",
-      Price: 16.99,
-      rating: 3.1,
-      reviews: 5),
-  Product(
-      isRecommended: false,
-      Id: 'SHFP13',
-      BussinessId: 'SHB5',
-      image:
-          "https://www.indianhealthyrecipes.com/wp-content/uploads/2015/10/pizza-recipe-2.jpg",
-      description: "Stack of three fluffy pancakes with butter and syrup",
-      title: "Pancakes",
-      Price: 7.99,
-      rating: 2.3,
-      reviews: 63)
-];
+// const DummyProducts = [
+//   Product(
+//       isRecommended: true,
+//       Id: 'SHFP1',
+//       BussinessId: 'SHB5',
+//       image:
+//           'https://images.unsplash.com/photo-1615719413546-198b25453f85?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=500&ixid=MnwxfDB8MXxyYW5kb218MHx8cGl6emF8fHx8fHwxNjc3MTI3NDg2&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=500',
+//       description:
+//           "Delicious pizza topped with pepperoni, cheese, and fresh vegetables",
+//       title: "Pepperoni Pizza",
+//       Price: 12.99,
+//       rating: 5,
+//       reviews: 44),
+//   Product(
+//       isRecommended: false,
+//       Id: 'SHFP2',
+//       BussinessId: 'SHB1',
+//       image:
+//           "https://images.unsplash.com/photo-1590577976322-3d2d6e2130d5?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=500&ixid=MnwxfDB8MXxyYW5kb218MHx8c3VzaGl8fHx8fHwxNjc3MTI3NTc0&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=500",
+//       description:
+//           "Variety of fresh sushi rolls, including tuna, salmon, and avocado",
+//       title: "Sushi Platter",
+//       Price: 12.99,
+//       rating: 1.3,
+//       reviews: 34),
+//   Product(
+//       isRecommended: false,
+//       Id: 'SHFP3',
+//       BussinessId: 'SHB1',
+//       image:
+//           "https://images.unsplash.com/photo-1446611720526-39d16597055c?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=500&ixid=MnwxfDB8MXxyYW5kb218MHx8aGFtYnVyZ2VyfHx8fHx8MTY3NzEyNzc3MA&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=500",
+//       description: "Juicy hamburger with all the fixings, served with fries",
+//       title: "Hamburger and Fries",
+//       Price: 9.99,
+//       rating: 4.3,
+//       reviews: 32),
+//   Product(
+//       isRecommended: false,
+//       Id: 'SHFP4',
+//       BussinessId: 'SHB1',
+//       image:
+//           "https://images.unsplash.com/photo-1518133683791-0b9de5a055f0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+//       description:
+//           "Three soft tacos filled with your choice of protein and topped with salsa, sour cream, and cheese",
+//       title: "Taco Plate",
+//       Price: 10.99,
+//       rating: 4.0,
+//       reviews: 12),
+//   Product(
+//       isRecommended: true,
+//       Id: 'SHFP5',
+//       BussinessId: 'SHB1',
+//       image:
+//           "https://www.indianhealthyrecipes.com/wp-content/uploads/2015/10/pizza-recipe-2.jpg",
+//       description:
+//           "Fettuccine Alfredo with grilled chicken and a side of garlic bread",
+//       title: "Chicken Alfredo Pasta",
+//       Price: 13.99,
+//       rating: 5,
+//       reviews: 5),
+//   Product(
+//       isRecommended: false,
+//       Id: 'SHFP6',
+//       BussinessId: 'SHB3',
+//       image:
+//           "https://www.indianhealthyrecipes.com/wp-content/uploads/2015/10/pizza-recipe-2.jpg",
+//       description:
+//           "Mixed greens with cherry tomatoes, cucumbers, and your choice of dressing",
+//       title: "Garden Salad",
+//       Price: 8.99,
+//       rating: 3.3,
+//       reviews: 2),
+//   Product(
+//       isRecommended: false,
+//       Id: 'SHFP7',
+//       BussinessId: 'SHB3',
+//       image:
+//           "https://www.indianhealthyrecipes.com/wp-content/uploads/2015/10/pizza-recipe-2.jpg",
+//       description:
+//           "Turkey, bacon, and avocado sandwich on toasted bread with lettuce and mayonnaise",
+//       title: "Turkey Club Sandwich",
+//       Price: 11.99,
+//       rating: 3.3,
+//       reviews: 12),
+//   Product(
+//       isRecommended: false,
+//       Id: 'SHFP8',
+//       BussinessId: 'SHB4',
+//       image:
+//           "https://www.indianhealthyrecipes.com/wp-content/uploads/2015/10/pizza-recipe-2.jpg",
+//       description: "Golden fried chicken served with mashed potatoes and gravy",
+//       title: "Fried Chicken Dinner",
+//       Price: 14.99,
+//       rating: 4.7,
+//       reviews: 43),
+//   Product(
+//       isRecommended: false,
+//       Id: 'SHFP9',
+//       BussinessId: 'SHB2',
+//       image:
+//           "https://www.indianhealthyrecipes.com/wp-content/uploads/2015/10/pizza-recipe-2.jpg",
+//       description:
+//           "Stir-fried noodles with your choice of protein and vegetables",
+//       title: "Stir-Fried Noodles",
+//       Price: 12.99,
+//       rating: 3.0,
+//       reviews: 70),
+//   Product(
+//       isRecommended: false,
+//       Id: 'SHFP10',
+//       BussinessId: 'SHB2',
+//       image:
+//           "https://www.indianhealthyrecipes.com/wp-content/uploads/2015/10/pizza-recipe-2.jpg",
+//       description: "Hearty bowl of chicken noodle soup, served with a roll",
+//       title: "Chicken Noodle Soup",
+//       Price: 9.99,
+//       rating: 2.3,
+//       reviews: 3),
+//   Product(
+//       isRecommended: false,
+//       Id: 'SHFP11',
+//       BussinessId: 'SHB1',
+//       image:
+//           "https://www.indianhealthyrecipes.com/wp-content/uploads/2015/10/pizza-recipe-2.jpg",
+//       description: "Vegetable stir-fry with tofu and brown rice",
+//       title: "Vegetable Stir-Fry",
+//       Price: 11.99,
+//       rating: 1.0,
+//       reviews: 0),
+//   Product(
+//       isRecommended: true,
+//       Id: 'SHFP12',
+//       BussinessId: 'SHB1',
+//       image:
+//           "https://www.indianhealthyrecipes.com/wp-content/uploads/2015/10/pizza-recipe-2.jpg",
+//       description:
+//           "Slow-cooked BBQ ribs with a side of coleslaw and baked beans",
+//       title: "BBQ Ribs",
+//       Price: 16.99,
+//       rating: 3.1,
+//       reviews: 5),
+//   Product(
+//       isRecommended: false,
+//       Id: 'SHFP13',
+//       BussinessId: 'SHB5',
+//       image:
+//           "https://www.indianhealthyrecipes.com/wp-content/uploads/2015/10/pizza-recipe-2.jpg",
+//       description: "Stack of three fluffy pancakes with butter and syrup",
+//       title: "Pancakes",
+//       Price: 7.99,
+//       rating: 2.3,
+//       reviews: 63)
+// ];
 
 const ReviewsData = [
   ReviewsModel(

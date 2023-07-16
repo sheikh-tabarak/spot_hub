@@ -162,7 +162,9 @@ class _BussinessHomeState extends State<BussinessHome> {
             body: widget.PageIndex == 0
                 ? Dashboard(CurrentBussiness: CurrentBussiness)
                 : widget.PageIndex == 1
-                    ? const ProductsList()
+                    ? ProductsList(
+                        CurrentBussiness: CurrentBussiness,
+                      )
                     : widget.PageIndex == 2
                         ? MyBussinessProfile(
                             CurrentB: Bussiness(

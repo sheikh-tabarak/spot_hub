@@ -178,6 +178,7 @@ class BussinessProfile extends StatelessWidget {
                                                   image: e["image"],
                                                   description: e["description"],
                                                   title: e["title"],
+                                                  Category: e["Category"],
                                                   Price: e["Price"],
                                                   rating: e["rating"],
                                                   reviews: e["reviews"],

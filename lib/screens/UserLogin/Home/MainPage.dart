@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:spot_hub/configurations/AppColors.dart';
+import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/BusinessModels/Bussiness.dart';
@@ -21,7 +22,7 @@ import 'package:spot_hub/screens/UserLogin/User/Account/CustomerAccount.dart';
 import 'package:spot_hub/screens/UserLogin/SearchFrame/MainSearch.dart';
 import 'package:spot_hub/screens/UserLogin/User/More.dart';
 import 'package:spot_hub/screens/UserLogin/User/NoLogin.dart';
-import 'package:spot_hub/screens/UserLogin/SearchFrame/SearchPage.dart';
+import 'package:spot_hub/screens/UserLogin/SearchFrame/ReviewSelectionPage.dart';
 import 'package:spot_hub/screens/UserLogin/User/SpotFlicks/spot_flicks.dart';
 import 'package:spot_hub/screens/UserLogin/chat/MessengerScreen.dart';
 import 'package:spot_hub/widgets/Product/ProductCard.dart';
@@ -178,12 +179,7 @@ class _MainPageState extends State<MainPage> {
                                   BorderRadius.all(Radius.circular(50)),
                               image: DecorationImage(
                                   image: NetworkImage(widget.MainUser.image))),
-                          //DecoratedBox(decoration: DecorationImage(image:  NetworkImage(widget.MainUser.image))),
                           child: Text(""),
-                          // Image(
-                          //     image: NetworkImage(widget.MainUser.image),
-                          //     fit: BoxFit.contain,
-                          //   ),
                         ),
                   label: 'Account'),
               const BottomNavigationBarItem(
@@ -216,6 +212,7 @@ class _MainPageState extends State<MainPage> {
                         )
                     : SingleChildScrollView(
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Stack(
                               alignment: AlignmentDirectional.bottomStart,
@@ -311,26 +308,6 @@ class _MainPageState extends State<MainPage> {
                                     SizedBox(
                                       height: Dimensions.height20 * 3,
                                     ),
-
-                                    // Container(
-                                    //   alignment: Alignment.center,
-                                    //   width: 300,
-                                    //   child: TextField(
-                                    //     controller: SearchController,
-
-                                    //     onChanged: (String value) => {
-                                    //   print(value)
-                                    //     },
-                                    //     decoration: InputDecoration(
-                                    //     hintText: 'Search for hotels and food',
-                                    //     prefixIcon: Icon(Icons.search),
-                                    //     fillColor: AppColors.lightBackgroundColor,
-                                    //     prefixIconColor: AppColors.PrimaryColor,
-                                    //     filled: true,
-                                    //     hoverColor: AppColors.PrimaryColor,
-                                    //     focusColor: AppColors.PrimaryColor),
-                                    //   ),
-                                    // ),
                                   ],
                                 ),
                                 Padding(
@@ -411,10 +388,10 @@ class _MainPageState extends State<MainPage> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       MainSearch(
+                                                          Category: 2,
                                                           isLoggedIn:
                                                               widget.isLoggedin,
-                                                          Results:
-                                                              "Fast Food")));
+                                                          Results: "")));
                                         },
                                       ),
                                       ChoiceIcon(
@@ -427,10 +404,10 @@ class _MainPageState extends State<MainPage> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       MainSearch(
+                                                          Category: 3,
                                                           isLoggedIn:
                                                               widget.isLoggedin,
-                                                          Results:
-                                                              "Sea Food")));
+                                                          Results: "")));
                                         },
                                       ),
                                       ChoiceIcon(
@@ -443,10 +420,10 @@ class _MainPageState extends State<MainPage> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       MainSearch(
+                                                          Category: 1,
                                                           isLoggedIn:
                                                               widget.isLoggedin,
-                                                          Results:
-                                                              "Desi Food")));
+                                                          Results: "")));
                                         },
                                       ),
                                       ChoiceIcon(
@@ -459,10 +436,10 @@ class _MainPageState extends State<MainPage> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       MainSearch(
+                                                          Category: 4,
                                                           isLoggedIn:
                                                               widget.isLoggedin,
-                                                          Results:
-                                                              "Chineese")));
+                                                          Results: "")));
                                         },
                                       ),
                                     ],
@@ -510,12 +487,19 @@ class _MainPageState extends State<MainPage> {
                               ),
                             ),
 
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 20, bottom: 10, left: 10),
+                              child: BigText(text: "Popular Products:"),
+                            ),
+
                             StreamBuilder(
                                 stream: ProductsOfAllBussinesses(),
                                 builder: (context,
                                     AsyncSnapshot<QuerySnapshot> snapshot) {
                                   return snapshot.hasData
                                       ? ListView(
+                                          padding: EdgeInsets.zero,
                                           physics:
                                               NeverScrollableScrollPhysics(),
                                           shrinkWrap: true,
@@ -537,6 +521,7 @@ class _MainPageState extends State<MainPage> {
                                                       description:
                                                           e["description"],
                                                       title: e["title"],
+                                                      Category: e["Category"],
                                                       Price: e["Price"],
                                                       rating: e["rating"],
                                                       reviews: e["reviews"],

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
+import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/BusinessModels/Product.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/BussinessHome.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/Dashboard.dart';
@@ -39,6 +40,7 @@ class AddProduct extends StatefulWidget {
 }
 
 class _AddProductState extends State<AddProduct> {
+  String _selectedCategory = "Fast Food";
   String _LoaingCommands = "Fetching product";
   String imageaddress = "";
   String imagetoUpload = "";
@@ -47,6 +49,8 @@ class _AddProductState extends State<AddProduct> {
   final _descController = TextEditingController();
   final _categoryController = TextEditingController();
   final _priceController = TextEditingController();
+
+  List<String> _categoriesCount = ["Desi", "Fast Food", "Sea Food", "Chineese"];
 //  final _locationController = TextEditingController();
 
   @override
@@ -100,33 +104,56 @@ class _AddProductState extends State<AddProduct> {
                         controller: _descController,
                       ),
 
-                      BoxedTextField(
-                        placeholder: 'Category',
-                        icon: Icons.category,
-                        TapAction: () {},
-                        controller: _categoryController,
+                      Container(
+                        padding: const EdgeInsets.only(
+                            right: 10, left: 10, bottom: 2, top: 2),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(
+                              color: const Color.fromARGB(255, 200, 200, 200),
+                              width: 1,
+                            )),
+                        child: DropdownButton(
+                          isExpanded: true,
+                          value: _selectedCategory,
+                          hint: SmallText(text: 'Choose Category'),
+                          items: _categoriesCount.map((category) {
+                            return DropdownMenuItem(
+                              value: category,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.category,
+                                    color: AppColors.PrimaryColor,
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(category),
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (selectedCategory) {
+                            setState(() {
+                              _selectedCategory = selectedCategory!;
+                            });
+                            print(_selectedCategory);
+                          },
+                        ),
                       ),
+
                       BoxedTextField(
                         placeholder: 'Price',
                         icon: Icons.price_check,
                         TapAction: () {},
                         controller: _priceController,
                       ),
-                      // BoxedTextField(
-                      //   placeholder: 'Location',
-                      //   icon: Icons.pin_drop,
-                      //   TapAction: () {},
-                      //   controller: _locationController,
-                      // ),
+
                       SizedBox(
                         height: 5,
                       ),
-
-                      // Container(
-                      //   decoration: BoxDecoration(
-
-                      //   ),
-                      // ),
 
                       GestureDetector(
                         onTap: () async {
@@ -213,11 +240,11 @@ class _AddProductState extends State<AddProduct> {
                                 imageUploaded,
                                 _titleController.text,
                                 _descController.text,
-                                _categoryController.text,
+                                _selectedCategory.toString(),
                                 double.parse(_priceController.text));
 
                             setState(() {
-                              _LoaingCommands = "Resirecting to Product list";
+                              _LoaingCommands = "Redirecting to Product list";
                             });
 
                             Navigator.push(
@@ -258,7 +285,7 @@ class _AddProductState extends State<AddProduct> {
                               imageUploaded,
                               _titleController.text,
                               _descController.text,
-                              _categoryController.text,
+                              _selectedCategory.toString(),
                               double.parse(_priceController.text),
                             );
                           } else {
@@ -272,7 +299,7 @@ class _AddProductState extends State<AddProduct> {
                               widget.image,
                               _titleController.text,
                               _descController.text,
-                              _categoryController.text,
+                              _selectedCategory.toString(),
                               double.parse(_priceController.text),
                             );
                           }

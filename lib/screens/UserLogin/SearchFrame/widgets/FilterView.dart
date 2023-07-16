@@ -11,14 +11,17 @@ import 'package:spot_hub/widgets/others/PrimayButton.dart';
 
 class FilterView extends StatefulWidget {
   final bool isLoggedIn;
-  int Star_Rating;
+  double Star_Rating;
+  int Category;
   int reviewCount;
 
   FilterView({
     super.key,
     required this.isLoggedIn,
     this.Star_Rating = 0,
+    this.Category = 0,
     this.reviewCount = 0,
+
     //required int StarRating
   });
 
@@ -29,6 +32,13 @@ class FilterView extends StatefulWidget {
 class _FilterViewState extends State<FilterView> {
   List<String> StarRating = ["Any", "★ 3.0+", "★ 4.0+", "★ 5.0+"];
   List<String> reviewCount = ["N/A", "10+", "50+", "100+"];
+  List<String> _categoriesCount = [
+    "Any",
+    "Desi",
+    "Fast Food",
+    "Sea Food",
+    "Chineese"
+  ];
   RangeValues _currentRangeValues = RangeValues(40, 80);
   @override
   Widget build(BuildContext context) {
@@ -63,7 +73,10 @@ class _FilterViewState extends State<FilterView> {
                       setState(() {
                         widget.Star_Rating = 0;
                         widget.reviewCount = 0;
+                        widget.Category = 0;
                       });
+
+                      Navigator.pop(context);
                     },
                     child: SmallText(
                       text: "Clear all Filters",
@@ -79,9 +92,9 @@ class _FilterViewState extends State<FilterView> {
             Container(
               height: 60,
               child: SelectionStripe(
-                selectedItem: widget.Star_Rating,
+                selectedItem: widget.Star_Rating.toInt(),
                 getValue: (value) {
-                  widget.Star_Rating = value;
+                  widget.Star_Rating = double.parse(value.toString());
                   print("it's new ${value + 1}");
                 },
                 items: StarRating,
@@ -106,23 +119,39 @@ class _FilterViewState extends State<FilterView> {
             BigText(
               size: 15,
               // color: AppColors.PrimaryColor,
-              text: "Price",
+              text: "Category",
             ),
-            RangeSlider(
-              values: _currentRangeValues,
-              max: 100,
-              divisions: 5,
-              labels: RangeLabels(
-                _currentRangeValues.start.round().toString(),
-                _currentRangeValues.end.round().toString(),
+            Container(
+              height: 60,
+              child: SelectionStripe(
+                selectedItem: widget.Category,
+                getValue: (value) {
+                  widget.Category = value;
+                  //   print("it's new ${value + 1}");
+                },
+                items: _categoriesCount,
               ),
-              onChanged: (RangeValues values) {
-                setState(() => {
-                      _currentRangeValues = values,
-                      print("chng$_currentRangeValues")
-                    });
-              },
             ),
+            // BigText(
+            //   size: 15,
+            //   // color: AppColors.PrimaryColor,
+            //   text: "Price",
+            // ),
+            // RangeSlider(
+            //   values: _currentRangeValues,
+            //   max: 100,
+            //   divisions: 5,
+            //   labels: RangeLabels(
+            //     _currentRangeValues.start.round().toString(),
+            //     _currentRangeValues.end.round().toString(),
+            //   ),
+            //   onChanged: (RangeValues values) {
+            //     setState(() => {
+            //           _currentRangeValues = values,
+            //           print("chng$_currentRangeValues")
+            //         });
+            //   },
+            // ),
             PrimaryButton(
                 TapAction: () {
                   //  Navigator.pop(context);
@@ -134,9 +163,9 @@ class _FilterViewState extends State<FilterView> {
                       MaterialPageRoute(
                           builder: (context) => MainSearch(
                                 isLoggedIn: widget.isLoggedIn,
-                                //   Results: "Results",
                                 reviewCount: widget.reviewCount,
                                 StarRating: widget.Star_Rating,
+                                Category: widget.Category,
                               )));
                 },
                 text: 'Apply Filters',

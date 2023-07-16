@@ -1,19 +1,17 @@
 import 'dart:ffi';
 
 import 'package:countup/countup.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:get/get.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
-import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/BusinessModels/Bussiness.dart';
+import 'package:spot_hub/models/BusinessModels/Product.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/BussinessHome.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageProducts/ScrapProducts.dart';
-import 'package:spot_hub/screens/BussinessLogin/ScrapBussiness.dart';
 import 'package:spot_hub/screens/Loading.dart';
+import 'package:spot_hub/screens/NoData.dart';
 
 class Dashboard extends StatefulWidget {
   final Bussiness CurrentBussiness;
@@ -24,37 +22,24 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  double _rating_total = 0;
+
   int Total = 0;
   int _touchedIndex = -1;
   double _noOfProducts = 3;
   bool isLoading = false;
 
-  //final List<Sector> sectors;
-
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
-    // try {
-    //   TotalProducts().then((value) => setState(() {
-    //         Total = value;
-    //         //  print("Next Page -> " + Total.toString());
-    //       }));
-
-    //   print("Next Page -> " + Total.toString());
-    // } catch (e) {}
   }
 
   @override
   Widget build(BuildContext context) {
-    //String ABC = TotalProducts().toString();
-    //.then((value) => print(value.toString()));
-    //  getProductData();
     return isLoading == true
-        ? Loading(message: "Loading your data")
+        ? const Loading(message: "Loading your data")
         : Scaffold(
-            backgroundColor: Color.fromARGB(255, 231, 231, 231),
+            backgroundColor: const Color.fromARGB(255, 231, 231, 231),
             body: Container(
               margin: const EdgeInsets.all(
                 15,
@@ -64,7 +49,8 @@ class _DashboardState extends State<Dashboard> {
                 children: [
                   Wrap(children: [
                     Material(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(15)),
                         elevation: 8,
                         child: Container(
                             height: 70,
@@ -89,7 +75,7 @@ class _DashboardState extends State<Dashboard> {
                                       context,
                                       MaterialPageRoute(
                                           builder: ((context) =>
-                                              ScrapProducts())));
+                                              const ScrapProducts())));
                                 },
                                 child: Container(
                                   height: 40,
@@ -99,7 +85,7 @@ class _DashboardState extends State<Dashboard> {
                                     color: AppColors.PrimaryColor,
                                     borderRadius: BorderRadius.circular(50),
                                   ),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.get_app_rounded,
                                     color: Colors.white,
                                   ),
@@ -114,7 +100,7 @@ class _DashboardState extends State<Dashboard> {
                       ? Wrap(children: [
                           Material(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(15)),
+                                  const BorderRadius.all(Radius.circular(15)),
                               elevation: 8,
                               child: Container(
                                   height: 70,
@@ -137,7 +123,7 @@ class _DashboardState extends State<Dashboard> {
                                             "Click to add your first product "),
                                   )))
                         ])
-                      : SizedBox(
+                      : const SizedBox(
                           height: 0,
                         ),
                   const SizedBox(
@@ -154,327 +140,326 @@ class _DashboardState extends State<Dashboard> {
                   const SizedBox(
                     height: 15,
                   ),
-                  Wrap(
-                    children: [
-                      Material(
-                        elevation: 8,
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        child: Container(
-                          height: 260,
-                          width: 170,
-                          padding: EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: AppColors.PrimaryColor,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Countup(
-                                  begin: 0,
-                                  end: _noOfProducts,
-                                  duration: Duration(seconds: 3),
-                                  separator: ',',
-                                  style: const TextStyle(
-                                    fontFamily: 'Poppins',
-                                    fontSize: 30,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700,
-                                  )),
-                              SmallText(
-                                text: "Total Products",
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    children: [
-                                      Countup(
-                                          begin: 0,
-                                          end: Total.toDouble(),
-                                          duration: Duration(seconds: 3),
-                                          separator: ',',
-                                          style: const TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 20,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w300,
-                                          )),
-                                      SmallText(
-                                        text: "Active ",
-                                        color: Colors.white,
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      Countup(
-                                          begin: 0,
-                                          end: 0,
-                                          duration: Duration(seconds: 3),
-                                          separator: ',',
-                                          style: const TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 20,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w300,
-                                          )),
-                                      SmallText(
-                                        text: "Pending ",
-                                        color: Colors.white,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Expanded(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Icon(
-                                          Icons.inventory,
-                                          color: Colors.white,
-                                        ),
-                                        IconButton(
-                                          icon: const Icon(
-                                            Icons.arrow_forward,
-                                            color: Colors.white,
-                                          ),
-                                          onPressed: () {
-                                            Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: ((context) =>
-                                                        BussinessHome(
-                                                          PageIndex: 1,
-                                                        ))));
-                                          },
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      Column(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(
-                              left: 10,
-                            ),
-                            child: Material(
-                              elevation: 8,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15)),
-                              child: Container(
-                                height: 125,
-                                width: 170,
-                                padding: EdgeInsets.all(15),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: AppColors.SecodaryColor,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Icon(
-                                      Icons.arrow_downward,
-                                      color: Colors.white,
+                  StreamBuilder(
+                      stream: ProductsofBussiness(
+                          widget.CurrentBussiness.BussinessId),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          if (snapshot.data!.docs.isNotEmpty) {
+                            snapshot.data!.docs.forEach(
+                              (element) {
+                                if (element["rating"] == 0) {
+                                  _rating_total = _rating_total + 5;
+                                } else {
+                                  _rating_total =
+                                      _rating_total + element["rating"];
+                                }
+                              },
+                            );
+
+                            _rating_total = _rating_total /
+                                snapshot.data!.docs.length
+                                    .toInt()
+                                    .floorToDouble();
+
+                            return Wrap(
+                              children: [
+                                Material(
+                                  elevation: 8,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(15)),
+                                  child: Container(
+                                    height: 260,
+                                    width: 170,
+                                    padding: const EdgeInsets.all(20),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      color: AppColors.PrimaryColor,
                                     ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    const Row(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                            style: TextStyle(
+                                        Countup(
+                                            begin: 0,
+                                            end: snapshot.data!.docs.length
+                                                .toInt()
+                                                .floorToDouble(),
+                                            duration:
+                                                const Duration(seconds: 3),
+                                            separator: ',',
+                                            style: const TextStyle(
                                               fontFamily: 'Poppins',
-                                              fontSize: 25,
+                                              fontSize: 30,
                                               color: Colors.white,
                                               fontWeight: FontWeight.w700,
-                                            ),
-                                            "4.8"),
-                                        // BigText(text: "4.7",color: Colors.white,size: 25,),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Icon(
-                                          Icons.star,
+                                            )),
+                                        SmallText(
+                                          text: "Total Products",
                                           color: Colors.white,
                                         ),
-                                      ],
-                                    ),
-                                    SmallText(
-                                      text: "Bussiness Rating",
-                                      color: Colors.white,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(
-                              left: 10,
-                              top: 10,
-                            ),
-                            child: Material(
-                              elevation: 8,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15)),
-                              child: Container(
-                                height: 125,
-                                width: 170,
-                                padding: EdgeInsets.all(15),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                    color: Color.fromARGB(255, 30, 166, 244)
-                                    //  Color.fromRGBO(30, 166, 244, 100),
-                                    ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Icon(
-                                          Icons.arrow_outward_sharp,
-                                          color: Colors.white,
+                                        const SizedBox(
+                                          height: 30,
                                         ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: const [
-                                        Text(
-                                            style: TextStyle(
+
+                                        Countup(
+                                            begin: 0,
+                                            end: widget.CurrentBussiness.Reports
+                                                .toInt()
+                                                .floorToDouble(),
+                                            duration:
+                                                const Duration(seconds: 3),
+                                            separator: ',',
+                                            style: const TextStyle(
                                               fontFamily: 'Poppins',
-                                              fontSize: 25,
+                                              fontSize: 20,
                                               color: Colors.white,
                                               fontWeight: FontWeight.w700,
-                                            ),
-                                            "Monitize"),
-                                        // BigText(text: "4.7",color: Colors.white,size: 25,),
-                                        SizedBox(
-                                          width: 10,
+                                            )),
+                                        SmallText(
+                                          text: "Total Reports",
+                                          color: Colors.white,
                                         ),
-                                        // Icon(
-                                        //   Icons.star,
-                                        //   color: Colors.white,
+                                        const SizedBox(
+                                          height: 30,
+                                        ),
+                                        // Row(
+                                        //   mainAxisAlignment:
+                                        //       MainAxisAlignment.spaceBetween,
+                                        //   children: [
+                                        //     Column(
+                                        //       children: [
+                                        //         Countup(
+                                        //             begin: 0,
+                                        //             end: Total.toDouble(),
+                                        //             duration: const Duration(
+                                        //                 seconds: 3),
+                                        //             separator: ',',
+                                        //             style: const TextStyle(
+                                        //               fontFamily: 'Poppins',
+                                        //               fontSize: 20,
+                                        //               color: Colors.white,
+                                        //               fontWeight:
+                                        //                   FontWeight.w300,
+                                        //             )),
+                                        //         SmallText(
+                                        //           text: "Active ",
+                                        //           color: Colors.white,
+                                        //         ),
+                                        //       ],
+                                        //     ),
+                                        //     Column(
+                                        //       children: [
+                                        //         Countup(
+                                        //             begin: 0,
+                                        //             end: 0,
+                                        //             duration: const Duration(
+                                        //                 seconds: 3),
+                                        //             separator: ',',
+                                        //             style: const TextStyle(
+                                        //               fontFamily: 'Poppins',
+                                        //               fontSize: 20,
+                                        //               color: Colors.white,
+                                        //               fontWeight:
+                                        //                   FontWeight.w300,
+                                        //             )),
+                                        //         SmallText(
+                                        //           text: "Pending ",
+                                        //           color: Colors.white,
+                                        //         ),
+                                        //       ],
+                                        //     ),
+
+                                        //   ],
                                         // ),
+                                        Expanded(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  const Icon(
+                                                    Icons.inventory,
+                                                    color: Colors.white,
+                                                  ),
+                                                  IconButton(
+                                                    icon: const Icon(
+                                                      Icons.arrow_forward,
+                                                      color: Colors.white,
+                                                    ),
+                                                    onPressed: () {
+                                                      Navigator.pushReplacement(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: ((context) =>
+                                                                  BussinessHome(
+                                                                    PageIndex:
+                                                                        1,
+                                                                  ))));
+                                                    },
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        )
                                       ],
                                     ),
-                                    SmallText(
-                                      text: "Your bussiness",
-                                      color: Colors.white,
+                                  ),
+                                ),
+                                Column(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(
+                                        left: 10,
+                                      ),
+                                      child: Material(
+                                        elevation: 8,
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(15)),
+                                        child: Container(
+                                          height: 125,
+                                          width: 170,
+                                          padding: const EdgeInsets.all(15),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            color: AppColors.SecodaryColor,
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              const Icon(
+                                                Icons.arrow_downward,
+                                                color: Colors.white,
+                                              ),
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                      style: const TextStyle(
+                                                        fontFamily: 'Poppins',
+                                                        fontSize: 25,
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                      ),
+                                                      _rating_total
+                                                          .toPrecision(2)
+                                                          .toString()),
+                                                  // BigText(text: "4.7",color: Colors.white,size: 25,),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Icon(
+                                                    Icons.star,
+                                                    color: Colors.white,
+                                                  ),
+                                                ],
+                                              ),
+                                              SmallText(
+                                                text: "Bussiness Rating",
+                                                color: Colors.white,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.only(
+                                        left: 10,
+                                        top: 10,
+                                      ),
+                                      child: Material(
+                                        elevation: 8,
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(15)),
+                                        child: Container(
+                                          height: 125,
+                                          width: 170,
+                                          padding: const EdgeInsets.all(15),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              color: const Color.fromARGB(
+                                                  255, 30, 166, 244)
+                                              //  Color.fromRGBO(30, 166, 244, 100),
+                                              ),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              const Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  Icon(
+                                                    Icons.arrow_outward_sharp,
+                                                    color: Colors.white,
+                                                  ),
+                                                ],
+                                              ),
+                                              const Row(
+                                                children: [
+                                                  Text(
+                                                      style: TextStyle(
+                                                        fontFamily: 'Poppins',
+                                                        fontSize: 25,
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                      ),
+                                                      "Monitize"),
+                                                  // BigText(text: "4.7",color: Colors.white,size: 25,),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  // Icon(
+                                                  //   Icons.star,
+                                                  //   color: Colors.white,
+                                                  // ),
+                                                ],
+                                              ),
+                                              SmallText(
+                                                text: "Your bussiness",
+                                                color: Colors.white,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      // Column(
-                      //   children: [
-                      //     AspectRatio(
-                      //       aspectRatio: 1,
-                      //       child: Row(
-                      //         children: <Widget>[
-                      //           Expanded(
-                      //             child:
-                      //                 // AspectRatio(
-                      //                 //   aspectRatio: 0.5,
-                      //                 //   child:
-                      //                 PieChart(
-                      //               swapAnimationCurve: Curves.linear,
-                      //               PieChartData(
-                      //                 pieTouchData: PieTouchData(
-                      //                   touchCallback:
-                      //                       (FlTouchEvent event, pieTouchResponse) {
-                      //                     setState(() {
-                      //                       if (!event.isInterestedForInteractions ||
-                      //                           pieTouchResponse == null ||
-                      //                           pieTouchResponse.touchedSection ==
-                      //                               null) {
-                      //                         touchedIndex = -1;
-                      //                         return;
-                      //                       }
-                      //                       touchedIndex = pieTouchResponse
-                      //                           .touchedSection!.touchedSectionIndex;
-                      //                     });
-                      //                   },
-                      //                 ),
-                      //                 borderData: FlBorderData(
-                      //                   show: false,
-                      //                 ),
-                      //                 sectionsSpace: 02,
-                      //                 centerSpaceRadius: 10,
-                      //                 sections: showingSections(),
-                      //               ),
-                      //             ),
-                      //             //),
-                      //           ),
-                      //           Column(
-                      //             mainAxisAlignment: MainAxisAlignment.end,
-                      //             crossAxisAlignment: CrossAxisAlignment.start,
-                      //             children: [
-                      //               // Indicator(
-                      //               //   color: Colors.red,
-                      //               //   text: 'First',
-                      //               //   isSquare: true,
-                      //               // ),
-                      //               SizedBox(
-                      //                 height: 4,
-                      //               ),
-                      //               // Indicator(
-                      //               //   color: Colors.yellow,
-                      //               //   text: 'Second',
-                      //               //   isSquare: true,
-                      //               // ),
-                      //               SizedBox(
-                      //                 height: 4,
-                      //               ),
-                      //               Indicator(
-                      //                 color: Colors.purple,
-                      //                 text: 'Pending',
-                      //                 isSquare: true,
-                      //               ),
-                      //               SizedBox(
-                      //                 height: 4,
-                      //               ),
-                      //               Indicator(
-                      //                 color: Colors.green,
-                      //                 text: 'Active',
-                      //                 isSquare: true,
-                      //               ),
-                      //               SizedBox(
-                      //                 height: 18,
-                      //               ),
-                      //             ],
-                      //           ),
-                      //           const SizedBox(
-                      //             width: 28,
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     )
-                      //   ],
-                      // )
-                    ],
-                  ),
+                              ],
+                            );
+                          } else {
+                            return NoData(
+                              ImageLink: "assets/images/noproductsyet.png",
+                              title: "NoProducts yet",
+                              subtitle:
+                                  "This store have no products yet,Click the plus icon on upper right cornet to add new product",
+                            );
+                          }
+                        } else {
+                          return NoData(
+                            ImageLink: "assets/images/404yet.png",
+                            title: "No available statistics",
+                            subtitle:
+                                "Eiether this Bussiness have no Product or have any problem",
+                          );
+                        }
+                      }),
                 ],
               ),
             )

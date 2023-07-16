@@ -64,28 +64,6 @@ class _ProductCardState extends State<ProductCard> {
 
   @override
   Widget build(BuildContext context) {
-    // Bussiness BussinessOfProduc(String bussinessId) {
-    //   Bussiness B = const Bussiness(
-    //     BussinessId: "N/A",
-    //     BussinessImageUrl: "N/A",
-    //     BussinessName: "N/A",
-    //     BussinessCity: "N/A",
-    //     BussinessAddress: "N/A",
-    //     BussinessPhone: "N/A",
-    //     BussinessType: "N/A",
-    //     BussinessWebsite: "N/A",
-    //     BussinessEmail: 'N/A',
-    //     Reports: 0,
-    //   );
-
-    //   for (int i = 0; i < DummyBussinesses.length; i++) {
-    //     if (DummyBussinesses[i].BussinessId == products.BussinessId) {
-    //       B = DummyBussinesses[i];
-    //     }
-    //   }
-    //   return B;
-    // }
-
     return GestureDetector(
       onTap: () async {
         Navigator.push(
@@ -199,7 +177,7 @@ class _ProductCardState extends State<ProductCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SmallText(text: "Fast Food"),
+                  SmallText(text: widget.products.Category),
                   widget.products.isRecommended == true
                       ? Container(
                           // width: ==true?,

@@ -57,8 +57,7 @@ dependencies:
   overlay_loader_with_app_icon: 
   geolocator: 
   fluttertoast:
-  #location: 
-  #geocoding:
+
   quickalert:
   countup:
   fl_chart:
@@ -69,6 +68,8 @@ dependencies:
   file_picker: ^5.2.10
   firebase_storage: ^11.2.3
   photo_view: ^0.14.0
+  flutter_mentions: ^2.0.1
+  flutter_slidable: ^3.0.0
 
   
 

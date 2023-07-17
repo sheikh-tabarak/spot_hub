@@ -5,8 +5,8 @@ import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
-import 'package:spot_hub/screens/UserLogin/SearchFrame/MainSearch.dart';
-import 'package:spot_hub/screens/UserLogin/SearchFrame/widgets/SelectionStripe.dart';
+import 'package:spot_hub/screens/UserLogin/Search/MainSearch.dart';
+import 'package:spot_hub/screens/UserLogin/Search/widgets/SelectionStripe.dart';
 import 'package:spot_hub/widgets/others/PrimayButton.dart';
 
 class FilterView extends StatefulWidget {

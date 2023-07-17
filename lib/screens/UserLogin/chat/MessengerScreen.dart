@@ -10,6 +10,7 @@ import 'package:spot_hub/models/Chat/ChatMessages.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
 import 'package:spot_hub/screens/Loading.dart';
 import 'package:spot_hub/screens/NoData.dart';
+import 'package:spot_hub/screens/UserLogin/Home/Notifications.dart';
 import 'package:spot_hub/screens/UserLogin/User/SpotFlicks/spot_flicks.dart';
 import 'package:spot_hub/screens/UserLogin/chat/ChatScreen.dart';
 import 'package:spot_hub/widgets/Team/MemberDetails.dart';
@@ -55,7 +56,7 @@ class _MessengerScreenState extends State<MessengerScreen> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: ((context) => SpotFlicks())));
               },
-              icon: Icon(Icons.movie))
+              icon: Icon(Icons.movie)),
         ],
       ),
       body: Column(children: [
@@ -117,22 +118,6 @@ class _MessengerScreenState extends State<MessengerScreen> {
                                                 : false,
                                             desc: e["Address"]);
                                   });
-
-                              // if( e["UserId"]==FirebaseAuth.instance.currentUser!.uid)
-                              // {}
-                              // else{
-
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: ((context) => ChatScreen(
-                              //             ChatUserId: e["UserId"],
-                              //             InitiateDate:
-                              //                 Timestamp.now().toString()
-                              //             //   message: "Intiating Chat..."
-
-                              //             ))));
-                              // }
                             },
                             child: e["UserId"] !=
                                     FirebaseAuth.instance.currentUser!.uid

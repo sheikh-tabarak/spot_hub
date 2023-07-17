@@ -3,6 +3,7 @@ import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
+import 'package:spot_hub/models/UserModels/Authentication.dart';
 import 'package:spot_hub/screens/Loading.dart';
 import 'package:spot_hub/screens/UserLogin/Admin/Login.dart';
 import 'package:spot_hub/screens/UserLogin/Admin/Signup.dart';
@@ -61,7 +62,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         margin: const EdgeInsets.only(left: 12, right: 12),
                         padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
-                          color: thisiserror == "" ? Colors.black : Colors.green,
+                          color:
+                              thisiserror == "" ? Colors.black : Colors.green,
                           borderRadius: BorderRadius.circular(7),
                         ),
                         child: Row(
@@ -96,6 +98,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         height: 15,
                       ),
                       PlaneTextField(
+                        isEnabled: thisiserror == "" ? true : false,
                         onChange: (value) => {
                           setState(() {
                             thisiserror = "";
@@ -129,10 +132,14 @@ class _ForgetPasswordState extends State<ForgetPassword> {
 
                             setState(() {
                               isLoading = true;
-
-                              thisiserror = "Email Sent to entered address";
                             });
+
+                            await resetmypassword(_emailController.text);
+
                             setState(() {
+                              thisiserror =
+                                  "Reset Password link sent to your email";
+
                               isLoading = false;
                             });
 

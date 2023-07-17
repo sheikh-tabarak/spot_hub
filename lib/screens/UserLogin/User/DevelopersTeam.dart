@@ -20,18 +20,16 @@ class DevelopersTeam extends StatelessWidget {
           )),
       body: SingleChildScrollView(
         child: Column(
-        
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Image(
               image: AssetImage('assets/images/team.jpg'),
               fit: BoxFit.cover,
-              
             ),
             Padding(
-padding: const EdgeInsets.only(left:30.0),
+              padding: const EdgeInsets.only(left: 30.0),
               child: BigText(
-               // isCentre: false,
+                // isCentre: false,
                 text: "Meet our developers Team",
                 color: AppColors.PrimaryColor,
               ),
@@ -47,7 +45,8 @@ padding: const EdgeInsets.only(left:30.0),
                   role: "Developer",
                   post: "Leader",
                   phoneno: "+923154706237",
-                  desc: "I am web and application developer, working on Spot hub as a flutter developer, analysis expert and an activity director",
+                  desc:
+                      "I am web and application developer, working on Spot hub as a flutter developer, analysis expert and an activity director",
                   portfolio: "https://sheikhtabarak.me",
                   email: "admin@sheikhtabarak.me",
                   isCentral: false,
@@ -57,9 +56,10 @@ padding: const EdgeInsets.only(left:30.0),
                   title: "Haroon",
                   role: "Designer",
                   post: "Member",
-                   phoneno: "+923154706237",
-                  desc: "I am Graphics and UI Designer, working on Spot hub as a UI designer and design planner",
-                  portfolio: "https://techlegion.ml",
+                  phoneno: "+923316705252",
+                  desc:
+                      "I am Graphics and UI Designer, working on Spot hub as a UI designer and design planner",
+                  portfolio: "https://www.linkedin.com/in/haroonulhassan/",
                   email: "haroonulhassan1@gmail.com",
                   isCentral: true,
                 ),
@@ -68,24 +68,26 @@ padding: const EdgeInsets.only(left:30.0),
                   title: "Arhum",
                   role: "Document",
                   post: "Member",
-                   phoneno: "+923154706237",
-                  desc: "I am documentation expert, working on Spot hub as and working on document",
-                  portfolio: "https://techlegion.ml",
+                  phoneno: "+923332402261",
+                  desc:
+                      "I am documentation expert, working on Spot hub as and working on document",
+                  portfolio: "https://www.instagram.com/arhum_official01/",
                   email: "arhumofficial@gmail.com",
                   isCentral: false,
                 )
-
-                            ],
+              ],
             ),
-            SizedBox(height: Dimensions.height10,),
-             Padding(
-padding: const EdgeInsets.only(left:30.0),
-               child: BigText(
-            //  isCentre: false,
+            SizedBox(
+              height: Dimensions.height10,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0),
+              child: BigText(
+                //  isCentre: false,
                 text: "Who we are",
                 color: AppColors.PrimaryColor,
+              ),
             ),
-             ),
             //    SizedBox(height: Dimensions.height10,),
 
             Padding(
@@ -98,17 +100,18 @@ padding: const EdgeInsets.only(left:30.0),
               ),
             ),
 
-
-            SizedBox(height: Dimensions.height10,),
-             Padding(
-               padding: const EdgeInsets.only(left:30.0),
-               child: BigText(
-               // isCentre: false,
+            SizedBox(
+              height: Dimensions.height10,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0),
+              child: BigText(
+                // isCentre: false,
                 text: "Our Mission",
                 isCentre: false,
                 color: AppColors.PrimaryColor,
+              ),
             ),
-             ),
             //    SizedBox(height: Dimensions.height10,),
 
             Padding(
@@ -120,7 +123,6 @@ padding: const EdgeInsets.only(left:30.0),
                 // color: AppColors.PrimaryColor,
               ),
             ),
-           
           ],
         ),
       ),

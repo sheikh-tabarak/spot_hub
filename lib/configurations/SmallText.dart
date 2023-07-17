@@ -27,9 +27,9 @@ class SmallText extends StatelessWidget {
   Widget build(BuildContext context) {
     return // Flexible(
         Text(text,
-            overflow: TextOverflow.fade,
-            maxLines: 1,
-            softWrap: false,
+            //overflow: TextOverflow.fade,
+            //  maxLines: 1,
+            //  softWrap: false,
             // overflow: TextOverflow.ellipsis,
             // //   maxLines: 2,
             // softWrap: true,

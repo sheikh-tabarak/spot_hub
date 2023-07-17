@@ -9,7 +9,7 @@ import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/BussinessHome.da
 import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/Dashboard.dart';
 import 'package:spot_hub/screens/Loading.dart';
 import 'package:spot_hub/screens/UserLogin/Home/MainPage.dart';
-import 'package:spot_hub/screens/UserLogin/SearchFrame/MainSearch.dart';
+import 'package:spot_hub/screens/UserLogin/Search/MainSearch.dart';
 import 'package:spot_hub/screens/UserLogin/User/Account/CustomerAccount.dart';
 import 'package:spot_hub/screens/UserLogin/User/MainHome.dart';
 import 'package:spot_hub/screens/UserLogin/User/More.dart';

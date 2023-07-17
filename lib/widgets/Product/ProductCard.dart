@@ -262,7 +262,10 @@ class _ProductCardState extends State<ProductCard> {
                   Row(
                     children: [
                       // Icon(Icons.pin_drop),
-                      SmallText(text: CurrentBussiness.BussinessCity),
+                      SmallText(
+                        text: widget.products.Price.toString(),
+                        color: AppColors.PrimaryColor,
+                      ),
                     ],
                   ),
                 ],

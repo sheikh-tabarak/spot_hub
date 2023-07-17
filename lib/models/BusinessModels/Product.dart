@@ -1,11 +1,12 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'dart:io';
+
+import 'package:path/path.dart' as Path;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:spot_hub/models/BusinessModels/Bussiness.dart';
 
 final _db = FirebaseFirestore.instance;
@@ -66,9 +67,11 @@ class Product {
   }
 }
 
-Future AddNewProduct(String thisisimage, String Ptitle, String PDescription,
+Future AddNewProduct(String ImageFileadress, String Ptitle, String PDescription,
     String PCategory, double PPrice) async {
-  final PostRequest = FirebaseFirestore.instance
+  //Add Product
+
+  final PostRequest = await FirebaseFirestore.instance
       .collection('user')
       .doc(FirebaseAuth.instance.currentUser!.uid)
       .collection("bussiness")
@@ -76,13 +79,18 @@ Future AddNewProduct(String thisisimage, String Ptitle, String PDescription,
       .collection("products")
       .doc();
 
+  // Upload Image
+  String imageUploaded = "";
+  await uploadProductImage(PostRequest.id, ImageFileadress)
+      .then((value) => imageUploaded = value);
+
   final NewProduct = Product(
     BussinessId: "B_${FirebaseAuth.instance.currentUser!.uid}",
     Id: PostRequest.id,
     title: Ptitle,
     Category: PCategory,
     description: PDescription,
-    image: thisisimage,
+    image: imageUploaded,
     Price: PPrice,
     rating: 0.0,
     reviews: 0,
@@ -154,7 +162,10 @@ Future deleteProduct(String ProductId) async {
       .collection("products")
       .doc(ProductId)
       .delete()
-      .then((value) {
-    // print("Product deleted");
-  });
+      .then((value) {});
+
+  //var fileUrl = Uri.decodeFull(Path.basename(ProductId));
+  final desertRef = firebase_storage.FirebaseStorage.instance
+      .ref("${FirebaseAuth.instance.currentUser!.email}/products/$ProductId");
+  await desertRef.delete();
 }

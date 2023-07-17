@@ -124,3 +124,7 @@ Future<bool> updateAccountInfo(String name, String Address, String Imagelink,
     return false;
   }
 }
+
+Future resetmypassword(String email) async {
+  await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+}

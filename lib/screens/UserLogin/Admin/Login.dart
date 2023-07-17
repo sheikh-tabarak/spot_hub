@@ -5,7 +5,7 @@ import 'package:overlay_loader_with_app_icon/overlay_loader_with_app_icon.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
-import 'package:spot_hub/database/Authentication.dart';
+import 'package:spot_hub/models/UserModels/Authentication.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
 import 'package:spot_hub/screens/Loading.dart';
 import 'package:spot_hub/screens/UserLogin/Admin/ForgetPassword.dart';
@@ -32,21 +32,10 @@ class _LoginState extends State<Login> {
   String thisiserror = "";
   String LoadingMessage = "Logging in";
 
-  // String onetimeusername = '';
-  // String onetimepassword = '';
-
-  // User U = new User(
-  //     image: '',
-  //     username: '',
-  //     password: '',
-  //     email: '',
-  //     PhoneNo: '',
-  //     Intrests: '');
-
   @override
   initState() {
-    _emailController.text = "tabarakyaseen@gmail.com";
-    _passwordController.text = "12341234";
+    // _emailController.text = "tabarakyaseen@gmail.com";
+    // _passwordController.text = "12341234";
   }
 
   @override
@@ -153,6 +142,7 @@ class _LoginState extends State<Login> {
                         controller: _emailController,
                       ),
                       PlaneTextField(
+                        isPassword: true,
                         onChange: (value) => {
                           setState(() {
                             thisiserror = "";
@@ -165,15 +155,6 @@ class _LoginState extends State<Login> {
                       PrimaryButton(
                           icon: Icons.login,
                           TapAction: () async {
-                            //  QuickAlert.show(
-
-                            //   context: context,
-                            //   type: QuickAlertType.loading,
-                            //   text: LoadingMessage,
-                            //   backgroundColor:Colors.white,
-                            //   autoCloseDuration:Duration()
-                            // );
-
                             setState(() {
                               widget.isLoading = true;
                             });

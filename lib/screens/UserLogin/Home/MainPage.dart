@@ -1,5 +1,4 @@
 // ignore_for_file: non_constant_identifier_names
-
 import 'dart:ui';
 
 import 'package:carousel_slider/carousel_slider.dart';
@@ -7,7 +6,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
@@ -18,11 +16,13 @@ import 'package:spot_hub/models/BusinessModels/Product.dart';
 import 'package:spot_hub/models/Global/ProductsData.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
 import 'package:spot_hub/screens/Loading.dart';
+import 'package:spot_hub/screens/UserLogin/Home/Notifications.dart';
+import 'package:spot_hub/screens/UserLogin/Search/AllBussinesses.dart';
 import 'package:spot_hub/screens/UserLogin/User/Account/CustomerAccount.dart';
-import 'package:spot_hub/screens/UserLogin/SearchFrame/MainSearch.dart';
+import 'package:spot_hub/screens/UserLogin/Search/MainSearch.dart';
 import 'package:spot_hub/screens/UserLogin/User/More.dart';
 import 'package:spot_hub/screens/UserLogin/User/NoLogin.dart';
-import 'package:spot_hub/screens/UserLogin/SearchFrame/ReviewSelectionPage.dart';
+import 'package:spot_hub/screens/UserLogin/Search/ReviewSelectionPage.dart';
 import 'package:spot_hub/screens/UserLogin/User/SpotFlicks/spot_flicks.dart';
 import 'package:spot_hub/screens/UserLogin/chat/MessengerScreen.dart';
 import 'package:spot_hub/widgets/Product/ProductCard.dart';
@@ -235,13 +235,56 @@ class _MainPageState extends State<MainPage> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          const Text(
-                                              "Find the best\nSpots to visit",
-                                              style: TextStyle(
-                                                  fontFamily: 'Poppins',
-                                                  fontWeight: FontWeight.w900,
-                                                  color: Colors.white,
-                                                  fontSize: 30)),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              const Text(
+                                                  "Find the best\nSpots to visit",
+                                                  style: TextStyle(
+                                                      fontFamily: 'Poppins',
+                                                      fontWeight:
+                                                          FontWeight.w900,
+                                                      color: Colors.white,
+                                                      fontSize: 30)),
+                                              Container(
+                                                //    padding: EdgeInsets.all(1),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30),
+                                                    color: Colors.white),
+                                                child: IconButton(
+                                                    onPressed: () {
+                                                      widget.isLoggedin == true
+                                                          ? Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder: (context) => Notifications(
+                                                                      currentUser:
+                                                                          widget
+                                                                              .MainUser)))
+                                                          : showModalBottomSheet(
+                                                              isScrollControlled:
+                                                                  true,
+                                                              context: context,
+                                                              builder:
+                                                                  (BuildContext
+                                                                      bc) {
+                                                                return const NoLogin();
+                                                              });
+                                                    },
+                                                    color: Colors.white,
+                                                    icon: Icon(
+                                                      Icons.notifications,
+                                                      color: AppColors
+                                                          .PrimaryColor,
+                                                    )),
+                                              )
+                                            ],
+                                          ),
                                           SizedBox(
                                             height: Dimensions.height10,
                                           ),
@@ -273,11 +316,12 @@ class _MainPageState extends State<MainPage> {
                                                     pageBuilder: (context,
                                                             animation,
                                                             secondaryAnimation) =>
-                                                        MainSearch(
-                                                      isLoggedIn:
-                                                          widget.isLoggedin,
-                                                      recommended: true,
-                                                    ),
+                                                        AllBussinesses(),
+                                                    //     MainSearch(
+                                                    //   isLoggedIn:
+                                                    //       widget.isLoggedin,
+                                                    //   recommended: true,
+                                                    // ),
                                                     transitionsBuilder: (context,
                                                             animation,
                                                             secondaryAnimation,
@@ -299,7 +343,7 @@ class _MainPageState extends State<MainPage> {
                                                   SizedBox(
                                                     width: Dimensions.width10,
                                                   ),
-                                                  const Text('Recommendations')
+                                                  const Text('Find Resturants')
                                                 ],
                                               )),
                                         ],

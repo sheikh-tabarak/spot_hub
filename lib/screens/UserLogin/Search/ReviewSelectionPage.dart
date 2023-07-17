@@ -9,7 +9,7 @@ import 'package:spot_hub/models/DummyData.dart';
 import 'package:spot_hub/models/Global/ProductsData.dart';
 import 'package:spot_hub/screens/Loading.dart';
 import 'package:spot_hub/screens/UserLogin/User/AddReview.dart';
-import 'package:spot_hub/screens/UserLogin/SearchFrame/MainSearch.dart';
+import 'package:spot_hub/screens/UserLogin/Search/MainSearch.dart';
 import 'package:spot_hub/screens/UserLogin/User/ScrollableProductDetailPage.dart';
 import 'package:spot_hub/widgets/Product/ProductCard.dart';
 import 'package:spot_hub/widgets/others/PrimayButton.dart';
@@ -137,22 +137,8 @@ class _ReviewSelectionPageState extends State<ReviewSelectionPage> {
                                                   children: [
                                                     Wrap(
                                                       children: List.generate(
-                                                          5,
+                                                          1,
                                                           //OverallRating.floor()
-                                                          (index) => const Icon(
-                                                                Icons.star,
-                                                                color: Color
-                                                                    .fromARGB(
-                                                                        255,
-                                                                        255,
-                                                                        191,
-                                                                        135),
-                                                                size: 20,
-                                                              )),
-                                                    ),
-                                                    Wrap(
-                                                      children: List.generate(
-                                                          e["rating"].floor(),
                                                           (index) => Icon(
                                                                 Icons.star,
                                                                 color: AppColors
@@ -160,6 +146,16 @@ class _ReviewSelectionPageState extends State<ReviewSelectionPage> {
                                                                 size: 20,
                                                               )),
                                                     ),
+                                                    // Wrap(
+                                                    //   children: List.generate(
+                                                    //       e["rating"].floor(),
+                                                    //       (index) => Icon(
+                                                    //             Icons.star,
+                                                    //             color: AppColors
+                                                    //                 .PrimaryColor,
+                                                    //             size: 20,
+                                                    //           )),
+                                                    // ),
                                                   ],
                                                 ),
                                                 SizedBox(

@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, non_constant_identifier_names, unnecessary_new
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mentions/flutter_mentions.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -10,10 +11,11 @@ import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/BusinessModels/Product.dart';
 import 'package:spot_hub/models/Global/ProductsData.dart';
+import 'package:spot_hub/models/UserModels/Notification.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
 import 'package:spot_hub/screens/Loading.dart';
 import 'package:spot_hub/screens/NoData.dart';
-import 'package:spot_hub/screens/UserLogin/SearchFrame/ReviewSelectionPage.dart';
+import 'package:spot_hub/screens/UserLogin/Search/ReviewSelectionPage.dart';
 import 'package:spot_hub/screens/UserLogin/User/ScrollableProductDetailPage.dart';
 import 'package:spot_hub/widgets/Team/MemberDetails.dart';
 import 'package:spot_hub/widgets/others/PrimayButton.dart';
@@ -21,16 +23,28 @@ import 'package:spot_hub/widgets/others/RatingSlider.dart';
 import 'package:spot_hub/widgets/others/UnderConstruction.dart';
 
 class AddReview extends StatefulWidget {
-  final Product ProductToReview;
+  Product ProductToReview;
   bool isSelected;
-  AddReview({super.key, required this.ProductToReview, this.isSelected = true});
+  AddReview(
+      {super.key,
+      this.ProductToReview = const Product(
+          BussinessId: "",
+          Id: "",
+          image: "",
+          description: "",
+          title: "",
+          Category: "",
+          Price: 0,
+          rating: 0,
+          reviews: 0,
+          isRecommended: false),
+      this.isSelected = true});
 
   @override
   State<AddReview> createState() => _AddReviewState();
 }
 
 class _AddReviewState extends State<AddReview> {
-  GlobalKey<FlutterMentionsState> key = GlobalKey<FlutterMentionsState>();
   UserClass _MentionedUser = UserClass(
       IsBussiness: false,
       image: "",
@@ -41,11 +55,11 @@ class _AddReviewState extends State<AddReview> {
       Address: "",
       Intrests: "",
       UserId: "");
-  double _TasteStars = 0;
-  double _ServingStars = 0;
-  double _PresentationStars = 0;
+  double _TasteStars = 3;
+  double _ServingStars = 3;
+  double _PresentationStars = 3;
   bool isLoading = false;
-  double _TotalStarts = 0;
+  double _TotalStarts = 4;
 
   TextEditingController reviewController = new TextEditingController();
 
@@ -263,6 +277,7 @@ class _AddReviewState extends State<AddReview> {
                                       color: AppColors.PrimaryColor,
                                     )),
                               ),
+
                         TextField(
                           controller: reviewController,
                           keyboardType: TextInputType.multiline,
@@ -327,7 +342,16 @@ class _AddReviewState extends State<AddReview> {
                                                               UserId:
                                                                   e["UserId"]);
 
-                                                         
+                                                          // String addedText = "Flutter is awesome!";
+                                                          String updatedText =
+                                                              reviewController
+                                                                  .text
+                                                                  .replaceFirst(
+                                                                      "@",
+                                                                      "@${e["username"]}");
+                                                          reviewController
+                                                                  .text =
+                                                              updatedText;
 
                                                           TextEditingValue(
                                                             text:
@@ -453,6 +477,11 @@ class _AddReviewState extends State<AddReview> {
                                     widget.ProductToReview.Id,
                                     reviewController.text,
                                     _TotalStarts.toPrecision(2));
+
+                                await NewNotification(
+                                    "review",
+                                    _MentionedUser.UserId,
+                                    widget.ProductToReview.Id);
 
                                 setState(() {
                                   isLoading = false;

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:spot_hub/database/Authentication.dart';
+import 'package:spot_hub/models/UserModels/Notification.dart';
 
 final _db = FirebaseFirestore.instance;
 
@@ -43,31 +43,11 @@ class ChatMessages {
   }
 }
 
-
-
-
 Future sendMessage(
   String UserId,
   String Message,
 ) async {
-
   // await FirebaseFirestore.instance
-  //     .collection('user')
-  //     .doc(FirebaseAuth.instance.currentUser!.uid)
-  //     .collection("chats")
-  //     .doc(UserId)
-  //     .update({
-  //   'LatestMessage': Message,
-  // });
-
-  // await FirebaseFirestore.instance
-  //     .collection('user')
-  //     .doc(UserId)
-  //     .collection("chats")
-  //     .doc(FirebaseAuth.instance.currentUser!.uid)
-  //     .update({
-  //   'LatestMessage': Message,
-  // });
 
   final SendMessage = FirebaseFirestore.instance
       .collection('user')
@@ -86,17 +66,15 @@ Future sendMessage(
     type: 0,
   );
 
-
- await FirebaseFirestore.instance
+  await FirebaseFirestore.instance
       .collection('user')
       .doc(UserId)
       .collection("chat")
       .doc(FirebaseAuth.instance.currentUser!.uid)
       .update({
     'LatestMessage': Message,
-    'unReadMessages':FieldValue.increment(1),
+    'unReadMessages': FieldValue.increment(1),
   });
-
 
   await FirebaseFirestore.instance
       .collection('user')
@@ -106,28 +84,6 @@ Future sendMessage(
       .update({
     'LatestMessage': Message,
   });
-
-
-  //  DocumentSnapshot ds = await _db
-  //     .collection("user")
-  //     .doc(FirebaseAuth.instance.currentUser!.uid)
-  //     .get();
-
-  // //_isInitiated = ds.get('isIntiated');
-
-  // if (_isInitiated == false) {
-
-  //     await FirebaseFirestore.instance
-  //     .collection('user')
-  //     .doc(FirebaseAuth.instance.currentUser!.uid)
-  //     .collection("chats")
-  //     .doc(UserId)
-  //     .update({
-  //   'LatestMessage': Message,
-    
-  // });
-
-
 
   final sending = Send_Message.toJson();
   await SendMessage.set(sending);
@@ -151,6 +107,8 @@ Future sendMessage(
 
   final recieving = Recieve_Message.toJson();
   await ReceiveMessage.set(recieving);
+
+  await NewNotification("message", UserId, "");
 }
 
 Stream<QuerySnapshot<Map<String, dynamic>>> GetAllChatwithUser(
@@ -173,19 +131,15 @@ Stream<QuerySnapshot<Map<String, dynamic>>> ChatInitiatedUsers() {
       .snapshots();
 }
 
-
-
-
 Future readAllMessages(
   String UserId,
 ) async {
-
-await FirebaseFirestore.instance
+  await FirebaseFirestore.instance
       .collection('user')
       .doc(FirebaseAuth.instance.currentUser!.uid)
       .collection("chat")
       .doc(UserId)
       .update({
-    'unReadMessages':0,
+    'unReadMessages': 0,
   });
 }

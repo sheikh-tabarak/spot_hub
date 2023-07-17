@@ -224,20 +224,16 @@ class _AddProductState extends State<AddProduct> {
                           });
 
                           if (imageaddress != "") {
-                            String imageUploaded = "";
-
-                            await uploadProductImage(
-                                    '${_titleController.text} | ${DateTime.now().toString()}',
-                                    imageaddress)
-                                .then((value) => imageUploaded = value);
+                            // await uploadProductImage(
+                            //         widget.titleId, imageaddress)
+                            //     .then((value) => imageUploaded = value);
 
                             setState(() {
                               _LoaingCommands = "Adding your Product";
                             });
 
                             await AddNewProduct(
-                                //  widget.titleId,
-                                imageUploaded,
+                                imageaddress,
                                 _titleController.text,
                                 _descController.text,
                                 _selectedCategory.toString(),
@@ -271,8 +267,7 @@ class _AddProductState extends State<AddProduct> {
                             });
 
                             await uploadProductImage(
-                                    '${_titleController.text} | ${DateTime.now().toString()}',
-                                    imageaddress)
+                                    widget.titleId, imageaddress)
                                 .then((value) => imageUploaded = value);
 
                             setState(() {

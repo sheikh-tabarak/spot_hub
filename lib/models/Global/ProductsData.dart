@@ -13,10 +13,40 @@ final _db = FirebaseFirestore.instance;
 // Show Products of all bussinesses
 
 Stream<QuerySnapshot<Map<String, dynamic>>> ProductsOfAllBussinesses() {
-  return FirebaseFirestore.instance
-      .collectionGroup("products")
-      .orderBy("Id", descending: false)
-      .snapshots();
+  return FirebaseFirestore.instance.collectionGroup("products").snapshots();
+}
+
+Stream<QuerySnapshot<Map<String, dynamic>>> AllBussinessesofSpothub() {
+  return FirebaseFirestore.instance.collectionGroup("bussiness").snapshots();
+}
+
+Stream<QuerySnapshot<Map<String, dynamic>>> ProductsOfAllBussinessesSorted(
+    int sortBy) {
+  return sortBy == 0
+      ? FirebaseFirestore.instance.collectionGroup("products").snapshots()
+      : sortBy == 1
+          ? FirebaseFirestore.instance
+              .collectionGroup("products")
+              .orderBy("title", descending: false)
+              .snapshots()
+          : sortBy == 2
+              ? FirebaseFirestore.instance
+                  .collectionGroup("products")
+                  .orderBy("rating", descending: true)
+                  .snapshots()
+              : sortBy == 3
+                  ? FirebaseFirestore.instance
+                      .collectionGroup("products")
+                      .orderBy("Price", descending: true)
+                      .snapshots()
+                  : sortBy == 4
+                      ? FirebaseFirestore.instance
+                          .collectionGroup("products")
+                          .orderBy("reviews", descending: true)
+                          .snapshots()
+                      : FirebaseFirestore.instance
+                          .collectionGroup("products")
+                          .snapshots();
 }
 
 // Show Prdoucts of specific bussiness

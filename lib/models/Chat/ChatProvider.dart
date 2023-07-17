@@ -177,15 +177,4 @@ Future Deletechat(
       .then((value) {
     print("Reciever's record deleted");
   });
-  ;
-
-  //     .collection("user")
-  //     .doc(FirebaseAuth.instance.currentUser!.uid)
-  //     .collection('accounts')
-  //     .doc(Account.AccountId)
-  //     .collection('transactions');
-
-  // var snapshot = await deleteTransactions.get();
-  // for (var docs in snapshot.docs) {
-  //   await docs.reference.delete();
 }

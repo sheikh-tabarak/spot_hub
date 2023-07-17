@@ -333,6 +333,7 @@ class _ScrollableProductDetailPageState
                                         children: snapshot.data!.docs.map((e) {
                                           //  _CalculateStars(e['Stars']);
                                           return ReviewWidget(
+                                            //  imgurl: e['image'],
                                             Name: e['Name'],
                                             Review: e['Review'],
                                             stars: e['Stars'],

@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -6,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
-import 'package:spot_hub/database/Authentication.dart';
+import 'package:spot_hub/models/UserModels/Authentication.dart';
 import 'package:spot_hub/screens/UserLogin/Home/MainPage.dart';
-import 'package:spot_hub/screens/UserLogin/User/Account/CustomerAccount.dart';
 import 'package:spot_hub/widgets/others/PlaneTextField.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/widgets/others/PrimayButton.dart';

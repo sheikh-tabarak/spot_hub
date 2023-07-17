@@ -8,13 +8,15 @@ import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
-import 'package:spot_hub/database/Authentication.dart';
+import 'package:spot_hub/models/UserModels/Authentication.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/AddNewBussiness.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/BussinessHome.dart';
 import 'package:spot_hub/screens/Loading.dart';
+import 'package:spot_hub/screens/UserLogin/Admin/ForgetPassword.dart';
 import 'package:spot_hub/screens/UserLogin/Admin/Login.dart';
 import 'package:spot_hub/screens/UserLogin/User/Account/EditAccountDetails.dart';
+import 'package:spot_hub/screens/UserLogin/User/DevelopersTeam.dart';
 import 'package:spot_hub/widgets/others/UnderConstruction.dart';
 
 class CustomerAccount extends StatefulWidget {
@@ -80,8 +82,6 @@ class _CustomerAccountState extends State<CustomerAccount> {
         print(MainUser.PhoneNo + " - " + MainUser.email);
       });
     } catch (e) {}
-
-    //   isLoading = false;
   }
 
   @override
@@ -191,14 +191,22 @@ class _CustomerAccountState extends State<CustomerAccount> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(20),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: const Color.fromARGB(255, 237, 237, 237)),
-                    child: const Icon(Icons.favorite),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DevelopersTeam()));
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(20),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: const Color.fromARGB(255, 237, 237, 237)),
+                      child: const Icon(Icons.developer_board),
+                    ),
                   ),
                   AmIBussiness == false
                       ? GestureDetector(
@@ -372,6 +380,12 @@ class _CustomerAccountState extends State<CustomerAccount> {
                         height: 5,
                       ),
                       ListTile(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ForgetPassword()));
+                          },
                           leading: Icon(
                             Icons.lock_person,
                             size: 40,

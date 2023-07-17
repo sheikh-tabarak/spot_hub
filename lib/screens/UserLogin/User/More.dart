@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:spot_hub/Utilities/MapsView.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
-import 'package:spot_hub/database/Authentication.dart';
 import 'package:spot_hub/models/BusinessModels/Product.dart';
 import 'package:spot_hub/models/DummyData.dart';
+import 'package:spot_hub/models/UserModels/Authentication.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/AddNewBussiness.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/BussinessHome.dart';
@@ -125,7 +125,7 @@ class _MoreState extends State<More> {
                                           builder: (context) => MainPage(
                                                 PI: 1,
                                                 MainUser: widget.MainUser,
-                                                isLoggedin: false,
+                                                isLoggedin: true,
                                               )))
                                 }
                             },
@@ -227,17 +227,12 @@ class _MoreState extends State<More> {
                                     ),
                           ListTile(
                             onTap: () => {
-                              // showModalBottomSheet(context: context, builder: (context)=>
-                              // Column(children: const [
-
-                              // ],)),
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           const DevelopersTeam())),
                             },
-
                             leading: Icon(
                               Icons.developer_board,
                               color: AppColors.PrimaryColor,
@@ -245,43 +240,7 @@ class _MoreState extends State<More> {
                             title: SmallText(
                               text: "Develors Team",
                             ),
-                            //   subtitle: Text("This is activity Button"),
                           ),
-                          ListTile(
-                            onTap: () {
-                              if (widget.isLoggedin == false) {
-                                showModalBottomSheet(
-                                    isScrollControlled: true,
-                                    context: context,
-                                    builder: (BuildContext bc) {
-                                      return const NoLogin();
-                                    });
-                              } else {
-                                print("This is Favorite screen");
-                              }
-                            },
-                            leading: Icon(
-                              Icons.favorite,
-                              color: AppColors.PrimaryColor,
-                            ),
-                            title: SmallText(text: "Favorites"),
-
-                            //   subtitle: Text("This is activity Button"),
-                          ),
-                          // ListTile(
-                          //   onTap: () {
-                          //     Navigator.push(
-                          //         context,
-                          //         MaterialPageRoute(
-                          //             builder: (context) => const MapsView()));
-                          //   },
-                          //   leading: Icon(
-                          //     Icons.pin_drop,
-                          //     color: AppColors.PrimaryColor,
-                          //   ),
-                          //   title: SmallText(text: "Select Location"),
-                          //   //   subtitle: Text("This is activity Button"),
-                          // ),
                           ListTile(
                             onTap: () {
                               Navigator.push(

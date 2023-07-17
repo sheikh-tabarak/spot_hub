@@ -9,8 +9,8 @@ import 'package:spot_hub/models/DummyData.dart';
 import 'package:spot_hub/models/BusinessModels/Product.dart';
 import 'package:spot_hub/models/Global/ProductsData.dart';
 import 'package:spot_hub/screens/Loading.dart';
-import 'package:spot_hub/screens/UserLogin/SearchFrame/widgets/FilterView.dart';
-import 'package:spot_hub/screens/UserLogin/SearchFrame/widgets/FilteredBox.dart';
+import 'package:spot_hub/screens/UserLogin/Search/widgets/FilterView.dart';
+import 'package:spot_hub/screens/UserLogin/Search/widgets/FilteredBox.dart';
 import 'package:spot_hub/widgets/Product/ProductCard.dart';
 
 class MainSearch extends StatefulWidget {
@@ -37,6 +37,7 @@ class MainSearch extends StatefulWidget {
 }
 
 class _MainSearchState extends State<MainSearch> {
+  int _sort = 0;
   var items = <String>[];
   TextEditingController SearchTextControl = new TextEditingController();
   List<int> filteredIndexes = <int>[];
@@ -360,16 +361,95 @@ class _MainSearchState extends State<MainSearch> {
                           context: context,
                           builder: (context) {
                             return Container(
-                              padding: EdgeInsets.all(10),
+                              padding: EdgeInsets.all(20),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  BigText(text: "Sort"),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      BigText(
+                                        text: "Sorting",
+                                        color: AppColors.PrimaryColor,
+                                      ),
+                                      IconButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          icon: Icon(Icons.cancel))
+                                    ],
+                                  ),
                                   const SizedBox(
                                     height: 10,
                                   ),
-                                  SmallText(text: "Sort by price"),
-                                  SmallText(text: "Sort by rating")
+                                  ListTile(
+                                    onTap: () {
+                                      setState(() {
+                                        _sort = 0;
+                                      });
+                                      Navigator.pop(context);
+                                    },
+                                    title: SmallText(text: "Default Sort"),
+                                    leading: Icon(
+                                      Icons.sort,
+                                      color: AppColors.PrimaryColor,
+                                    ),
+                                  ),
+                                  ListTile(
+                                    onTap: () {
+                                      setState(() {
+                                        _sort = 1;
+                                      });
+                                      Navigator.pop(context);
+                                    },
+                                    title:
+                                        SmallText(text: "Sort Alphabatically"),
+                                    leading: Icon(
+                                      Icons.sort_by_alpha,
+                                      color: AppColors.PrimaryColor,
+                                    ),
+                                  ),
+                                  ListTile(
+                                    onTap: () {
+                                      setState(() {
+                                        _sort = 2;
+                                      });
+                                      Navigator.pop(context);
+                                    },
+                                    title: SmallText(text: "Sort by Rating"),
+                                    leading: Icon(
+                                      Icons.star,
+                                      color: AppColors.PrimaryColor,
+                                    ),
+                                  ),
+                                  ListTile(
+                                    onTap: () {
+                                      setState(() {
+                                        _sort = 3;
+                                      });
+                                      Navigator.pop(context);
+                                    },
+                                    title: SmallText(text: "Sort by Prices"),
+                                    leading: Icon(
+                                      Icons.monetization_on,
+                                      color: AppColors.PrimaryColor,
+                                    ),
+                                  ),
+                                  ListTile(
+                                    onTap: () {
+                                      setState(() {
+                                        _sort = 4;
+                                      });
+                                      Navigator.pop(context);
+                                    },
+                                    title: SmallText(
+                                        text: "Sort by no of Reviews"),
+                                    leading: Icon(
+                                      Icons.numbers,
+                                      color: AppColors.PrimaryColor,
+                                    ),
+                                  ),
                                 ],
                               ),
                             );
@@ -392,10 +472,30 @@ class _MainSearchState extends State<MainSearch> {
                               color: AppColors.PrimaryColor,
                               text: "Sort by",
                             ),
-                            Icon(
-                              Icons.sort,
-                              color: AppColors.PrimaryColor,
-                            )
+                            _sort == 0
+                                ? Icon(
+                                    Icons.sort,
+                                    color: AppColors.PrimaryColor,
+                                  )
+                                : _sort == 1
+                                    ? Icon(
+                                        Icons.sort_by_alpha,
+                                        color: AppColors.PrimaryColor,
+                                      )
+                                    : _sort == 2
+                                        ? Icon(
+                                            Icons.stars,
+                                            color: AppColors.PrimaryColor,
+                                          )
+                                        : _sort == 3
+                                            ? Icon(
+                                                Icons.monetization_on,
+                                                color: AppColors.PrimaryColor,
+                                              )
+                                            : Icon(
+                                                Icons.numbers,
+                                                color: AppColors.PrimaryColor,
+                                              )
                           ],
                         )),
                   ),
@@ -407,7 +507,7 @@ class _MainSearchState extends State<MainSearch> {
           // SizedBox(height: 10,),
 
           StreamBuilder(
-              stream: ProductsOfAllBussinesses(),
+              stream: ProductsOfAllBussinessesSorted(_sort),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 return snapshot.hasData
                     ? ListView(

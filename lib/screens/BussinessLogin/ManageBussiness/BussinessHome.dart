@@ -8,10 +8,10 @@ import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/Dashboard.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/MyBussinessProfile.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageProducts/AddProduct.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageProducts/ProductsList.dart';
-import 'package:spot_hub/screens/BussinessLogin/Notifications.dart';
 import 'package:spot_hub/screens/BussinessLogin/SideDrawer.dart';
 import 'package:spot_hub/screens/Loading.dart';
 import 'package:spot_hub/screens/UserLogin/Home/MainPage.dart';
+import 'package:spot_hub/screens/UserLogin/Home/Notifications.dart';
 
 import '../../../configurations/AppColors.dart';
 
@@ -120,14 +120,14 @@ class _BussinessHomeState extends State<BussinessHome> {
             backgroundColor: AppColors.lightBackgroundColor,
             appBar: AppBar(
               actions: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: ((context) => Notifications())));
-                    },
-                    icon: Icon(Icons.notifications)),
+                // IconButton(
+                //     onPressed: () {
+                //       Navigator.push(
+                //           context,
+                //           MaterialPageRoute(
+                //               builder: ((context) => MainPage(PI: 1))));
+                //     },
+                //     icon: Icon(Icons.notifications)),
                 widget.PageIndex == 1
                     ? IconButton(
                         onPressed: () {

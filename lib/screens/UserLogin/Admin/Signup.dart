@@ -8,7 +8,7 @@ import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
-import 'package:spot_hub/database/Authentication.dart';
+import 'package:spot_hub/models/UserModels/Authentication.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
 import 'package:spot_hub/screens/Loading.dart';
 import 'package:spot_hub/screens/UserLogin/Admin/Login.dart';
@@ -218,23 +218,22 @@ class _SignupState extends State<Signup> {
 
                                 setState(() {
                                   widget.isLoading = false;
-                                }
-                                );
+                                });
 
                                 // ignore: use_build_context_synchronously
                                 QuickAlert.show(
-
-                                  context: context,
-                                  type: QuickAlertType.success,
-                                  text: 'Account Registered Successfully!',
-                                  confirmBtnText:"Login",
-                                  confirmBtnColor: AppColors.PrimaryColor,
-                                  onConfirmBtnTap: () {
-                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => Login())));
-                                  },
-                                  
-                                  backgroundColor:Colors.white
-                                );
+                                    context: context,
+                                    type: QuickAlertType.success,
+                                    text: 'Account Registered Successfully!',
+                                    confirmBtnText: "Login",
+                                    confirmBtnColor: AppColors.PrimaryColor,
+                                    onConfirmBtnTap: () {
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: ((context) => Login())));
+                                    },
+                                    backgroundColor: Colors.white);
                               } else {
                                 setState(() {
                                   widget.isLoading = false;

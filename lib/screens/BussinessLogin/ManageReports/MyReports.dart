@@ -8,7 +8,7 @@ import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/BusinessModels/Reports.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageReports/NewReport.dart';
-import 'package:spot_hub/screens/BussinessLogin/ManageReports/widgets/SingleReportPopup.dart';
+import 'package:spot_hub/widgets/report_widgets/SingleReportPopup.dart';
 
 class MyReports extends StatefulWidget {
   const MyReports({super.key});
@@ -22,7 +22,7 @@ class _MyReportsState extends State<MyReports> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 221, 221, 221),
+        backgroundColor: const Color.fromARGB(255, 221, 221, 221),
         appBar: AppBar(
           backgroundColor: AppColors.PrimaryColor,
           title: BigText(
@@ -33,10 +33,10 @@ class _MyReportsState extends State<MyReports> {
             //  InkWell(
 
             IconButton(
-              icon: Icon(Icons.add),
+              icon: const Icon(Icons.add),
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => NewReport()));
+                    MaterialPageRoute(builder: (context) => const NewReport()));
               },
             ),
             //  )
@@ -44,14 +44,14 @@ class _MyReportsState extends State<MyReports> {
         ),
         body: isLoading == false
             ? SingleChildScrollView(
-                physics: AlwaysScrollableScrollPhysics(),
+                physics: const AlwaysScrollableScrollPhysics(),
                 child: StreamBuilder(
                     stream: ReportsforBusiness(),
                     builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                       return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             Padding(
@@ -61,13 +61,14 @@ class _MyReportsState extends State<MyReports> {
                                 iscentre: false,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             snapshot.hasData
                                 ? ListView(
                                     shrinkWrap: true,
-                                    physics: NeverScrollableScrollPhysics(),
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
                                     children: snapshot.data!.docs.map((e) {
                                       return GestureDetector(
                                         onHorizontalDragEnd: (details) {
@@ -107,7 +108,7 @@ class _MyReportsState extends State<MyReports> {
                                           });
                                         },
                                         child: Container(
-                                          padding: EdgeInsets.only(
+                                          padding: const EdgeInsets.only(
                                               top: 5,
                                               bottom: 5,
                                               left: 10,
@@ -123,7 +124,7 @@ class _MyReportsState extends State<MyReports> {
                                                 color: e['ReportStatus']
                                                             .toString() ==
                                                         "Active"
-                                                    ? Color.fromARGB(
+                                                    ? const Color.fromARGB(
                                                         255, 254, 204, 25)
                                                     : e['ReportStatus']
                                                                 .toString() ==
@@ -156,7 +157,7 @@ class _MyReportsState extends State<MyReports> {
                                               color: e['ReportStatus']
                                                           .toString() ==
                                                       "Active"
-                                                  ? Color.fromARGB(
+                                                  ? const Color.fromARGB(
                                                       255, 254, 204, 25)
                                                   : e['ReportStatus']
                                                               .toString() ==
@@ -171,8 +172,7 @@ class _MyReportsState extends State<MyReports> {
                                           ),
                                         ),
                                       );
-                                    })
-                                    .toList())
+                                    }).toList())
                                 : Center(
                                     child: BigText(text: "No Report yet"),
                                   ),

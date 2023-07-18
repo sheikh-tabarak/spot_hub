@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
@@ -14,19 +15,20 @@ import 'package:spot_hub/models/BusinessModels/Bussiness.dart';
 import 'package:spot_hub/models/DummyData.dart';
 import 'package:spot_hub/models/BusinessModels/Product.dart';
 import 'package:spot_hub/models/Global/ProductsData.dart';
+import 'package:spot_hub/models/UserModels/Notification.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
-import 'package:spot_hub/screens/Loading.dart';
-import 'package:spot_hub/screens/UserLogin/Home/Notifications.dart';
-import 'package:spot_hub/screens/UserLogin/Search/AllBussinesses.dart';
-import 'package:spot_hub/screens/UserLogin/User/Account/CustomerAccount.dart';
-import 'package:spot_hub/screens/UserLogin/Search/MainSearch.dart';
-import 'package:spot_hub/screens/UserLogin/User/More.dart';
-import 'package:spot_hub/screens/UserLogin/User/NoLogin.dart';
-import 'package:spot_hub/screens/UserLogin/Search/ReviewSelectionPage.dart';
-import 'package:spot_hub/screens/UserLogin/User/SpotFlicks/spot_flicks.dart';
+import 'package:spot_hub/widgets/default_widgets/Loading.dart';
+import 'package:spot_hub/widgets/default_widgets/NoData.dart';
+import 'package:spot_hub/screens/UserLogin/home/AllBussinesses.dart';
+import 'package:spot_hub/screens/UserLogin/home/Notifications.dart';
+import 'package:spot_hub/screens/UserLogin/nav_account/CustomerAccount.dart';
+import 'package:spot_hub/screens/UserLogin/nav_more/More.dart';
+import 'package:spot_hub/screens/UserLogin/nav_more/NoLogin.dart';
+import 'package:spot_hub/screens/UserLogin/nav_search/MainSearch.dart';
+import 'package:spot_hub/screens/UserLogin/nav_search/ReviewSelectionPage.dart';
 import 'package:spot_hub/screens/UserLogin/chat/MessengerScreen.dart';
-import 'package:spot_hub/widgets/Product/ProductCard.dart';
-import 'package:spot_hub/widgets/others/ChoiceIcon.dart';
+import 'package:spot_hub/widgets/product_widgets/ProductCard.dart';
+import 'package:spot_hub/widgets/other_widgets/ChoiceIcon.dart';
 
 class MainPage extends StatefulWidget {
   UserClass MainUser;
@@ -176,10 +178,10 @@ class _MainPageState extends State<MainPage> {
                           height: 30,
                           decoration: BoxDecoration(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
+                                  const BorderRadius.all(Radius.circular(50)),
                               image: DecorationImage(
                                   image: NetworkImage(widget.MainUser.image))),
-                          child: Text(""),
+                          child: const Text(""),
                         ),
                   label: 'Account'),
               const BottomNavigationBarItem(
@@ -190,7 +192,7 @@ class _MainPageState extends State<MainPage> {
               //  BottomNavigationBarItem(icon: Icon(Icons.menu),label: 'More')
             ]),
         body: _PageIndex == 2
-            ? MessengerScreen()
+            ? const MessengerScreen()
             : _PageIndex == 3
                 ? More(
                     MainUser: UserClass(
@@ -205,9 +207,7 @@ class _MainPageState extends State<MainPage> {
                         UserId: ""),
                     isLoggedin: widget.isLoggedin)
                 : _PageIndex == 1 && widget.isLoggedin == true
-                    ?
-                    //loggedin==true?
-                    CustomerAccount(
+                    ? CustomerAccount(
                         //MainUser: widget.MainUser
                         )
                     : SingleChildScrollView(
@@ -249,40 +249,176 @@ class _MainPageState extends State<MainPage> {
                                                           FontWeight.w900,
                                                       color: Colors.white,
                                                       fontSize: 30)),
-                                              Container(
-                                                //    padding: EdgeInsets.all(1),
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            30),
-                                                    color: Colors.white),
-                                                child: IconButton(
-                                                    onPressed: () {
-                                                      widget.isLoggedin == true
-                                                          ? Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder: (context) => Notifications(
-                                                                      currentUser:
-                                                                          widget
-                                                                              .MainUser)))
-                                                          : showModalBottomSheet(
-                                                              isScrollControlled:
-                                                                  true,
-                                                              context: context,
-                                                              builder:
-                                                                  (BuildContext
-                                                                      bc) {
-                                                                return const NoLogin();
-                                                              });
-                                                    },
-                                                    color: Colors.white,
-                                                    icon: Icon(
-                                                      Icons.notifications,
-                                                      color: AppColors
-                                                          .PrimaryColor,
-                                                    )),
-                                              )
+                                              widget.isLoggedin == true
+                                                  ? StreamBuilder(
+                                                      stream:
+                                                          unReadNotificationsCount(
+                                                              widget.MainUser
+                                                                  .UserId),
+                                                      builder: (context,
+                                                          AsyncSnapshot<
+                                                                  QuerySnapshot>
+                                                              snapshot) {
+                                                        if (snapshot.hasData) {
+                                                          if (snapshot
+                                                              .data!
+                                                              .docs
+                                                              .isNotEmpty) {
+                                                            return Container(
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              30),
+                                                                  color: Colors
+                                                                      .white),
+                                                              child: Stack(
+                                                                alignment:
+                                                                    Alignment
+                                                                        .topRight,
+                                                                children: [
+                                                                  IconButton(
+                                                                      onPressed:
+                                                                          () {
+                                                                        widget.isLoggedin ==
+                                                                                true
+                                                                            ? Navigator.push(context,
+                                                                                MaterialPageRoute(builder: (context) => Notifications(currentUser: widget.MainUser)))
+                                                                            : showModalBottomSheet(
+                                                                                isScrollControlled: true,
+                                                                                context: context,
+                                                                                builder: (BuildContext bc) {
+                                                                                  return const NoLogin();
+                                                                                });
+                                                                      },
+                                                                      color: Colors
+                                                                          .white,
+                                                                      icon:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .notifications,
+                                                                        color: AppColors
+                                                                            .PrimaryColor,
+                                                                        size:
+                                                                            35,
+                                                                      )),
+                                                                  Container(
+                                                                    alignment:
+                                                                        Alignment
+                                                                            .center,
+                                                                    padding:
+                                                                        EdgeInsets
+                                                                            .zero,
+                                                                    width: 25,
+                                                                    height: 25,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      border: Border.all(
+                                                                          width:
+                                                                              2,
+                                                                          color:
+                                                                              Colors.white),
+                                                                      color: AppColors
+                                                                          .PrimaryColor,
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              30),
+                                                                    ),
+                                                                    child:
+                                                                        SmallText(
+                                                                      text: snapshot.data!.docs.length <=
+                                                                              9
+                                                                          ? snapshot
+                                                                              .data!
+                                                                              .docs
+                                                                              .length
+                                                                              .toString()
+                                                                          : "9+",
+                                                                      size: 10,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            );
+                                                          } else {
+                                                            return Container(
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              30),
+                                                                  color: Colors
+                                                                      .white),
+                                                              child: IconButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    widget.isLoggedin ==
+                                                                            true
+                                                                        ? Navigator.push(
+                                                                            context,
+                                                                            MaterialPageRoute(builder: (context) => Notifications(currentUser: widget.MainUser)))
+                                                                        : showModalBottomSheet(
+                                                                            isScrollControlled: true,
+                                                                            context: context,
+                                                                            builder: (BuildContext bc) {
+                                                                              return const NoLogin();
+                                                                            });
+                                                                  },
+                                                                  color: Colors
+                                                                      .white,
+                                                                  icon: Icon(
+                                                                    Icons
+                                                                        .notifications,
+                                                                    color: AppColors
+                                                                        .PrimaryColor,
+                                                                    size: 35,
+                                                                  )),
+                                                            );
+                                                          }
+                                                        } else {
+                                                          return Container(
+                                                            decoration: BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            30),
+                                                                color: Colors
+                                                                    .white),
+                                                            child: IconButton(
+                                                                onPressed: () {
+                                                                  widget.isLoggedin ==
+                                                                          true
+                                                                      ? Navigator.push(
+                                                                          context,
+                                                                          MaterialPageRoute(
+                                                                              builder: (context) => Notifications(
+                                                                                  currentUser: widget
+                                                                                      .MainUser)))
+                                                                      : showModalBottomSheet(
+                                                                          isScrollControlled:
+                                                                              true,
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (BuildContext bc) {
+                                                                            return const NoLogin();
+                                                                          });
+                                                                },
+                                                                color: Colors
+                                                                    .white,
+                                                                icon: Icon(
+                                                                  Icons
+                                                                      .notifications,
+                                                                  color: AppColors
+                                                                      .PrimaryColor,
+                                                                  size: 35,
+                                                                )),
+                                                          );
+                                                        }
+                                                      })
+                                                  : const SizedBox()
                                             ],
                                           ),
                                           SizedBox(
@@ -306,44 +442,32 @@ class _MainPageState extends State<MainPage> {
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               5.0)),
-                                                  // minimumSize: const Size(200,30),
+                                                  minimumSize:
+                                                      const Size(200, 30),
                                                   maximumSize:
                                                       const Size(220, 40)),
                                               onPressed: () {
                                                 Navigator.push(
-                                                  context,
-                                                  PageRouteBuilder(
-                                                    pageBuilder: (context,
-                                                            animation,
-                                                            secondaryAnimation) =>
-                                                        AllBussinesses(),
-                                                    //     MainSearch(
-                                                    //   isLoggedIn:
-                                                    //       widget.isLoggedin,
-                                                    //   recommended: true,
-                                                    // ),
-                                                    transitionsBuilder: (context,
-                                                            animation,
-                                                            secondaryAnimation,
-                                                            child) =>
-                                                        SlideTransition(
-                                                      position: Tween<Offset>(
-                                                        begin:
-                                                            const Offset(0, 1),
-                                                        end: Offset.zero,
-                                                      ).animate(animation),
-                                                      child: child,
-                                                    ),
-                                                  ),
-                                                );
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          AllBussinesses(
+                                                              isLoggedin: widget
+                                                                  .isLoggedin),
+                                                    ));
                                               },
                                               child: Row(
+                                                // crossAxisAlignment:
+                                                //     CrossAxisAlignment.center,
                                                 children: [
                                                   const Icon(Icons.search),
-                                                  SizedBox(
-                                                    width: Dimensions.width10,
+                                                  const SizedBox(
+                                                    width: 10,
                                                   ),
-                                                  const Text('Find Resturants')
+                                                  BigText(
+                                                    text: 'Find Resturants',
+                                                    color: Colors.white,
+                                                  ),
                                                 ],
                                               )),
                                         ],
@@ -541,18 +665,16 @@ class _MainPageState extends State<MainPage> {
                                 stream: ProductsOfAllBussinesses(),
                                 builder: (context,
                                     AsyncSnapshot<QuerySnapshot> snapshot) {
-                                  return snapshot.hasData
-                                      ? ListView(
+                                  if (snapshot.hasData) {
+                                    if (snapshot.data!.docs.isNotEmpty) {
+                                      return ListView(
                                           padding: EdgeInsets.zero,
                                           physics:
-                                              NeverScrollableScrollPhysics(),
+                                              const NeverScrollableScrollPhysics(),
                                           shrinkWrap: true,
-                                          // This next line does the trick.
                                           scrollDirection: Axis.vertical,
                                           children:
                                               snapshot.data!.docs.map((e) {
-                                            // if()
-
                                             return GestureDetector(
                                               onTap: () {},
                                               child: ProductCard(
@@ -572,9 +694,50 @@ class _MainPageState extends State<MainPage> {
                                                       isRecommended:
                                                           e["isRecommended"])),
                                             );
-                                          }).toList())
-                                      : Loading(
-                                          message: "Fetching products data");
+                                          }).toList());
+                                    } else {
+                                      return Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Center(
+                                          child: Lottie.asset(
+                                            'assets/images/animation_lk7tz5gr.json', // Replace with the path to your Lottie animation file
+                                            width: 200,
+                                            height: 200,
+                                            fit: BoxFit.contain,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  } else {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Center(
+                                        child: Lottie.asset(
+                                          'assets/images/animation_lk7tz5gr.json', // Replace with the path to your Lottie animation file
+                                          width: 200,
+                                          height: 200,
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),
+                                    );
+                                    //
+                                    // Padding(
+                                    //   padding: const EdgeInsets.all(8.0),
+                                    //   child: Center(
+                                    //     //  padding: const EdgeInsets.all(8.0),
+                                    //     child: NoData(
+                                    //       ImageLink:
+                                    //           "assets/images/noproductsyet.png",
+                                    //       title: "Loading your products",
+                                    //       subtitle:
+                                    //           "Just a minute, either we are loading products data from database or we found nothing in database",
+                                    //     ),
+                                    //   ),
+                                    // );
+                                  }
+
+                                  // Loading(
+                                  //     message: "Fetching products data");
                                   // Container(
                                   //     padding: EdgeInsets.all(10),
                                   //     child: Column(

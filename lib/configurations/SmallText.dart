@@ -16,7 +16,7 @@ class SmallText extends StatelessWidget {
     Key? key,
     this.color = const Color.fromARGB(255, 104, 104, 104),
     required this.text,
-    this.size = 12,
+    this.size = 14,
     this.weight = FontWeight.w400,
     // this.overFlow = TextOverflow.ellipsis,
     this.height = 1.2,
@@ -38,7 +38,7 @@ class SmallText extends StatelessWidget {
             //   overflow: overFlow,
             style: TextStyle(
               fontFamily: 'Poppins',
-              //    fontSize: Dimensions.font12,
+              //fontSize: size,
               color: color,
               fontWeight: weight == FontWeight.w400 ? FontWeight.w400 : weight,
               height: height,

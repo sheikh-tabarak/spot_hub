@@ -4,11 +4,11 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/models/BusinessModels/Reports.dart';
-import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/BussinessHome.dart';
+import 'package:spot_hub/screens/BussinessLogin/BussinessHome.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageReports/ReportSubmited.dart';
-import 'package:spot_hub/screens/Loading.dart';
-import 'package:spot_hub/widgets/others/BoxedTextField.dart';
-import 'package:spot_hub/widgets/others/PrimayButton.dart';
+import 'package:spot_hub/widgets/default_widgets/Loading.dart';
+import 'package:spot_hub/widgets/primary_widgets/BoxedTextField.dart';
+import 'package:spot_hub/widgets/primary_widgets/PrimayButton.dart';
 
 class NewReport extends StatefulWidget {
   const NewReport({super.key});
@@ -46,7 +46,7 @@ class _NewReportState extends State<NewReport> {
                           controller: _titleController,
                           placeholder: 'Title',
                           icon: Icons.title_outlined),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       TextField(
@@ -58,7 +58,7 @@ class _NewReportState extends State<NewReport> {
                         decoration: InputDecoration(
                             border: const OutlineInputBorder(),
                             hintText: "What is the problem you are facing?",
-                            prefixIcon: Icon(Icons.read_more),
+                            prefixIcon: const Icon(Icons.read_more),
                             fillColor: AppColors.lightBackgroundColor,
                             prefixIconColor: AppColors.PrimaryColor,
                             filled: true,
@@ -108,7 +108,7 @@ class _NewReportState extends State<NewReport> {
                   icon: Icons.add),
             ),
           )
-        : Scaffold(
+        : const Scaffold(
             body: Loading(message: "Sending your report"),
           );
   }

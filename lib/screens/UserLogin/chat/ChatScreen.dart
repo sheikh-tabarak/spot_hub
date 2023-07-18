@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,9 +11,9 @@ import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/Chat/ChatMessages.dart';
 import 'package:spot_hub/models/Chat/ChatProvider.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
-import 'package:spot_hub/screens/Loading.dart';
-import 'package:spot_hub/widgets/others/BoxedTextField.dart';
-import 'package:spot_hub/widgets/others/PrimayButton.dart';
+import 'package:spot_hub/widgets/default_widgets/Loading.dart';
+import 'package:spot_hub/widgets/primary_widgets/BoxedTextField.dart';
+import 'package:spot_hub/widgets/primary_widgets/PrimayButton.dart';
 
 class ChatScreen extends StatefulWidget {
   final String ChatUserId;
@@ -54,7 +56,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return _isLoading == true
-        ? Loading(message: "Deleting your chat")
+        ? const Loading(message: "Deleting your chat")
         : Scaffold(
             extendBody: true,
             appBar: AppBar(
@@ -77,7 +79,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         _isLoading = false;
                       });
                     },
-                    icon: Icon(Icons.delete))
+                    icon: const Icon(Icons.delete))
               ],
             ),
             body:
@@ -129,12 +131,11 @@ class _ChatScreenState extends State<ChatScreen> {
                                                       children: [
                                                         Container(
                                                           padding:
-                                                              EdgeInsets.all(
-                                                                  15),
-                                                          decoration: BoxDecoration(
+                                                              const EdgeInsets
+                                                                  .all(15),
+                                                          decoration: const BoxDecoration(
                                                               color:
-                                                                  const Color
-                                                                          .fromARGB(
+                                                                  Color.fromARGB(
                                                                       255,
                                                                       236,
                                                                       236,
@@ -165,7 +166,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                                             ],
                                                           ),
                                                         ),
-                                                        SizedBox(
+                                                        const SizedBox(
                                                           height: 4,
                                                         ),
                                                         SmallText(
@@ -199,7 +200,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                                   children: [
                                                     Container(
                                                       padding:
-                                                          EdgeInsets.all(15),
+                                                          const EdgeInsets.all(
+                                                              15),
                                                       decoration: BoxDecoration(
                                                           color: AppColors
                                                               .PrimaryColor,
@@ -228,7 +230,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                                         ],
                                                       ),
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 4,
                                                     ),
                                                     SmallText(
@@ -323,7 +325,7 @@ class _ChatScreenState extends State<ChatScreen> {
               padding: EdgeInsets.zero,
               // notchMargin: 0,
               child: Container(
-                padding: EdgeInsets.only(left: 30),
+                padding: const EdgeInsets.only(left: 30),
                 alignment: Alignment.center,
                 // margin: EdgeInsets.all(5.0),
                 height: 51,
@@ -353,11 +355,11 @@ class _ChatScreenState extends State<ChatScreen> {
                             Expanded(
                               child: TextField(
                                 controller: _ChatMessageController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                     hintText: "Type Something...",
                                     hintStyle: TextStyle(
-                                        color: const Color.fromARGB(
-                                            255, 151, 151, 151)),
+                                        color:
+                                            Color.fromARGB(255, 151, 151, 151)),
                                     border: InputBorder.none),
                               ),
                             ),
@@ -375,7 +377,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 15),
+                    const SizedBox(width: 15),
                     Container(
                       padding: const EdgeInsets.all(15.0),
                       decoration: BoxDecoration(
@@ -384,15 +386,13 @@ class _ChatScreenState extends State<ChatScreen> {
                       child: InkWell(
                         onTap: () async {
                           if (_ChatMessageController.text != "") {
-
-                            String Temp=_ChatMessageController.text;
+                            String Temp = _ChatMessageController.text;
                             setState(() {
                               _sending == true;
                               _ChatMessageController.text = "";
                             });
 
-                            await sendMessage(
-                                widget.ChatUserId, Temp);
+                            await sendMessage(widget.ChatUserId, Temp);
 
                             setState(() {
                               _sending == false;
@@ -406,12 +406,12 @@ class _ChatScreenState extends State<ChatScreen> {
                             ? Container(
                                 width: 15,
                                 height: 15,
-                                child: CircularProgressIndicator(
+                                child: const CircularProgressIndicator(
                                   strokeWidth: 2,
                                   color: Colors.white,
                                 ),
                               )
-                            : Icon(
+                            : const Icon(
                                 Icons.send,
                                 color: Colors.white,
                               ),

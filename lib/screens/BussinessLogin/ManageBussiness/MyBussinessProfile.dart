@@ -13,15 +13,15 @@ class MyBussinessProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       child: Column(children: [
         Stack(
           alignment: Alignment.bottomCenter,
           children: [
             Container(
-              margin: EdgeInsets.only(bottom: 30),
+              margin: const EdgeInsets.only(bottom: 30),
               height: 230,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage("assets/images/banner01.png"),
                       fit: BoxFit.cover)),
@@ -39,14 +39,14 @@ class MyBussinessProfile extends StatelessWidget {
             )
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         BigText(
           text: CurrentB.BussinessName,
           color: AppColors.PrimaryColor,
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         SmallText(
@@ -54,12 +54,12 @@ class MyBussinessProfile extends StatelessWidget {
           color: Colors.grey,
         ),
         Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 border: Border(
                     bottom:
                         BorderSide(color: Color.fromARGB(255, 188, 188, 188)))),
-            margin: EdgeInsets.all(5),
-            padding: EdgeInsets.all(5),
+            margin: const EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
             child: ListTile(
               leading: Icon(
                 Icons.email,
@@ -67,15 +67,15 @@ class MyBussinessProfile extends StatelessWidget {
               ),
               title: BigText(text: "Email"),
               subtitle: SmallText(text: CurrentB.BussinessEmail),
-              trailing: Icon(Icons.arrow_forward_ios),
+              trailing: const Icon(Icons.arrow_forward_ios),
             )),
         Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 border: Border(
                     bottom:
                         BorderSide(color: Color.fromARGB(255, 188, 188, 188)))),
-            margin: EdgeInsets.all(5),
-            padding: EdgeInsets.all(5),
+            margin: const EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
             child: ListTile(
               leading: Icon(
                 Icons.location_city,
@@ -83,15 +83,15 @@ class MyBussinessProfile extends StatelessWidget {
               ),
               title: BigText(text: "City"),
               subtitle: SmallText(text: CurrentB.BussinessCity),
-              trailing: Icon(Icons.arrow_forward_ios),
+              trailing: const Icon(Icons.arrow_forward_ios),
             )),
         Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 border: Border(
                     bottom:
                         BorderSide(color: Color.fromARGB(255, 188, 188, 188)))),
-            margin: EdgeInsets.all(5),
-            padding: EdgeInsets.all(5),
+            margin: const EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
             child: ListTile(
               leading: Icon(
                 Icons.phone,
@@ -99,15 +99,15 @@ class MyBussinessProfile extends StatelessWidget {
               ),
               title: BigText(text: "Phone"),
               subtitle: SmallText(text: CurrentB.BussinessPhone),
-              trailing: Icon(Icons.arrow_forward_ios),
+              trailing: const Icon(Icons.arrow_forward_ios),
             )),
         Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 border: Border(
                     bottom:
                         BorderSide(color: Color.fromARGB(255, 188, 188, 188)))),
-            margin: EdgeInsets.all(5),
-            padding: EdgeInsets.all(5),
+            margin: const EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
             child: ListTile(
               leading: Icon(
                 Icons.web,
@@ -115,7 +115,7 @@ class MyBussinessProfile extends StatelessWidget {
               ),
               title: BigText(text: "Website"),
               subtitle: SmallText(text: CurrentB.BussinessWebsite),
-              trailing: Icon(Icons.arrow_forward_ios),
+              trailing: const Icon(Icons.arrow_forward_ios),
             )),
       ]),
     );

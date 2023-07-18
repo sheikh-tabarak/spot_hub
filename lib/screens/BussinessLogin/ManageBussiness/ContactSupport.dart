@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:spot_hub/Utilities/ScrappingData.dart';
+import 'package:spot_hub/models/BusinessModels/ScrappingData.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/models/Global/ProductsData.dart';
-import 'package:spot_hub/screens/Loading.dart';
+import 'package:spot_hub/widgets/default_widgets/Loading.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactSupport extends StatefulWidget {

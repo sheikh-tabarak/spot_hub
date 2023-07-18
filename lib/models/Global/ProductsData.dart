@@ -1,9 +1,7 @@
-import 'dart:io';
+// ignore_for_file: non_constant_identifier_names, no_leading_underscores_for_local_identifiers, file_names
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:get/get.dart';
 import 'package:spot_hub/models/BusinessModels/Bussiness.dart';
 import 'package:spot_hub/models/BusinessModels/Reviews.dart';
@@ -21,32 +19,44 @@ Stream<QuerySnapshot<Map<String, dynamic>>> AllBussinessesofSpothub() {
 }
 
 Stream<QuerySnapshot<Map<String, dynamic>>> ProductsOfAllBussinessesSorted(
-    int sortBy) {
-  return sortBy == 0
-      ? FirebaseFirestore.instance.collectionGroup("products").snapshots()
-      : sortBy == 1
-          ? FirebaseFirestore.instance
-              .collectionGroup("products")
-              .orderBy("title", descending: false)
-              .snapshots()
-          : sortBy == 2
-              ? FirebaseFirestore.instance
-                  .collectionGroup("products")
-                  .orderBy("rating", descending: true)
-                  .snapshots()
-              : sortBy == 3
-                  ? FirebaseFirestore.instance
-                      .collectionGroup("products")
-                      .orderBy("Price", descending: true)
-                      .snapshots()
-                  : sortBy == 4
-                      ? FirebaseFirestore.instance
-                          .collectionGroup("products")
-                          .orderBy("reviews", descending: true)
-                          .snapshots()
-                      : FirebaseFirestore.instance
-                          .collectionGroup("products")
-                          .snapshots();
+  int sortBy,
+) {
+  if (sortBy == 0) {
+    // if (category != "") {
+    return FirebaseFirestore.instance
+        .collectionGroup("products")
+        // .where("Category", isEqualTo: category)
+        .snapshots();
+    //  } else {
+    // return FirebaseFirestore.instance.collectionGroup("products").snapshots();
+    ///  }
+  } else if (sortBy == 1) {
+    return FirebaseFirestore.instance
+        .collectionGroup("products")
+        .orderBy("title", descending: false)
+        .snapshots();
+  } else if (sortBy == 2) {
+    return FirebaseFirestore.instance
+        .collectionGroup("products")
+        // .where("title".toLowerCase(), arrayContains: title.toLowerCase())
+        // .where("Id".toLowerCase(), arrayContains: title.toLowerCase())
+        .orderBy("rating", descending: true)
+        .snapshots();
+  } else if (sortBy == 3) {
+    return FirebaseFirestore.instance
+        .collectionGroup("products")
+        // .where("title".toLowerCase(), arrayContains: title.toLowerCase())
+        .orderBy("Price", descending: true)
+        .snapshots();
+  } else if (sortBy == 4) {
+    return FirebaseFirestore.instance
+        .collectionGroup("products")
+        // .where("title".toLowerCase(), arrayContains: title.toLowerCase())
+        .orderBy("reviews", descending: true)
+        .snapshots();
+  } else {
+    return FirebaseFirestore.instance.collectionGroup("products").snapshots();
+  }
 }
 
 // Show Prdoucts of specific bussiness
@@ -104,7 +114,7 @@ Future PublishNewReview(
       .get();
   String UserName = ds.get('username');
 
-  print("User name = $UserName");
+  // print("User name = $UserName");
 
   final PublishRequest = FirebaseFirestore.instance
       .collection('user')
@@ -115,8 +125,6 @@ Future PublishNewReview(
       .doc(Product_Id)
       .collection("reviews")
       .doc();
-
-  print("id Assigned = ${PublishRequest.id}");
 
   final NewReview = Reviews(
     ReviewId: PublishRequest.id,
@@ -143,19 +151,12 @@ Future PublishNewReview(
       .collection('reviews')
       .get()
       .then((value) {
-    print(value.docs.length);
-
-    value.docs.forEach((element) {
+    for (var element in value.docs) {
       test = element["Stars"] + test;
-      print(element["Stars"]);
-    });
+    }
 
     average = test / value.docs.length;
-
-    print(average);
   });
-
-  print("rest");
 
   await FirebaseFirestore.instance
       .collection('user')

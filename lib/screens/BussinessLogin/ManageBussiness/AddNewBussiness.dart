@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import, prefer_final_fields, file_names, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
@@ -5,17 +7,16 @@ import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/BusinessModels/Bussiness.dart';
-import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/BussinessHome.dart';
+import 'package:spot_hub/screens/BussinessLogin/BussinessHome.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/Dashboard.dart';
-import 'package:spot_hub/screens/Loading.dart';
-import 'package:spot_hub/screens/UserLogin/Home/MainPage.dart';
-import 'package:spot_hub/screens/UserLogin/Search/MainSearch.dart';
-import 'package:spot_hub/screens/UserLogin/User/Account/CustomerAccount.dart';
-import 'package:spot_hub/screens/UserLogin/User/MainHome.dart';
-import 'package:spot_hub/screens/UserLogin/User/More.dart';
-import 'package:spot_hub/widgets/others/BoxedTextField.dart';
-import 'package:spot_hub/widgets/others/IconBox.dart';
-import 'package:spot_hub/widgets/others/UnderConstruction.dart';
+import 'package:spot_hub/widgets/default_widgets/Loading.dart';
+import 'package:spot_hub/screens/UserLogin/home/MainPage.dart';
+import 'package:spot_hub/screens/UserLogin/nav_search/MainSearch.dart';
+import 'package:spot_hub/screens/UserLogin/nav_account/CustomerAccount.dart';
+import 'package:spot_hub/screens/UserLogin/nav_more/More.dart';
+import 'package:spot_hub/widgets/primary_widgets/BoxedTextField.dart';
+import 'package:spot_hub/widgets/other_widgets/IconBox.dart';
+import 'package:spot_hub/widgets/default_widgets/UnderConstruction.dart';
 
 class AddNewBussiness extends StatefulWidget {
   const AddNewBussiness({super.key});
@@ -77,7 +78,7 @@ class _AddNewBussinessState extends State<AddNewBussiness> {
   @override
   Widget build(BuildContext context) {
     return isLoading == true
-        ? Loading(message: "Registring your bussiness")
+        ? const Loading(message: "Registring your bussiness")
         : Scaffold(
             appBar: AppBar(
               backgroundColor: AppColors.PrimaryColor,
@@ -124,7 +125,7 @@ class _AddNewBussinessState extends State<AddNewBussiness> {
                       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Gonna Register")))
 
                       await RegisterBussiness(
-                          "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/330px-User_icon_2.svg.png",
+                          "https://www.posist.com/restaurant-times/wp-content/uploads/2016/12/restaurant-delivery-orders-1024x683.jpg",
                           _bussinessName.text,
                           _bussinessEmail.text,
                           _selectedCity.toString(),
@@ -147,7 +148,7 @@ class _AddNewBussinessState extends State<AddNewBussiness> {
                         text: 'Bussiness Registered Successfully!',
                       );
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text("Some required of fields are empty")));
                     }
 
@@ -185,7 +186,7 @@ class _AddNewBussinessState extends State<AddNewBussiness> {
                               ),
                               BoxedTextField(
                                 TapAction: () {
-                                  print("input");
+                                  //  print("input");
                                 },
                                 controller: _bussinessName,
                                 icon: Icons.business,

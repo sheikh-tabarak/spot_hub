@@ -1,24 +1,10 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:spot_hub/models/BusinessModels/Product.dart';
-import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/BussinessHome.dart';
-import 'package:spot_hub/screens/BussinessLogin/ManageProducts/ScrapProducts.dart';
-import 'package:spot_hub/screens/BussinessLogin/ManageReports/MyReports.dart';
-import 'package:spot_hub/screens/BussinessLogin/ManageProducts/AddProduct.dart';
-import 'package:spot_hub/screens/UserLogin/Admin/ForgetPassword.dart';
-import 'package:spot_hub/screens/UserLogin/Home/MainPage.dart';
-import 'package:spot_hub/screens/UserLogin/User/AddReview.dart';
-import 'package:spot_hub/screens/UserLogin/User/MainHome.dart';
-
-import 'screens/BussinessLogin/ManageBussiness/AddNewBussiness.dart';
-import 'screens/BussinessLogin/ScrapBussiness.dart';
-import 'screens/UserLogin/Admin/Login.dart';
-import 'screens/UserLogin/Search/AllBussinesses.dart';
-import 'screens/UserLogin/Search/MainSearch.dart';
-import 'screens/UserLogin/chat/ChatScreen.dart';
+import 'package:spot_hub/configurations/SmallText.dart';
+import 'screens/UserLogin/admin/Login.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,77 +44,35 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-            body:
-                //  AddReview(
-                //   isSelected: false,
-                // )
-                //ScrapBussiness()
-                //MainSearch(Results: "Burger")
-                Login()
-            //  BussinessHome()
-
-            //  AllBussinesses()
-            //  MainPage(
-            //   isLoggedin: true,
-            //   PI: 0,
-            // )
-            //          ChatScreen(
-            //   ChatUserId: "pcWl3UXJKKNz5H0Evlb6Xftl0523", InitiateDate: Timestamp.now().toString(),
-            // )
-            //         BussinessHome(
-            //   PageIndex: 1,
-            // )
-            ));
+          body: AnimatedSplashScreen(
+            splashTransition: SplashTransition.scaleTransition,
+            backgroundColor: Colors.black,
+            splashIconSize: double.infinity, //Dimensions.screenHeight,
+            duration: 1000,
+            splash: AnimatedContainer(
+              duration: const Duration(milliseconds: 500),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image(
+                      width: img_width,
+                      height: img_height,
+                      image: const AssetImage('assets/images/logo.png')),
+                  const SizedBox(height: 10),
+                  SmallText(
+                    text: 'By Spothub Team',
+                    size: 11,
+                    color: Colors.white,
+                    weight: FontWeight.w100,
+                  )
+                ],
+              ),
+            ),
+            nextScreen: Login(),
+//  splashTransition: SplashTransition.fadeTransition,
+            //  backgroundColor: AppColors.darkBackgroundColor
+          ),
+        ));
   }
 }
-
-// MaterialApp(
-//     debugShowCheckedModeBanner: false,
-//     title: 'Spot Hub',
-//     // theme: ThemeData(
-//     //   primarySwatch: Colors.blue,
-//     // ),
-//     theme: ThemeData.light().copyWith(
-//       colorScheme: ColorScheme.fromSeed(
-//           seedColor: AppColors.PrimaryColor,
-//           primary: AppColors.PrimaryColor),
-//     ),
-
-// BussinessForm()
-//  MainSearch()
-// SearchPage(searchTitle: 'Burger',)
-// DevelopersTeam()
-//AddReview(ProductToReview: DummyProducts[1]),
-// RatingSlider(title: "How was the taste",)
-//   const MainPage(MainUser: User(image:"assets/images/logo.png" ,username: "Guest", password: "password", email: "guest@spothub.com", PhoneNo: "PhoneNo", Intrests: "Intrests"),isLoggedin: false,),
-
-// AnimatedSplashScreen(
-//   splashTransition:SplashTransition.scaleTransition,
-//       splashIconSize: double.infinity, //Dimensions.screenHeight,
-//       duration: 1000,
-//       splash: AnimatedContainer(
-//         duration: const Duration(milliseconds: 500),
-
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.center,
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             Image(
-//                 width: img_width,
-//                 height: img_height,
-//                 image: const AssetImage('assets/images/logo.png')),
-
-//             const SizedBox(height: 10),
-//             SmallText(
-//               text: 'By HAT',
-//               size: 11,
-//               color: Colors.white,
-//               weight: FontWeight.w100,
-//             )
-//           ],
-//         ),
-//       ),
-//       nextScreen:
-
-//   splashTransition: SplashTransition.fadeTransition,
-//      backgroundColor: AppColors.darkBackgroundColor),

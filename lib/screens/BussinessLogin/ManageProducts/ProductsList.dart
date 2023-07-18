@@ -10,8 +10,8 @@ import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/BusinessModels/Bussiness.dart';
 import 'package:spot_hub/models/BusinessModels/Product.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageProducts/AddProduct.dart';
-import 'package:spot_hub/screens/Loading.dart';
-import 'package:spot_hub/screens/NoData.dart';
+import 'package:spot_hub/widgets/default_widgets/Loading.dart';
+import 'package:spot_hub/widgets/default_widgets/NoData.dart';
 //import 'package:spot_hub/widgets/others/ItemCard.dart';
 
 class ProductsList extends StatefulWidget {

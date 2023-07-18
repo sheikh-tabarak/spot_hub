@@ -1,21 +1,20 @@
-// ignore_for_file: avoid_print, file_names
+// ignore_for_file: avoid_print, file_names, prefer_final_fields
 
 import 'package:flutter/material.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
-import 'package:spot_hub/Utilities/LocationFunctions.dart';
+import 'package:spot_hub/extras/LocationFunctions.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/UserModels/Authentication.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
-import 'package:spot_hub/screens/Loading.dart';
-import 'package:spot_hub/screens/UserLogin/Admin/Login.dart';
-import 'package:spot_hub/screens/UserLogin/Admin/RecordIntrests.dart';
-import 'package:spot_hub/widgets/others/BoxedTextField.dart';
-import 'package:spot_hub/widgets/others/PrimayButton.dart';
-import 'package:spot_hub/widgets/others/PlaneTextField.dart';
+import 'package:spot_hub/widgets/default_widgets/Loading.dart';
+import 'package:spot_hub/screens/UserLogin/admin/Login.dart';
+import 'package:spot_hub/widgets/primary_widgets/BoxedTextField.dart';
+import 'package:spot_hub/widgets/primary_widgets/PrimayButton.dart';
+import 'package:spot_hub/widgets/primary_widgets/PlaneTextField.dart';
 
 class Signup extends StatefulWidget {
   bool isLoading = false;
@@ -86,7 +85,7 @@ class _SignupState extends State<Signup> {
                         height: 15,
                       ),
                       Container(
-                        margin: EdgeInsets.only(left: 12, right: 12),
+                        margin: const EdgeInsets.only(left: 12, right: 12),
                         padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
                           color: thisiserror == "" ? Colors.black : Colors.red,
@@ -107,7 +106,7 @@ class _SignupState extends State<Signup> {
                                   ? Colors.black
                                   : Colors.white,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Expanded(

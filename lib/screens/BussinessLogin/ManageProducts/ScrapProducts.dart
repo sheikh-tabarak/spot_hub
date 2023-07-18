@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:spot_hub/Utilities/ScrappingData.dart';
+import 'package:spot_hub/models/BusinessModels/ScrappingData.dart';
 
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
-import 'package:spot_hub/screens/Loading.dart';
-import 'package:spot_hub/widgets/others/PrimayButton.dart';
+import 'package:spot_hub/widgets/default_widgets/Loading.dart';
+import 'package:spot_hub/widgets/primary_widgets/PrimayButton.dart';
 
-import '../../../widgets/others/BoxedTextField.dart';
+import '../../../widgets/primary_widgets/BoxedTextField.dart';
 
 class ScrapProducts extends StatefulWidget {
   String website;
@@ -38,17 +38,17 @@ class _ScrapProductsState extends State<ScrapProducts> {
         ),
       ),
       body: _isLoading == true
-          ? Loading(message: "Fething products from your store")
+          ? const Loading(message: "Fething products from your store")
           : Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image(
+                  const Image(
                       image:
                           AssetImage("assets/images/productscrapposter.png")),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   BigText(
@@ -56,7 +56,7 @@ class _ScrapProductsState extends State<ScrapProducts> {
                     color: AppColors.PrimaryColor,
                     size: 25,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   widget.website == "https://www.khizertikkashop.com/"
@@ -65,7 +65,7 @@ class _ScrapProductsState extends State<ScrapProducts> {
                             SmallText(
                                 text:
                                     "Hello, it seems we know you, Are you from khizar Tikka Shop ?\nIf yes then Import Product from your following website directly, either you can sync the inventory antytime later"),
-                            SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
                             PrimaryButton(
@@ -87,7 +87,7 @@ class _ScrapProductsState extends State<ScrapProducts> {
                             //       )),
                             //   child: SmallText(text: widget.website),
                             // ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             PrimaryButton(
@@ -105,7 +105,7 @@ class _ScrapProductsState extends State<ScrapProducts> {
                                 text: "Verify and Import",
                                 color: AppColors.PrimaryColor,
                                 icon: Icons.download),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             PrimaryButton(
@@ -125,7 +125,7 @@ class _ScrapProductsState extends State<ScrapProducts> {
                             SmallText(
                                 text:
                                     "Hustle free product addition using the built in store to any ote platform !"),
-                            SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
                             Container(
@@ -167,7 +167,7 @@ class _ScrapProductsState extends State<ScrapProducts> {
                                 },
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             BoxedTextField(
@@ -177,7 +177,7 @@ class _ScrapProductsState extends State<ScrapProducts> {
                               placeholder:
                                   'e.g \"https://foodpanda.com/store-name\""',
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             PrimaryButton(

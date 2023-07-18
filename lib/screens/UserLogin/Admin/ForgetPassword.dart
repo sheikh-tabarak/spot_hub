@@ -4,12 +4,12 @@ import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/UserModels/Authentication.dart';
-import 'package:spot_hub/screens/Loading.dart';
-import 'package:spot_hub/screens/UserLogin/Admin/Login.dart';
-import 'package:spot_hub/screens/UserLogin/Admin/Signup.dart';
-import 'package:spot_hub/screens/UserLogin/Home/MainPage.dart';
-import 'package:spot_hub/widgets/others/PlaneTextField.dart';
-import 'package:spot_hub/widgets/others/PrimayButton.dart';
+import 'package:spot_hub/widgets/default_widgets/Loading.dart';
+import 'package:spot_hub/screens/UserLogin/admin/Login.dart';
+import 'package:spot_hub/screens/UserLogin/admin/Signup.dart';
+import 'package:spot_hub/screens/UserLogin/home/MainPage.dart';
+import 'package:spot_hub/widgets/primary_widgets/PlaneTextField.dart';
+import 'package:spot_hub/widgets/primary_widgets/PrimayButton.dart';
 
 class ForgetPassword extends StatefulWidget {
   const ForgetPassword({super.key});

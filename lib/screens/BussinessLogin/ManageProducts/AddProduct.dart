@@ -1,21 +1,24 @@
 // Error while Uploading Image at updating frame
 // Application wa getting crashed
 
+// ignore_for_file: unnecessary_null_comparison
+
 import 'dart:ffi';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/BusinessModels/Product.dart';
-import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/BussinessHome.dart';
+import 'package:spot_hub/screens/BussinessLogin/BussinessHome.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/Dashboard.dart';
-import 'package:spot_hub/screens/Loading.dart';
-import 'package:spot_hub/widgets/others/BoxedTextField.dart';
-import 'package:spot_hub/widgets/others/PrimayButton.dart';
+import 'package:spot_hub/widgets/default_widgets/Loading.dart';
+import 'package:spot_hub/widgets/primary_widgets/BoxedTextField.dart';
+import 'package:spot_hub/widgets/primary_widgets/PrimayButton.dart';
 
 class AddProduct extends StatefulWidget {
   final String titleId;
@@ -151,7 +154,7 @@ class _AddProductState extends State<AddProduct> {
                         controller: _priceController,
                       ),
 
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
 
@@ -199,13 +202,13 @@ class _AddProductState extends State<AddProduct> {
                                       fit: BoxFit.cover
                                       // AssetImage(imageaddress)
                                       ),
-                              color: Color.fromARGB(255, 231, 231, 231)),
+                              color: const Color.fromARGB(255, 231, 231, 231)),
                           child: Center(
                               child: imageaddress == ""
-                                  ? Icon(
+                                  ? const Icon(
                                       Icons.add_a_photo,
                                     )
-                                  : SizedBox()),
+                                  : const SizedBox()),
                         ),
                       ),
                     ],
@@ -224,10 +227,6 @@ class _AddProductState extends State<AddProduct> {
                           });
 
                           if (imageaddress != "") {
-                            // await uploadProductImage(
-                            //         widget.titleId, imageaddress)
-                            //     .then((value) => imageUploaded = value);
-
                             setState(() {
                               _LoaingCommands = "Adding your Product";
                             });
@@ -252,6 +251,12 @@ class _AddProductState extends State<AddProduct> {
 
                             setState(() {
                               isLoading = false;
+                            });
+                          } else {
+                            setState(() {
+                              isLoading = false;
+                              Fluttertoast.showToast(
+                                  msg: "No Image Seleted yet");
                             });
                           }
                         }

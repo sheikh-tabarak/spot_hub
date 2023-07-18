@@ -3,7 +3,6 @@
 import 'package:spot_hub/models/BusinessModels/Product.dart';
 import 'package:spot_hub/models/ReviewModels/ReviewsModel.dart';
 import 'package:spot_hub/models/BusinessModels/Bussiness.dart';
-import 'package:spot_hub/models/UserModels/UserClass.dart';
 
 const DummyBussinesses = [
   Bussiness(

@@ -8,12 +8,12 @@ import 'package:spot_hub/configurations/Dimensions.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/Chat/ChatMessages.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
-import 'package:spot_hub/screens/Loading.dart';
-import 'package:spot_hub/screens/NoData.dart';
-import 'package:spot_hub/screens/UserLogin/Home/Notifications.dart';
-import 'package:spot_hub/screens/UserLogin/User/SpotFlicks/spot_flicks.dart';
+import 'package:spot_hub/widgets/default_widgets/Loading.dart';
+import 'package:spot_hub/widgets/default_widgets/NoData.dart';
+import 'package:spot_hub/screens/UserLogin/home/Notifications.dart';
+import 'package:spot_hub/screens/UserLogin/chat/spot_flicks/spot_flicks.dart';
 import 'package:spot_hub/screens/UserLogin/chat/ChatScreen.dart';
-import 'package:spot_hub/widgets/Team/MemberDetails.dart';
+import 'package:spot_hub/widgets/team_widgets/MemberDetails.dart';
 import 'package:intl/intl.dart';
 
 class MessengerScreen extends StatefulWidget {

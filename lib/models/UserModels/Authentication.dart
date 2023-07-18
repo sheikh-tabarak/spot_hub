@@ -29,6 +29,7 @@ Future<bool> signIn(String email, String password) async {
     return true;
   } catch (e) {
     setError(e.toString());
+    // ignore: unused_local_variable
     String message = clearError(e.toString());
 
 // setError(e.toString());

@@ -1,19 +1,22 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/BusinessModels/Product.dart';
 import 'package:spot_hub/models/UserModels/Notification.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
-import 'package:spot_hub/screens/UserLogin/Home/MainPage.dart';
-import 'package:spot_hub/screens/UserLogin/User/ScrollableProductDetailPage.dart';
+import 'package:spot_hub/screens/UserLogin/home/MainPage.dart';
+import 'package:spot_hub/screens/UserLogin/nav_search/MainSearch.dart';
 import 'package:spot_hub/screens/UserLogin/chat/ChatScreen.dart';
-import 'package:spot_hub/widgets/others/PrimayButton.dart';
+import 'package:spot_hub/widgets/primary_widgets/PrimayButton.dart';
 
 class Notifications extends StatefulWidget {
   final UserClass currentUser;
@@ -30,7 +33,7 @@ class Notifications extends StatefulWidget {
 class _NotificationsState extends State<Notifications> {
   int _noOfNotication = 0;
 
-  Product currentProduct = Product(
+  Product currentProduct = const Product(
       BussinessId: "",
       Id: "",
       image: "",
@@ -48,41 +51,10 @@ class _NotificationsState extends State<Notifications> {
     super.initState();
   }
 
-  // Future getProducts(String id) async {
-  //   try {
-  //     await FirebaseFirestore.instance
-  //         .collection('user')
-  //         .doc(FirebaseAuth.instance.currentUser!.uid)
-  //         .collection("bussiness")
-  //         .doc("B_${FirebaseAuth.instance.currentUser!.uid}")
-  //         .collection("products")
-  //         .doc(id)
-  //         .get()
-  //         .then((e) {
-  //       currentProduct = Product(
-  //         BussinessId: e['BussinessId'],
-  //         Category: e['Category'],
-  //         Id: e['Id'],
-  //         Price: e['Price'],
-  //         description: e['description'],
-  //         image: e['image'],
-  //         isRecommended: e['isRecommended'],
-  //         rating: e['rating'],
-  //         reviews: e['reviews'],
-  //         title: e['title'],
-  //       );
-
-  //       print(currentProduct.title);
-  //     });
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 221, 221, 221),
+        backgroundColor: const Color.fromARGB(255, 221, 221, 221),
         appBar: AppBar(
           backgroundColor: AppColors.PrimaryColor,
           title: BigText(
@@ -94,7 +66,7 @@ class _NotificationsState extends State<Notifications> {
                 onPressed: () async {
                   await deleteReadedNotifications();
                 },
-                icon: Icon(Icons.delete))
+                icon: const Icon(Icons.delete))
           ],
         ),
         body: StreamBuilder(
@@ -105,64 +77,113 @@ class _NotificationsState extends State<Notifications> {
                   return ListView(
                     shrinkWrap: true,
                     children: snapshot.data!.docs
-                        .map((e) => Container(
-                              padding: EdgeInsets.all(10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // SmallText(text: "7 May"),
-                                  Container(
-                                    margin: const EdgeInsets.only(top: 10),
-                                    decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        ListTile(
-                                          onTap: e["ntype"] == "message"
-                                              ? () {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              ChatScreen(
-                                                                  ChatUserId: e[
-                                                                      "fromuserId"])));
-                                                }
-                                              : () async {
-                                                  // await getProducts(
-                                                  //     e['ProductId']);
+                        .map((e) => Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // SmallText(text: "7 May"),
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                      top: 10, bottom: 10),
+                                  // margin: const EdgeInsets.only(top: 10),
+                                  decoration: const BoxDecoration(
+                                    color:
+                                        // e['isRead'] == false
+                                        //  ? Color.fromARGB(255, 255, 235, 206)
+                                        Colors.white,
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      ListTile(
+                                        onTap: e["ntype"] == "message"
+                                            ? () async {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ChatScreen(
+                                                                ChatUserId: e[
+                                                                    "fromuserId"])));
+                                                await ReadThatNotfications(
+                                                    e.id);
+                                              }
+                                            : () async {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            MainSearch(
+                                                              isLoggedIn: true,
+                                                              Results: e[
+                                                                  "ProductId"],
+                                                            )));
 
-                                                  Future.delayed(
-                                                      Duration(seconds: 4));
-
-                                                  Fluttertoast.showToast(
-                                                      msg:
-                                                          "Network Connection error! Unable to open product page");
-
-                                                  // Navigator.push(
-                                                  //     context,
-                                                  //     MaterialPageRoute(
-                                                  //         builder: (context) =>
-                                                  //            ));
-                                                },
-                                          leading: e["ntype"] == "message"
-                                              ? Icon(Icons.message)
-                                              : Icon(Icons.email),
-                                          title: SmallText(
+                                                await ReadThatNotfications(
+                                                    e.id);
+                                              },
+                                        leading: Column(
+                                          children: [
+                                            e["ntype"] == "message"
+                                                ? Icon(
+                                                    Icons.message,
+                                                    color:
+                                                        AppColors.PrimaryColor,
+                                                  )
+                                                : Icon(
+                                                    Icons.email,
+                                                    color:
+                                                        AppColors.PrimaryColor,
+                                                  ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            SmallText(
+                                                text: DateFormat("HH:mm")
+                                                    .format(DateTime.parse(
+                                                        e['TimeStamp']
+                                                            .toString())))
+                                          ],
+                                        ),
+                                        title: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SmallText(
+                                              iscentre: false,
                                               text: e["ntype"] == "message"
                                                   ? "Someone sent you a message"
-                                                  : "Someone mentioned you"),
-                                          subtitle:
-                                              SmallText(text: e["TimeStamp"]),
-                                          trailing:
-                                              Icon(Icons.arrow_forward_ios),
-                                        )
-                                      ],
-                                    ),
+                                                  : "Someone mentioned you",
+                                              color: AppColors.PrimaryColor,
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            )
+                                          ],
+                                        ),
+                                        subtitle: SmallText(
+                                          text: e["ntype"] == "message"
+                                              ? "Check out your inbox, you got a message from one of your friend"
+                                              : "Here is a suggestion for you as someone mentioned your while reviewing a product",
+                                          size: 12,
+                                        ),
+                                        trailing: e['isRead'] == false
+                                            ? Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Icon(
+                                                    Icons.circle,
+                                                    color:
+                                                        AppColors.PrimaryColor,
+                                                    size: 10,
+                                                  ),
+                                                ],
+                                              )
+                                            : const SizedBox(),
+                                      )
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ))
                         .toList(),
                   );
@@ -178,18 +199,18 @@ class _NotificationsState extends State<Notifications> {
                             size: 60,
                             color: AppColors.PrimaryColor,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           BigText(text: "No Notifications"),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           SmallText(
                               iscentre: true,
                               text:
-                                  "There is no notification right now.\n Refresh to and check back again"),
-                          SizedBox(
+                                  "There is no notification right now.\n Refresh the page and check back again"),
+                          const SizedBox(
                             height: 10,
                           ),
                           TextButton(
@@ -198,7 +219,7 @@ class _NotificationsState extends State<Notifications> {
                                   print("Refreshed");
                                 });
                               },
-                              child: Text("Refresh"))
+                              child: const Text("Refresh"))
                         ],
                       ),
                     ),
@@ -216,18 +237,18 @@ class _NotificationsState extends State<Notifications> {
                           size: 60,
                           color: AppColors.PrimaryColor,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         BigText(text: "No Notifications"),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         SmallText(
                             iscentre: true,
                             text:
                                 "There is no notification right now.\n Refresh to and check back again"),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         TextButton(
@@ -236,7 +257,7 @@ class _NotificationsState extends State<Notifications> {
                                 print("Refreshed");
                               });
                             },
-                            child: Text("Refresh"))
+                            child: const Text("Refresh"))
                       ],
                     ),
                   ),

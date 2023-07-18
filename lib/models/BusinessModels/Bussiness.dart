@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -106,8 +108,6 @@ Future<Bussiness> getBussinessData() async {
       .doc("B_${FirebaseAuth.instance.currentUser!.uid}")
       .get();
 
-  //String Email = ds.get('email');
-
   Bussiness B = Bussiness(
     BussinessName: ds.get("BussinessName"),
     BussinessImageUrl: ds.get("BussinessImageUrl"),
@@ -119,39 +119,7 @@ Future<Bussiness> getBussinessData() async {
     BussinessType: ds.get("BussinessType"),
     BussinessWebsite: ds.get("BussinessWebsite"),
     Reports: ds.get("Reports"),
-
-    // IsBussiness: ds.get('IsBussiness'),
-    // image: ds.get('image'),
-    // username: ds.get('username'),
-    // password: ds.get('password'),
-    // email: ds.get('email'),
-    // PhoneNo: ds.get('PhoneNo'),
-    // Address: ds.get('Address'),
-    // Intrests: ds.get('Intrests'),
-    // UserId: ds.get("UserId")
   );
-  // print(Email);
 
   return B;
 }
-
-// Future<int> TotalProducts() async {
-//   int Total = 0;
-//   FirebaseFirestore.instance
-//       .collection('user')
-//       .doc(FirebaseAuth.instance.currentUser!.uid)
-//       .collection("bussiness")
-//       .doc("B_${FirebaseAuth.instance.currentUser!.uid}")
-//       .collection("products")
-//       .count()
-//       .get()
-//       .then((res) {
-//     print("Product are total :  " + res.count.toString());
-//     Total = res.count;
-//     print("Product are total-- :  " + Total.toString());
-
-//     return Total;
-//   });
-
-//   return Total;
-// }

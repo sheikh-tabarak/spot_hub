@@ -5,16 +5,15 @@ import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/BusinessModels/Bussiness.dart';
-import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/BussinessHome.dart';
+import 'package:spot_hub/screens/BussinessLogin/BussinessHome.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/ContactSupport.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageProducts/ScrapProducts.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageReports/MyReports.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageProducts/AddProduct.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageProducts/ProductsList.dart';
-import 'package:spot_hub/screens/BussinessLogin/ScrapBussiness.dart';
-import 'package:spot_hub/screens/UserLogin/Admin/Login.dart';
-import 'package:spot_hub/screens/UserLogin/Home/MainPage.dart';
-import 'package:spot_hub/widgets/others/UnderConstruction.dart';
+import 'package:spot_hub/screens/UserLogin/admin/Login.dart';
+import 'package:spot_hub/screens/UserLogin/home/MainPage.dart';
+import 'package:spot_hub/widgets/default_widgets/UnderConstruction.dart';
 
 class SideDrawer extends StatefulWidget {
   Bussiness currentBussiness;
@@ -43,7 +42,7 @@ class _SideDrawerState extends State<SideDrawer> {
           // ),
           Container(
               width: 250,
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(color: AppColors.PrimaryColor),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,7 +51,8 @@ class _SideDrawerState extends State<SideDrawer> {
                     width: 90,
                     height: 90,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(100)),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(100)),
                       image: DecorationImage(
                           image: NetworkImage(
                               widget.currentBussiness.BussinessImageUrl),
@@ -64,7 +64,7 @@ class _SideDrawerState extends State<SideDrawer> {
                     text: widget.currentBussiness.BussinessName,
                     color: Colors.white,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   )
                   // SmallText(
@@ -83,10 +83,10 @@ class _SideDrawerState extends State<SideDrawer> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => AddProduct()));
+                              builder: (context) => const AddProduct()));
                     },
                     child: Container(
-                      padding: EdgeInsets.all(3),
+                      padding: const EdgeInsets.all(3),
                       decoration: BoxDecoration(
                           color: isHovering
                               ? AppColors.PrimaryColor
@@ -117,7 +117,7 @@ class _SideDrawerState extends State<SideDrawer> {
                                   ))));
                     },
                     child: Container(
-                      padding: EdgeInsets.all(3),
+                      padding: const EdgeInsets.all(3),
                       decoration: BoxDecoration(
                           color: isHovering
                               ? AppColors.PrimaryColor
@@ -147,7 +147,7 @@ class _SideDrawerState extends State<SideDrawer> {
                                   )));
                     },
                     child: Container(
-                      padding: EdgeInsets.all(3),
+                      padding: const EdgeInsets.all(3),
                       decoration: BoxDecoration(
                           color: isHovering
                               ? AppColors.PrimaryColor
@@ -169,11 +169,13 @@ class _SideDrawerState extends State<SideDrawer> {
                   // Button : My Reports
                   InkWell(
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => MyReports()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MyReports()));
                     },
                     child: Container(
-                      padding: EdgeInsets.all(3),
+                      padding: const EdgeInsets.all(3),
                       decoration: BoxDecoration(
                           color: isHovering
                               ? AppColors.PrimaryColor
@@ -196,7 +198,7 @@ class _SideDrawerState extends State<SideDrawer> {
                   InkWell(
                     onTap: () {},
                     child: Container(
-                      padding: EdgeInsets.all(3),
+                      padding: const EdgeInsets.all(3),
                       decoration: BoxDecoration(
                           color: isHovering
                               ? AppColors.PrimaryColor
@@ -206,7 +208,7 @@ class _SideDrawerState extends State<SideDrawer> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => UnderConstruction(
+                                  builder: (context) => const UnderConstruction(
                                       message:
                                           "Settings Module is Under Construction")));
                         },
@@ -229,10 +231,10 @@ class _SideDrawerState extends State<SideDrawer> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ContactSupport()));
+                              builder: (context) => const ContactSupport()));
                     },
                     child: Container(
-                      padding: EdgeInsets.all(3),
+                      padding: const EdgeInsets.all(3),
                       decoration: BoxDecoration(
                           color: isHovering
                               ? AppColors.PrimaryColor
@@ -263,7 +265,7 @@ class _SideDrawerState extends State<SideDrawer> {
                                   ))));
                     },
                     child: Container(
-                      padding: EdgeInsets.all(3),
+                      padding: const EdgeInsets.all(3),
                       decoration: BoxDecoration(
                           color: isHovering
                               ? AppColors.PrimaryColor
@@ -289,7 +291,7 @@ class _SideDrawerState extends State<SideDrawer> {
                           MaterialPageRoute(builder: ((context) => Login())));
                     },
                     child: Container(
-                      padding: EdgeInsets.all(3),
+                      padding: const EdgeInsets.all(3),
                       decoration: BoxDecoration(
                           color: isHovering
                               ? AppColors.PrimaryColor

@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, no_leading_underscores_for_local_identifiers, file_names, avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
@@ -175,6 +177,6 @@ Future Deletechat(
       .doc(FirebaseAuth.instance.currentUser!.uid)
       .delete()
       .then((value) {
-    print("Reciever's record deleted");
+    // print("Reciever's record deleted");
   });
 }

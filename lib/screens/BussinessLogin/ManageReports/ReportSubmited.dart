@@ -4,9 +4,9 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
-import 'package:spot_hub/screens/BussinessLogin/ManageBussiness/BussinessHome.dart';
+import 'package:spot_hub/screens/BussinessLogin/BussinessHome.dart';
 import 'package:spot_hub/screens/BussinessLogin/ManageReports/MyReports.dart';
-import 'package:spot_hub/widgets/others/PrimayButton.dart';
+import 'package:spot_hub/widgets/primary_widgets/PrimayButton.dart';
 
 class ReportSubmitted extends StatefulWidget {
   final String reportTitle;
@@ -21,39 +21,41 @@ class _ReportSubmittedState extends State<ReportSubmitted> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(50),
+        padding: const EdgeInsets.all(50),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               Icons.check_circle_rounded,
               size: 50,
               color: Colors.green,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             BigText(text: " Successfully Submitted"),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             SmallText(
                 iscentre: true,
                 text:
                     "Your report \"${widget.reportTitle}\" have been submitted to us, wait for response\n Track this in My Reports"),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             PrimaryButton(
                 TapAction: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyReports()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MyReports()));
                 },
                 text: "My Reports",
                 color: AppColors.PrimaryColor,
                 icon: Icons.list),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             PrimaryButton(

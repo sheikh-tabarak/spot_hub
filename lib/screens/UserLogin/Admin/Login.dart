@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, file_names
+// ignore_for_file: avoid_print, file_names, unused_import
 
 import 'package:flutter/material.dart';
 import 'package:overlay_loader_with_app_icon/overlay_loader_with_app_icon.dart';
@@ -7,13 +7,12 @@ import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/models/UserModels/Authentication.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
-import 'package:spot_hub/screens/Loading.dart';
-import 'package:spot_hub/screens/UserLogin/Admin/ForgetPassword.dart';
-import 'package:spot_hub/screens/UserLogin/Admin/RecordIntrests.dart';
-import 'package:spot_hub/screens/UserLogin/Admin/Signup.dart';
-import 'package:spot_hub/screens/UserLogin/Home/MainPage.dart';
-import 'package:spot_hub/widgets/others/PrimayButton.dart';
-import 'package:spot_hub/widgets/others/PlaneTextField.dart';
+import 'package:spot_hub/widgets/default_widgets/Loading.dart';
+import 'package:spot_hub/screens/UserLogin/admin/ForgetPassword.dart';
+import 'package:spot_hub/screens/UserLogin/admin/Signup.dart';
+import 'package:spot_hub/screens/UserLogin/home/MainPage.dart';
+import 'package:spot_hub/widgets/primary_widgets/PrimayButton.dart';
+import 'package:spot_hub/widgets/primary_widgets/PlaneTextField.dart';
 import '../../../configurations/Dimensions.dart';
 import '../../../configurations/SmallText.dart';
 import '../../../models/DummyData.dart';

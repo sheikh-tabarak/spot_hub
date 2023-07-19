@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, non_constant_identifier_names, unnecessary_new
+// ignore_for_file: file_names, non_constant_identifier_names, unnecessary_new, use_build_context_synchronously
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -479,14 +479,23 @@ class _AddReviewState extends State<AddReview> {
                                     reviewController.text,
                                     _TotalStarts.toPrecision(2));
 
-                                await NewNotification(
-                                    "review",
-                                    _MentionedUser.UserId,
-                                    widget.ProductToReview.Id);
-
                                 setState(() {
                                   isLoading = false;
                                 });
+
+                                Fluttertoast.showToast(
+                                    msg: "your review has been published");
+
+                                if (_MentionedUser.UserId != "") {
+                                  await NewNotification(
+                                      "review",
+                                      _MentionedUser.UserId,
+                                      widget.ProductToReview.Id);
+
+                                  Fluttertoast.showToast(
+                                      msg:
+                                          "You have mentioned ${_MentionedUser.username}");
+                                }
 
                                 Navigator.pushReplacement(
                                     context,

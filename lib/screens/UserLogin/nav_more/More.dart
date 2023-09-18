@@ -1,7 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:spot_hub/extras/MapsView.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
 import 'package:spot_hub/models/BusinessModels/Product.dart';

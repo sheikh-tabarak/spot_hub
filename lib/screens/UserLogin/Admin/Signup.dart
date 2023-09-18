@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
-import 'package:spot_hub/extras/LocationFunctions.dart';
+import 'package:spot_hub/screens/UserLogin/admin/LocationFunctions.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
 import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/configurations/Dimensions.dart';

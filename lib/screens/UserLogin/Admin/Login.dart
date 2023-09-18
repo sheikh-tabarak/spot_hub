@@ -1,10 +1,12 @@
 // ignore_for_file: avoid_print, file_names, unused_import
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:overlay_loader_with_app_icon/overlay_loader_with_app_icon.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:spot_hub/configurations/AppColors.dart';
+import 'package:spot_hub/configurations/BigText.dart';
 import 'package:spot_hub/models/UserModels/Authentication.dart';
 import 'package:spot_hub/models/UserModels/UserClass.dart';
 import 'package:spot_hub/widgets/default_widgets/Loading.dart';
@@ -140,6 +142,7 @@ class _LoginState extends State<Login> {
                         placeholder: 'Email',
                         controller: _emailController,
                       ),
+
                       PlaneTextField(
                         isPassword: true,
                         onChange: (value) => {
@@ -151,6 +154,19 @@ class _LoginState extends State<Login> {
                         placeholder: 'Password',
                         controller: _passwordController,
                       ),
+
+                      // PlaneTextField(
+                      //   isPassword: true,
+                      //   onChange: (value) => {
+                      //     setState(() {
+                      //       thisiserror = "";
+                      //     })
+                      //   },
+                      //   icon: Icons.lock,
+                      //   placeholder: ' Confirm Password',
+                      //   controller: _passwordController,
+                      // ),
+
                       PrimaryButton(
                           icon: Icons.login,
                           TapAction: () async {
@@ -196,97 +212,62 @@ class _LoginState extends State<Login> {
                                       "");
                                   widget.isLoading = false;
 
-                                  print("this is after > " + thisiserror);
+                                  print("this is after > $thisiserror");
                                 });
                               }
                             }
-                            // onetimeusername = "",
-                            // onetimepassword = "",
-
-                            // for (int i = 0; i < DummyUsers.length; i++)
-                            //   {
-                            //     if (DummyUsers[i].email ==
-                            //         widget._emailController.text)
-                            //       {
-                            //         setState(() => {
-                            //               onetimeusername = DummyUsers[i].email,
-                            //               onetimepassword =
-                            //                   DummyUsers[i].password,
-                            //               if (onetimepassword ==
-                            //                   widget._passwordController.text)
-                            //                 {
-                            //                   Navigator.pushReplacement(
-                            //                     context,
-                            //                     MaterialPageRoute(
-                            //                       builder: (context) => MainPage(
-                            //                           MainUser: User(
-                            //                               image:
-                            //                                   DummyUsers[i].image,
-                            //                               username: DummyUsers[i]
-                            //                                   .username,
-                            //                               password: DummyUsers[i]
-                            //                                   .password,
-                            //                               email:
-                            //                                   DummyUsers[i].email,
-                            //                               PhoneNo: DummyUsers[i]
-                            //                                   .PhoneNo,
-                            //                               Intrests: DummyUsers[i]
-                            //                                   .Intrests,
-                            //                               IsBussiness: false),
-                            //                           isLoggedin: true),
-                            //                     ),
-                            //                   ),
-                            //                 }
-                            //               else
-                            //                 {
-                            //                   ScaffoldMessenger.of(context)
-                            //                       .showSnackBar(SnackBar(
-                            //                     clipBehavior: Clip.hardEdge,
-                            //                     dismissDirection:
-                            //                         DismissDirection.down,
-                            //                     content: SmallText(
-                            //                       text: "Wrong Passoword",
-                            //                       color: Colors.white,
-                            //                     ),
-                            //                     duration: const Duration(
-                            //                         milliseconds: 500),
-                            //                     backgroundColor: Colors.red,
-                            //                     //margin: EdgeInsets.all(10),
-                            //                   ))
-                            //                 }
-                            //             }),
-                            //       }
-                            //     else
-                            //       {}
-                            //   },
-
-                            // if (onetimeusername == '')
-                            //   {
-                            //     ScaffoldMessenger.of(context)
-                            //         .showSnackBar(SnackBar(
-                            //       content: SmallText(
-                            //         text: "No User Exists",
-                            //         color: Colors.white,
-                            //       ),
-                            //       duration: const Duration(milliseconds: 500),
-                            //       backgroundColor: Colors.red,
-                            //     ))
-
-                            //     // Navigator.pushReplacement(
-                            //     //     context,
-                            //     //     MaterialPageRoute(
-                            //     //         builder: (context) => MainPage()))
-                            //   }
-                            // else
-                            //   {
-                            //     print(
-                            //         'Entered Email: ${_emailController.text},\nEntered Password: ${_passwordController.text}')
-                            //   },
                           },
                           text: 'Login',
                           color: AppColors.PrimaryColor),
+
+                      GestureDetector(
+                        onTap: () async {
+                          Fluttertoast.showToast(
+                              msg: "Google Signin is not enabled yet");
+
+                          //   await signInWithGoogle();
+                          // await RegisterNewUser(
+                          //     "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/330px-User_icon_2.svg.png",
+                          //     _nameController.text,
+                          //     _passwordController.text,
+                          //     _emailController.text,
+                          //     _phoneController.text,
+                          //     _CurrentAddress);
+                        },
+                        child: Container(
+                          height: 50,
+                          width: double.infinity,
+                          margin: const EdgeInsets.all(15),
+                          // padding: EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                            image: const DecorationImage(
+                                image: AssetImage("assets/images/google.png"),
+                                fit: BoxFit.cover),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+
+                          child: const SizedBox(),
+                        ),
+                      ),
+
+                      // Image(image: AssetImage("assets/images/google.png")),
+                      // Container(
+                      //   margin: EdgeInsets.only(
+                      //       top: 20, bottom: 20, right: 30, left: 30),
+                      //   padding: EdgeInsets.all(15),
+                      //   decoration: BoxDecoration(
+                      //       border: Border.all(width: 2, color: Colors.grey),
+                      //       borderRadius: BorderRadius.circular(50)),
+                      //   child: Row(
+                      //     children: [
+                      //       Image(image: NetworkImage("url")),
+                      //       BigText(text: "Sign in with Google")
+                      //     ],
+                      //   ),
+                      // ),
+
                       SizedBox(
-                        height: Dimensions.height30,
+                        height: Dimensions.height10,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -334,7 +315,7 @@ class _LoginState extends State<Login> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              ForgetPassword(),
+                                              const ForgetPassword(),
                                         ))
                                   },
                               child: SmallText(

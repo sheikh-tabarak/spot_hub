@@ -1,13 +1,17 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:spot_hub/configurations/SmallText.dart';
+import 'package:spot_hub/screens/UserLogin/home/MainPage.dart';
 import 'screens/UserLogin/admin/Login.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp();
 
   runApp(const MyApp());
@@ -69,9 +73,12 @@ class _MyAppState extends State<MyApp> {
                 ],
               ),
             ),
-            nextScreen: Login(),
-//  splashTransition: SplashTransition.fadeTransition,
-            //  backgroundColor: AppColors.darkBackgroundColor
+            nextScreen: FirebaseAuth.instance.currentUser == null ||
+                    FirebaseAuth.instance.currentUser.isNullOrBlank == true
+                ? Login()
+                : MainPage(PI: 0),
+
+            //backgroundColor: AppColors.darkBackgroundColor
           ),
         ));
   }

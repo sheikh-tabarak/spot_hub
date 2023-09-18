@@ -74,19 +74,6 @@ class _ScrapProductsState extends State<ScrapProducts> {
                                 text: widget.website,
                                 color: AppColors.PrimaryColor,
                                 icon: Icons.web),
-                            // Container(
-                            //   padding: const EdgeInsets.only(
-                            //       right: 10, left: 10, bottom: 2, top: 2),
-                            //   decoration: BoxDecoration(
-                            //       color: Colors.white,
-                            //       borderRadius: BorderRadius.circular(5),
-                            //       border: Border.all(
-                            //         color: const Color.fromARGB(
-                            //             255, 200, 200, 200),
-                            //         width: 1,
-                            //       )),
-                            //   child: SmallText(text: widget.website),
-                            // ),
                             const SizedBox(
                               height: 10,
                             ),

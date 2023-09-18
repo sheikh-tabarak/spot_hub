@@ -3,6 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:spot_hub/models/UserModels/UserClass.dart';
+import 'package:spot_hub/screens/UserLogin/admin/LocationFunctions.dart';
 
 String message = "";
 
@@ -128,4 +131,48 @@ Future<bool> updateAccountInfo(String name, String Address, String Imagelink,
 
 Future resetmypassword(String email) async {
   await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+}
+
+//SSign in with google
+
+Future<UserCredential> signInWithGoogle() async {
+  // Trigger the authentication flow
+  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+  // Obtain the auth details from the request
+  final GoogleSignInAuthentication? googleAuth =
+      await googleUser?.authentication;
+
+  // Create a new credential
+  final credential = GoogleAuthProvider.credential(
+    accessToken: googleAuth?.accessToken,
+    idToken: googleAuth?.idToken,
+  );
+
+  // String? Image = await googleUser!.photoUrl;
+  // String? Name = await googleUser.displayName;
+  // String? email = await googleUser.email;
+  // String _address = "";
+
+  // await FetchCurrentLocation().then((value) {
+  //   // setState(() {
+  //   _address = value;
+  //   //   print(_CurrentAddress);
+  //   //    });
+  //   //  print(_CurrentAddress);
+  //   // _CurrentAddress = value;
+  // });
+
+  // String password = await await RegisterNewUser(
+  //     Image == ""
+  //         ? "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/330px-User_icon_2.svg.png"
+  //         : Image.toString(),
+  //     Name.toString(),
+  //   //  _passwordController.text,
+  //     email,
+  //     "",
+  //     _address);
+
+  // Once signed in, return the UserCredential
+  return await FirebaseAuth.instance.signInWithCredential(credential);
 }
